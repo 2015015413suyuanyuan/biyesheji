@@ -1,11 +1,6 @@
 <template>
-  <div class="page-hellow">
-      <h1>helloworld</h1>
-      <router-link to="/CookBook">
-        <div class="img">
-            <img slot="icon" src="../assets/logo.png">
-        </div>
-        菜谱</router-link>
+  <div class="page-tabbar">
+      <h1>my</h1>
   </div>
 </template>
 
@@ -24,7 +19,6 @@ export default {
       selected: '外卖'
     };
   },
- 
 };
 </script>
 

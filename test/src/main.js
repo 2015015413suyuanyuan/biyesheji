@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'
-import { Toast } from 'mint-ui';
+
 
 Vue.config.productionTip = false
 Vue.use(mintui)
