@@ -3,6 +3,8 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const vuxLoader = require('vux-loader')
+// const webpackConfig = originalConfig
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -57,6 +59,10 @@ module.exports = {
           name: utils.assetsPath('media/[name].[hash:7].[ext]')
         }
       },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass']
+        },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',

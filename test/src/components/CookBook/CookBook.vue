@@ -4,10 +4,13 @@
             <router-link to="/" slot="left">
                 <mt-button>取消</mt-button>
             </router-link>
-            <mt-button slot="right">继续</mt-button>
+            <router-link to="/CreateBook" slot="right">
+                <mt-button>继续</mt-button>
+            </router-link>
+           
         </mt-header>
         <section>
-            <input type="text" placeholder="写下你的菜谱名吧" autofocus v-model="cookname">
+            <input type="text" placeholder="写下你的菜谱名吧" autofocus >
         </section>
         <section>
             <p>提示</p>
@@ -24,11 +27,17 @@ export default {
   name: 'page-cookbook',
   data() {
     return {
-      cookname: '红烧肉'
+     
     };
   }
 };   
 </script>
-<style>
-
+<style scoped>
+.mint-tabbar.is-fixed{
+    display: none !important;
+}
+.cookbook{
+    color: red;
+}
 </style>
+

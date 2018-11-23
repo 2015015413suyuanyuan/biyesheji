@@ -2,12 +2,12 @@
   <div id="app">
   
     <router-view/>
-    <footer-view></footer-view>
+    <footer-view  v-show="$route.meta.navShow"></footer-view>
   </div>
 </template>
 
 <script>
-import FooterView from '@/components/FooterView';
+import FooterView from '@/components/common/FooterView';
 export default {
   name: 'App',
  components: {
