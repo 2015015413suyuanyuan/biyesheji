@@ -2,9 +2,9 @@
   <div class="img-uploader" @drop="handleDrop" ref="uploader">
     <div class="head-icon bt upload" @click="openInput">
       <p class="defaultImg" v-if="!hasImages">
-        +菜谱封面 诱人的封面图是吸引厨友的关键
+        +步骤图 清晰的步骤图会让菜谱更受欢迎
       </p>
-      <p v-if="hasImages" v-for="data in filesPreview"><img :src="data" class="HeadIcon"/></p>
+      <p v-if="hasImages" v-for="data in filesPreview1"><img :src="data" class="HeadIcon"/></p>
       <p v-else><img src="../../assets/logo.png" class="HeadIcon"/></p>
       <input class="upload-input"
              :id="inputId"
@@ -33,7 +33,7 @@
       onChange: {
         type: Function,
       },
-      filesPreview: {
+      filesPreview1: {
         type: Array,
       },
     },
@@ -50,7 +50,7 @@
     computed: {
       // 是否有图片
       hasImages() {
-        return this.filesPreview.length > 0;
+        return this.filesPreview1.length > 0;
       },
       // 格式化的文件大小，可读的
       sizeFormatted() {
@@ -110,7 +110,7 @@
         const reader = new FileReader();
         reader.onload = (e) => {
           this.resizeImage(e.target.result, 128, 128, (result) => {
-            this.filesPreview.push(result);
+            this.filesPreview1.push(result);
           });
         };
         reader.readAsDataURL(file);
@@ -240,21 +240,22 @@
     }
 
     p {
-      height: 200px;
+      height: 50px;
       position: absolute;
       width: 100%;
       color: #999;
       font-size: 14px;
+      top: 10px;
     }
 
     .HeadIcon {
       width: 100%;
-      height: 200px;
+      height: 50px;
     }
     .defaultImg {
-      color: red;
+      color: #999;
       background-color: #ccc;
-      height: 200px;
+      height: 50px;
       widows: 100%;
     }
   }
