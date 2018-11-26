@@ -23,28 +23,24 @@ export default {
             filesData: [],
             inputId: '',
             filesPreview: [],
-            step: [
-                {name:'用料'
-                },
-                {
                 step:[
                     {
                         num:'1',
-                        img:'',
-                        detail:''
+                        img:'../../assets/1.jpg',
+                        detail:'将肉洗净，焯好水控干净'
                     },
                     {
                         num:'2',
-                        img:'',
-                        detail:''
+                        img:'../../assets/2.jpg',
+                        detail:'放入葱姜蒜爆炒出香味'
                     },
                     {
                         num:'3',
-                        img:'',
-                        detail:''
+                        img:'../../assets/3.jpg',
+                        detail:'最后加入酱油炒至金黄色倒入盘中。'
                     }
                 ]
-            }], // 文件名
+            , // 文件名
         };
     },
     components: {

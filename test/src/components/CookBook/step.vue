@@ -4,7 +4,7 @@
         <p>做法</p>
         <p class="txt">步骤{{index+1}}</p>
         <SimpleCropperTwo @onChange="imgChange" :filesPreview1='filesPreview1' placeholder="选择或拖放图片"></SimpleCropperTwo>
-        <input type="text" placeholder="添加步骤说明" class="detail">
+        <input type="text" placeholder="添加步骤说明" class="detail" v-model="item.detail">
     </div>  
 </div>
 </template>
