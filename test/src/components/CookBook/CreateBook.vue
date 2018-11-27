@@ -6,8 +6,12 @@
         </router-link>
         <mt-button slot="right">保存</mt-button>
     </mt-header> 
-    <SimpleCropper @onChange="imgChange" :filesPreview='filesPreview' placeholder="选择或拖放图片"></SimpleCropper>
+    <!-- <SimpleCropper @onChange="imgChange" :filesPreview='filesPreview' placeholder="选择或拖放图片"></SimpleCropper> -->
     <Step :step='step'></Step>
+    <section>
+        <p class="tip">小贴士</p>
+        <input type="textarea" class="inputTip" placeholder="这道菜还有哪些需要注意的细节和小技巧？">
+    </section>
 </div>
 </template>
 <script>
@@ -53,5 +57,14 @@ export default {
 }
 </script>
 <style>
-
+.tip{
+    text-align: left;
+    font-weight: bolder;
+}
+.inputTip{
+    outline: none;
+    border: 0;
+    width: 100%;
+    height: 30px;
+}
 </style>

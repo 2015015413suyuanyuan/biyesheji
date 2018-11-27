@@ -15,15 +15,15 @@
             <input type="file" @change="getFile(index,item.img)" ref="file" id="file">
         </div>
         <input type="text" placeholder="添加步骤说明" class="detail" v-model="item.detail">
-    </div>  
+    </div> 
+    <p class="addstep" @click="addStep">
+        增加一步
+    </p> 
 </div>
 </template>
 <style lang="scss" scoped>
 .step{
-    position: absolute;
-    top:300px;
-    width:90%;
-    left: 5%;
+    width: 100%;
     overflow: hidden;
     input{
         outline: none;
@@ -34,6 +34,11 @@
     p {
         margin: 0;
         padding: 0;
+    }
+    .addstep{
+        padding: 5px 0;
+        color: red;
+        text-align: left;
     }
     .cooktitle{
         padding: 5px 0;
@@ -102,20 +107,19 @@ export default {
         console.log('this.steplist',this.steplist)
     },
     watch: {
-    steplist: {
-      handler: function (newVal) {
-        for(var i=0;i<newVal.length;i++){
-            if(newVal[i].img !== ''){
-               newVal[i].displayImg = false;
+        steplist: {
+        handler: function (newVal) {
+            for(var i=0;i<newVal.length;i++){
+                if(newVal[i].img !== ''){
+                newVal[i].displayImg = false;
+                }
             }
-        }
-      },
-      deep: true
+        },
+        deep: true
     }
 },
     methods: {
         getFile (idx,img) {
- 
             var step = this.step;
             const e = window.event;
             let _this = this
@@ -127,7 +131,15 @@ export default {
                 img = this.result;
                 step[idx].img=this.result;
             }
-    },
+        },
+        addStep (){
+            if(this.step<7){
+                this.step.push({num:'4',img:'',detail:'',displayImg:true});
+            }
+            else{
+                alert('不能超过7步哦')
+            }
+        }
     },
 
  
