@@ -17,27 +17,25 @@ import Step from './Step'
 export default {
     data() {
         return {
-            errorText: '', //错误提示
-            filesName: [], //文件名
-            filesBlob: [], //二进制数据
-            filesData: [],
-            inputId: '',
             filesPreview: [],
                 step:[
                     {
                         num:'1',
-                        img:'../../assets/1.jpg',
-                        detail:'将肉洗净，焯好水控干净'
+                        img:'',
+                        detail:'',
+                        displayImg:true
                     },
                     {
                         num:'2',
-                        img:'../../assets/2.jpg',
-                        detail:'放入葱姜蒜爆炒出香味'
+                        img:'',
+                        detail:'',
+                        displayImg:true
                     },
                     {
                         num:'3',
-                        img:'../../assets/3.jpg',
-                        detail:'最后加入酱油炒至金黄色倒入盘中。'
+                        img:'',
+                        detail:'',
+                        displayImg:true
                     }
                 ]
             , // 文件名

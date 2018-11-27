@@ -1,9 +1,10 @@
 <template>
   <div class="img-uploader" @drop="handleDrop" ref="uploader">
     <div class="head-icon bt upload" @click="openInput">
-      <p class="defaultImg" v-if="!hasImages">
-        +菜谱封面 诱人的封面图是吸引厨友的关键
-      </p>
+      <div class="defaultImg" v-if="!hasImages">
+        +菜谱封面<br>
+        诱人的封面图是吸引厨友的关键
+      </div>
       <p v-if="hasImages" v-for="data in filesPreview"><img :src="data" class="HeadIcon"/></p>
       <p v-else><img src="../../assets/logo.png" class="HeadIcon"/></p>
       <input class="upload-input"
@@ -252,10 +253,11 @@
       height: 200px;
     }
     .defaultImg {
-      color: red;
-      background-color: #ccc;
+      color: #999;
+      background-color: #efefed;
       height: 200px;
-      widows: 100%;
+      width: 100%;
+      position: absolute;
     }
   }
 
