@@ -1,6 +1,6 @@
 <template>
   <div class="page-tabbar">
-      <h1>my</h1>
+      <h1>厨房故事点击进去每个故事详情页</h1>
   </div>
 </template>
 

@@ -91,23 +91,33 @@
 </style>
 <script>
 export default {
-    props: {
-      step: {
-        type: Array,
-      }
-    },
     data() {
       return {
-          steplist:'',
-          removeClass:true
+          removeClass:true,
+                step:[
+                    {
+                        num:'1',
+                        img:'',
+                        detail:'',
+                        displayImg:true
+                    },
+                    {
+                        num:'2',
+                        img:'',
+                        detail:'',
+                        displayImg:true
+                    },
+                    {
+                        num:'3',
+                        img:'',
+                        detail:'',
+                        displayImg:true
+                    }
+                ]
       };
     },  
-    created(){
-        this.steplist=this.step;
-        console.log('this.steplist',this.steplist)
-    },
     watch: {
-        steplist: {
+        step: {
         handler: function (newVal) {
             for(var i=0;i<newVal.length;i++){
                 if(newVal[i].img !== ''){
@@ -133,12 +143,9 @@ export default {
             }
         },
         addStep (){
-            if(this.step<7){
+                console.log('添加步骤之前的',this.step);
                 this.step.push({num:'4',img:'',detail:'',displayImg:true});
-            }
-            else{
-                alert('不能超过7步哦')
-            }
+                console.log('添加步骤之后的',this.step);
         }
     },
 

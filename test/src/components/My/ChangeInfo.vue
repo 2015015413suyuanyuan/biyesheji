@@ -1,6 +1,6 @@
 <template>
   <div class="page-tabbar">
-      <h1>my</h1>
+      <h1>编辑个人信息</h1>
   </div>
 </template>
 

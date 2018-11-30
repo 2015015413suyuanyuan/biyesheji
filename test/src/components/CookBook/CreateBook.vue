@@ -7,7 +7,7 @@
         <mt-button slot="right">保存</mt-button>
     </mt-header> 
     <!-- <SimpleCropper @onChange="imgChange" :filesPreview='filesPreview' placeholder="选择或拖放图片"></SimpleCropper> -->
-    <Step :step='step'></Step>
+    <Step></Step>
     <section>
         <p class="tip">小贴士</p>
         <input type="textarea" class="inputTip" placeholder="这道菜还有哪些需要注意的细节和小技巧？">
@@ -22,27 +22,6 @@ export default {
     data() {
         return {
             filesPreview: [],
-                step:[
-                    {
-                        num:'1',
-                        img:'',
-                        detail:'',
-                        displayImg:true
-                    },
-                    {
-                        num:'2',
-                        img:'',
-                        detail:'',
-                        displayImg:true
-                    },
-                    {
-                        num:'3',
-                        img:'',
-                        detail:'',
-                        displayImg:true
-                    }
-                ]
-            , // 文件名
         };
     },
     components: {
