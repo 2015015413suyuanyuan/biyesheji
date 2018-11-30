@@ -1,90 +1,74 @@
 <template>
-<div>
-    <mt-tabbar v-model="selected"  fixed>
-      <template v-for="(item) in footerList">
-      <mt-tab-item id="item.name" v-if="item.isShow" class="footer-list" @click="activeFooter(item.name)">
-        <router-link :to="item.link">
-        <div class="img">
-         
-            <img slot="icon" :src="item.activeImg" v-if="item.isActive">
-            <img slot="icon" :src="item.defaultImg" v-else >
+  <div class="footer-box suitIphoneX">
+    <template v-cloak v-for="(item, index) in footerList">
+      <router-link :to="item.link" v-if="item.isShow" class="footer-list">
+        <!-- 主要为了满足“推荐”的图片比其他的图片大的需求 -->
+        <div v-if="index === 0" class="item" @click="activeFooter(item.name)">
+          <img :src='item.activeImg' v-if="item.isActive" :style="firstImgStyle" />
+          <img :src='item.defaultImg' v-else :style="firstImgStyle"/>
+          <div class="title active" v-if="item.isActive" >{{ item.title }}</div>
+          <div class="title" v-else>{{ item.title }}</div>
         </div>
-        {{item.title}}</router-link>
-      </mt-tab-item>        
-      </template>
-
-
-
-
-    </mt-tabbar>
-</div>
-
+        <div v-else class="item" @click="activeFooter(item.name)">
+          <img :src='item.activeImg' v-if="item.isActive" :style="imgStyle" />
+          <img :src='item.defaultImg' v-else :style="imgStyle"/>
+          <div class="title active" v-if="item.isActive" >{{ item.title }}</div>
+          <div class="title" v-else>{{ item.title }}</div>
+        </div>
+      </router-link>
+    </template>
+  </div>
 </template>
 
-<style>
-.img img{
-   width: 24px;
-   height: 24px;
-}
-
-</style>
 <script>
-import 'mint-ui/lib/style.css'
-import { Tabbar } from 'mint-ui';
-import Vue from 'vue'
-import Router from 'vue-router'
-
 export default {
-  name: 'page-tabbar',
+  name: 'footer-view',
   data() {
     return {
-      selected: '主页',
-      show1:true,
-      show2:true,
-      show3:true,
-      show4:true,
-      isShow1:false,
-      isShow2:false,
-      isShow3:false,
-      isShow4:false,
-     footerList:[
+      footerList: [
         {
-          name:'home',
-          isShow:true,
-          isActive:true,
-          title:'首页',
-          defaultImg:'/static/img/footer1.png',
-          activeImg:'/static/img/footter1.png',
-          link:'/'
+          name: 'home',
+          isShow: true,
+          isActive: true,
+          title: '推荐',
+          defaultImg: '/static/img/toolbaricon_home.png',
+          activeImg: '/static/img/toolbaricon_home_full.png',
+          link: '/',
         },
         {
-          name:'Classify',
-          isShow:true,
-          isActive:false,
-          title:'菜谱分类',
-          defaultImg:'/static/img/footer2.png',
-          activeImg:'/static/img/footter2.png',
-          link:'/Classify'
+          name: 'category',
+          isShow: true,
+          isActive: false,
+          title: '逛',
+          defaultImg: '/static/img/toolbaricon_classify.png',
+          activeImg: '/static/img/toolbaricon_classify_full.png',
+          link: '/KitchenStory',
         },
         {
-          name:'KitchenStory',
-          isShow:true,
-          isActive:false,
-          title:'厨房故事',
-          defaultImg:'/static/img/footer3.png',
-          activeImg:'/static/img/footter3.png',
-          link:'/KitchenStory'
+          name: 'cart',
+          isShow: true,
+          isActive: false,
+          title: '购物车',
+          defaultImg: '/static/img/toolbaricon_shoppingcart.png',
+          activeImg: '/static/img/toolbaricon_shoppingcart_full.png',
+          link: '/Classify',
         },
         {
-          name:'NoLogged',
-          isShow:true,
-          isActive:false,
-          title:'我的',
-          defaultImg:'/static/img/footer4.png',
-          activeImg:'/static/img/footter4.png',
-          link:'/NoLogged'
+          name: 'my',
+          isShow: true,
+          isActive: false,
+          title: '我的',
+          defaultImg: '/static/img/toolbaricon_profile.png',
+          activeImg: '/static/img/toolbaricon_profile_full.png',
+          link: '/my',
         },
       ],
+      imgStyle: {
+        height: '22px',
+      },
+      firstImgStyle: {
+        height: '25px',
+      },
     };
   },
   created() {
@@ -123,4 +107,47 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.footer-box {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: px2vw(100);
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+}
 
+.footer-list {
+  flex: 1 1 auto;
+}
+
+a.footer-list {
+  cursor: cursor;
+  text-decoration: none;
+}
+
+.item {
+  height: px2vw(100);
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+
+  .title {
+    color: #333;
+    font-size: 10px;
+    vertical-align: middle;
+    background: transparent;
+  }
+
+  .title.active {
+    color: red;
+  }
+}
+</style>
