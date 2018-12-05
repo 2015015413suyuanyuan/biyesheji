@@ -27,16 +27,16 @@ export default {
     return {
       footerList: [
         {
-          name: 'home',
+          name: 'Home',
           isShow: true,
           isActive: true,
           title: '主页',
           defaultImg: '/static/img/footer1.png',
           activeImg: '/static/img/footter1.png',
-          link: '/',
+          link: '/Home',
         },
         {
-          name: 'category',
+          name: 'KitchenStory',
           isShow: true,
           isActive: false,
           title: '厨房故事',
@@ -45,7 +45,7 @@ export default {
           link: '/KitchenStory',
         },
         {
-          name: 'cart',
+          name: 'Classify',
           isShow: true,
           isActive: false,
           title: '菜谱分类',
@@ -54,13 +54,13 @@ export default {
           link: '/Classify',
         },
         {
-          name: 'my',
+          name: 'My',
           isShow: true,
           isActive: false,
           title: '我的',
           defaultImg: '/static/img/footer4.png',
           activeImg: '/static/img/footter4.png',
-          link: '/my',
+          link: '/My',
         },
       ],
       imgStyle: {
@@ -72,7 +72,18 @@ export default {
     };
   },
   created() {
-    this.setDefaultActive();
+    var url = this.$route.path;
+    var url1 = url.slice(1);
+   
+      for (let index = 0, size = this.footerList.length; index < size; index += 1) {
+        const item = this.footerList[index];
+        if (item.name !== url1) {
+          console.log(item.name);
+          item.isActive = false;
+        } else {
+          item.isActive = true;
+        }
+      }    
   },
   methods: {
     activeFooter(key) {

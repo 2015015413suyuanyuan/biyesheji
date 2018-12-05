@@ -21,6 +21,7 @@
     </div>
 </template>
 <script>
+
 import { Header } from 'mint-ui';
 export default {
   name: 'page-cookbook',
