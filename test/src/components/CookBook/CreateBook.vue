@@ -17,7 +17,7 @@
 <script>
 import SimpleCropper from './SimpleCropper'
 import Step from './Step'
-
+import { Header } from 'mint-ui';
 export default {
     data() {
         return {

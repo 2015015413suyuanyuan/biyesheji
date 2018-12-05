@@ -30,27 +30,27 @@ export default {
           name: 'home',
           isShow: true,
           isActive: true,
-          title: '推荐',
-          defaultImg: '/static/img/toolbaricon_home.png',
-          activeImg: '/static/img/toolbaricon_home_full.png',
+          title: '主页',
+          defaultImg: '/static/img/footer1.png',
+          activeImg: '/static/img/footter1.png',
           link: '/',
         },
         {
           name: 'category',
           isShow: true,
           isActive: false,
-          title: '逛',
-          defaultImg: '/static/img/toolbaricon_classify.png',
-          activeImg: '/static/img/toolbaricon_classify_full.png',
+          title: '厨房故事',
+          defaultImg: '/static/img/footer2.png',
+          activeImg: '/static/img/footter2.png',
           link: '/KitchenStory',
         },
         {
           name: 'cart',
           isShow: true,
           isActive: false,
-          title: '购物车',
-          defaultImg: '/static/img/toolbaricon_shoppingcart.png',
-          activeImg: '/static/img/toolbaricon_shoppingcart_full.png',
+          title: '菜谱分类',
+          defaultImg: '/static/img/footer3.png',
+          activeImg: '/static/img/footter3.png',
           link: '/Classify',
         },
         {
@@ -58,8 +58,8 @@ export default {
           isShow: true,
           isActive: false,
           title: '我的',
-          defaultImg: '/static/img/toolbaricon_profile.png',
-          activeImg: '/static/img/toolbaricon_profile_full.png',
+          defaultImg: '/static/img/footer4.png',
+          activeImg: '/static/img/footter4.png',
           link: '/my',
         },
       ],
@@ -147,7 +147,7 @@ a.footer-list {
   }
 
   .title.active {
-    color: red;
+    color: #FFBA00;
   }
 }
 </style>
