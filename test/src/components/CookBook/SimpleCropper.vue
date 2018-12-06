@@ -6,7 +6,7 @@
                     <br>
                     清晰的步骤图会让菜谱更瘦欢迎
                 </p>
-                <img :src="item.img" alt="user image" class="special" :class="{displayImg:step.displayImg}"> 
+                <img :src="step.img" alt="user image" class="special" :class="{displayImg:step.displayImg}"> 
             </div>
             <input type="file" @change="getFile(step.img)" ref="file" id="file">
         </div>
