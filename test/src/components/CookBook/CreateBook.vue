@@ -4,7 +4,7 @@
         <mt-button class="canclecolor"  @click.native="openConfirm" slot="left">取消</mt-button>
         <mt-button slot="right">保存</mt-button>
     </mt-header> 
-    <!-- <SimpleCropper :filesPreview='filesPreview' placeholder="选择或拖放图片"></SimpleCropper> -->
+    <SimpleCropper></SimpleCropper>
     <Step></Step>
     <section>
         <p class="tip">小贴士</p>

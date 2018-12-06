@@ -15,14 +15,12 @@
   export default {
     data() {
       return {
-                step:
-                    {
-                        num:'1',
-                        img:'',
-                        detail:'',
-                        displayImg:true
-                    }
-                
+        step: {
+          num:'1',
+          img: '',
+          detail:'',
+          displayImg:true
+        }
       };
     },
     methods: {
@@ -44,12 +42,26 @@
 </script>
 
 <style lang="scss" scoped>
-    .upload{
-        position: relative;
-        margin-top: 10px;
-        width: 100%;
-        height: 100%;
-        background-color: #efefed;
-        color: #b3b3b3;
+.upload{
+    position: relative;
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: #efefed;
+    color: #b3b3b3;
+
+    .displayImg{
+        display: none;
     }
+    .img-container{
+        width: 100%;
+        height: 120px;
+
+        .special{
+            width: 100%;
+            height:120px;
+        }
+    }
+}
+
 </style>
