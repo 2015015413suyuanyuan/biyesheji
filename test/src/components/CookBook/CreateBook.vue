@@ -5,6 +5,7 @@
         <mt-button slot="right">保存</mt-button>
     </mt-header> 
     <SimpleCropper></SimpleCropper>
+    <Usage></Usage>
     <Step></Step>
     <section>
         <p class="tip">小贴士</p>
@@ -17,6 +18,8 @@ import SimpleCropper from './SimpleCropper'
 import { MessageBox } from 'mint-ui';
 import Step from './Step'
 import { Header } from 'mint-ui';
+import Usage from './Usage'
+
 export default {
     data() {
         return {
@@ -25,7 +28,8 @@ export default {
     },
     components: {
         SimpleCropper,
-        Step
+        Step,
+        Usage
     },
     methods: {
       openConfirm() {
