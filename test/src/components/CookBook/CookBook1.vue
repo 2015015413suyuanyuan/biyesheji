@@ -1,0 +1,55 @@
+<template> 
+<div class="page-cookbook1">
+    <mt-header fixed title="创建菜谱">
+        <router-link to="/" slot="left">
+            <mt-button icon='back'></mt-button>
+        </router-link>
+    </mt-header>
+    <main>
+        <img src="../../assets/logo.jpg" class="head" alt="用户头像">
+        <p>分享的人是厨房里的天使</p>
+        <router-link  to="/CookBook" class="cancleunderline">
+            <img src="../../assets/create.jpg" class="create" alt="创建菜单进入图片">
+            <p>创建菜单</p>        
+        </router-link>
+    </main>   
+</div>
+</template>
+<style lang="scss" scoped>
+.page-cookbook1 {
+    main {
+        p {
+            margin: 20px 0;
+            padding: 0;
+        }
+        .head {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        .create {
+            width: 35vw;
+        }
+        .cancleunderline {
+            text-decoration: none;
+            color: #2c3e50;
+        }
+    }
+}
+</style>
+<script>
+import { Search } from "mint-ui";
+import { Header } from "mint-ui";
+import { Swipe, SwipeItem } from "mint-ui";
+import Vue from "vue";
+import Router from "vue-router";
+
+export default {
+  name: "page-cookboo1",
+  data() {
+    return {
+      value: "外卖"
+    };
+  }
+};
+</script>

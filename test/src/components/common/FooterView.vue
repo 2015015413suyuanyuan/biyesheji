@@ -27,13 +27,13 @@ export default {
     return {
       footerList: [
         {
-          name: 'Home',
+          name: '',
           isShow: true,
           isActive: true,
           title: '主页',
           defaultImg: '/static/img/footer1.png',
           activeImg: '/static/img/footter1.png',
-          link: '/Home',
+          link: '/',
         },
         {
           name: 'KitchenStory',

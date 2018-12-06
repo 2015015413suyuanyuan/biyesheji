@@ -32,14 +32,14 @@ import Login from '@/components/My/Login'
 // 搜索菜谱
 import Search from '@/components/Search/Search'
 import Result from '@/components/Search/Result'
-
+import CookBook1 from '@/components/CookBook/CookBook1'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/Home',
+      path: '/',
       name: 'Home',
       component: Home,
       meta: { navShow: true}
@@ -96,6 +96,12 @@ export default new Router({
       path: '/CookBook',
       name: 'CookBook',
       component: CookBook,
+      meta: { navShow: false}
+    },
+    {
+      path: '/CookBook1',
+      name: 'CookBook1',
+      component: CookBook1,
       meta: { navShow: false}
     },
     {
