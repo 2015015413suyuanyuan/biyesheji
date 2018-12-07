@@ -3,8 +3,12 @@
     <p class="title">用料</p>
     <ul class="usage-list">
       <li v-for="(item,index) in usage" class="usage-li txtleft1">
-        <input type="text" :placeholder=item.usage1  class="left1"/>
-        <input type="text" :placeholder=item.usage2  class="right1">
+        <div class="left1">
+          <textarea :placeholder=item.usage1></textarea>
+        </div>
+        <div class="right1">
+        <textarea :placeholder=item.usage2></textarea>
+        </div>
       </li>
     </ul>
     <p class="addstep" @click="addStep">
@@ -27,7 +31,9 @@
     .usage-li{
       height: auto;
       padding: 5px 0;
-       .txtleft1{display: flex;align-items: center;text-align: left;}
+      display: flex;
+      align-items: center;
+      text-align: left;
     }
     .usage-li::after {
       display:block;
@@ -39,11 +45,19 @@
       width: 45vw;
       display: inline-block;
       float: left;
+      textarea {
+      resize: none;
+      padding: 0;
+      }
     }
     .right1 {
       width: 45vw;
       display: inline-block;
       float:right;
+      textarea {
+      resize: none;
+      padding: 0;
+      }
     }
   } 
   .addstep {
