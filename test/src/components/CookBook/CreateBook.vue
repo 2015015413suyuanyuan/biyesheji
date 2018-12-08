@@ -11,6 +11,10 @@
         <p class="tip">小贴士</p>
         <input type="textarea" class="inputTip" placeholder="这道菜还有哪些需要注意的细节和小技巧？">
     </section>
+    <div class="box">
+        <span>推荐分类</span>
+        <i class="right"></i>
+    </div>
 </div>
 </template>
 <script>
@@ -63,5 +67,24 @@ export default {
     border: 0;
     width: 100%;
     height: 30px;
+}
+
+.box{
+  text-align: left;
+  position: relative;
+  font-size: 16px;
+}
+.right::after {
+    border: solid 2px #999;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    content: " ";
+    top: 50%;
+    right: 20px;
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    -webkit-transform: translateY(-50%) rotate(45deg);
+    transform: translateY(-50%) rotate(45deg);
 }
 </style>

@@ -37,7 +37,7 @@
     }
     .addstep{
         padding: 5px 0;
-        color: red;
+        color: #FFBA00;
         text-align: left;
     }
     .cooktitle{
@@ -47,7 +47,6 @@
     }
     .little{
         position: relative;
-        border-bottom: 1px solid yellow;
         margin-bottom: 30px;
     }
     .txt{
