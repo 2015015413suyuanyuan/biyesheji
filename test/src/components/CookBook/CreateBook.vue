@@ -11,10 +11,12 @@
         <p class="tip">小贴士</p>
         <input type="textarea" class="inputTip" placeholder="这道菜还有哪些需要注意的细节和小技巧？">
     </section>
-    <div class="box">
-        <span>推荐分类</span>
-        <i class="right"></i>
-    </div>
+    <router-link to="/CookClassify" class="linktoclassify">
+        <div class="box">
+            <span>推荐分类</span>
+            <i class="right"></i>
+        </div>
+    </router-link>
 </div>
 </template>
 <script>
@@ -86,5 +88,12 @@ export default {
     height: 5px;
     -webkit-transform: translateY(-50%) rotate(45deg);
     transform: translateY(-50%) rotate(45deg);
+}
+.linktoclassify{
+    text-decoration: none;
+    color: black;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
 }
 </style>
