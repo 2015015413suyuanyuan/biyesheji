@@ -2,20 +2,37 @@
   <div class="page-classify">
     <mt-header fixed title="推荐至分类">
       <mt-button class="canclecolor" @click.native="openConfirm" slot="left">取消</mt-button>
-      <mt-button slot="right">完成</mt-button>
+      <mt-button  class="canclecolor" slot="right">完成</mt-button>
     </mt-header>
-    <input type="text" v-model="inputval">
+    <input type="text" v-model="inputval" v-on:input='inputWatch' placeholder="如：快手菜、早餐、汤羹、零食" class="inputbox">
     <ul v-show="isActive">
       <li>没有找到相关分类</li>
       <li class="txtred" @click="pushlist">在分类中添加"拒绝"</li>
     </ul>
-    <mt-checklist align="left" class="page-part" title="所有分类" v-model="value4" :options="classify" v-show="!isActive"></mt-checklist>
+    <mt-checklist align="right" class="page-part" title="所有分类" v-model="value4" :options="classify" v-show="!isActive"></mt-checklist>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.txtred{
-  color: red;
+.page-classify{
+  .txtred{
+    color: red;
+  }
+  .canclecolor{
+    color: #FFBA00;
+  }
+  .inputbox{
+    padding: 0;
+    width: 100%;
+    border: 0;
+  }
+  .inputbox:focus{
+    border: 0;
+    outline: none;
+  }
+  .page-part{
+    text-align: left;
+  }
 }
 </style>
 
@@ -58,12 +75,34 @@ export default {
     pushlist(){
       this.inputarr.push(this.newarritem);
       this.classify.push(this.newarritem);
+      this.value4.push(this.newarritem);
       this.inputval='';
       for(var i=0;i<this.inputarr.length;i++){
         this.inputval += this.inputarr[i]+ "、";
       }
       this.isActive=false;
     },
+    inputWatch(){
+      console.log('this.inputarr',this.inputarr);
+      console.log('this.inputval',this.inputval);
+      var inputval1 = this.inputval.slice(0,this.inputval.length-1);
+        for(var i=0;i<this.value4.length;i++){
+          if(this.newarritem == this.value4[i]){
+            console.log(this.newarritem);
+            console.log(this.value4[i])
+            this.isActive = false;
+          }
+        }
+        if(inputval1.split('、').length != this.value4.length){
+          this.isActive = true;
+          var newarr = inputval1.split('、');
+          this.newarritem=newarr.pop();
+        }
+        if(this.inputval ==''){
+          this.isActive = false;
+        }
+
+    }
   },
   watch: {
     value4: {
@@ -80,20 +119,6 @@ export default {
       },
       deep: true
     },
-    inputval: {
-      handler: function(newVal) {
-        var inputval1 = this.inputval.slice(0,this.inputval.length-1);
-        console.log('inputval1',inputval1.split('、'));
-        console.log('this.val4',this.value4);
-        if(inputval1.split('、').length != this.value4.length){
-          this.isActive = true;
-          var newarr = newVal.split('、');
-          this.newarritem=newarr.pop();
-        }
-        console.log(this.isActive)
-      },
-      deep: true
-    }
   }
 };
 </script>
