@@ -9,7 +9,7 @@
       <li>没有找到相关分类</li>
       <li class="txtred" @click="pushlist">在分类中添加"拒绝"</li>
     </ul>
-    <mt-checklist align="left" class="page-part" title="所有分类" v-model="value4" :options="classify"></mt-checklist>
+    <mt-checklist align="left" class="page-part" title="所有分类" v-model="value4" :options="classify" v-show="!isActive"></mt-checklist>
   </div>
 </template>
 
@@ -58,12 +58,11 @@ export default {
     pushlist(){
       this.inputarr.push(this.newarritem);
       this.classify.push(this.newarritem);
-      console.log('push',this.inputarr);
       this.inputval='';
       for(var i=0;i<this.inputarr.length;i++){
         this.inputval += this.inputarr[i]+ "、";
-        console.log(this.inputarr[i])
       }
+      this.isActive=false;
     },
   },
   watch: {
@@ -77,21 +76,21 @@ export default {
           }
           this.inputarr = this.inputval.split('、');
           this.inputarr.length=this.inputarr.length-1;
-          console.log('12',this.inputarr);
         }
       },
       deep: true
     },
     inputval: {
       handler: function(newVal) {
-        for (var i = 0; i < this.value4.length; i++) {
-        }
         var inputval1 = this.inputval.slice(0,this.inputval.length-1);
+        console.log('inputval1',inputval1.split('、'));
+        console.log('this.val4',this.value4);
         if(inputval1.split('、').length != this.value4.length){
           this.isActive = true;
           var newarr = newVal.split('、');
           this.newarritem=newarr.pop();
         }
+        console.log(this.isActive)
       },
       deep: true
     }
