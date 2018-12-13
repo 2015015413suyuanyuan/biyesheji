@@ -1,12 +1,12 @@
 
 <template>
   <div class="page-hellow">
-    <header>
+
       <input type="text">
         <router-link to="/CookBook1" slot="right">
             <mt-button icon='more'></mt-button>
         </router-link>
-    </header>
+
     <div class="page-swipe">
       <mt-swipe :auto='4000'>
         <mt-swipe-item class="slide1">1</mt-swipe-item>
@@ -14,6 +14,7 @@
         <mt-swipe-item class="slide3">3</mt-swipe-item>
       </mt-swipe>
     </div>
+    <Recommend></Recommend>
   </div>
 </template>
 
@@ -35,15 +36,15 @@ header {
   line-height: 180px;
 }
 .slide1 {
-  background-color: #0089dc;
+  background: url("/static/img/2.jpg");
   color: #fff;
 }
 .slide2 {
-  background-color: #ffd705;
+  background: url("/static/img/1.jpg");
   color: #000;
 }
 .slide3 {
-  background-color: #ff2d4b;
+  background: url("/static/img/4.jpg");
   color: #fff;
 }
 </style>
@@ -53,6 +54,7 @@ import { Header } from "mint-ui";
 import { Swipe, SwipeItem } from "mint-ui";
 import Vue from "vue";
 import Router from "vue-router";
+import Recommend from './Recommend.vue'
 
 export default {
   name: "page-tabbar",
@@ -60,6 +62,9 @@ export default {
     return {
       value: "外卖"
     };
+  },
+  components : {
+    Recommend
   }
 };
 </script>

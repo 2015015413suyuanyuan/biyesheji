@@ -2,7 +2,7 @@
   <div class="page-classify">
     <mt-header fixed title="推荐至分类">
       <mt-button class="canclecolor" @click.native="openConfirm" slot="left">取消</mt-button>
-      <mt-button  class="canclecolor" slot="right">完成</mt-button>
+      <mt-button  class="canclecolor" slot="right" @click.native="save">完成</mt-button>
     </mt-header>
     <input type="text" v-model="inputval" disabled placeholder="如：快手菜、早餐、汤羹、零食" class="inputbox">
     <mt-checklist align="right" class="page-part" title="热门分类" v-model="value4" :options="classify1"></mt-checklist>
@@ -14,23 +14,28 @@
 </template>
 
 <style lang="scss" scoped>
-.page-classify{
-  .txtred{
+.page-classify {
+  input:disabled {
+    color: #2c3e50;
+    background-color: white;
+    padding: 0 5px;
+  }
+  .txtred {
     color: red;
   }
-  .canclecolor{
-    color: #FFBA00;
+  .canclecolor {
+    color: #ffba00;
   }
-  .inputbox{
+  .inputbox {
     padding: 0;
     width: 100%;
     border: 0;
   }
-  .inputbox:focus{
+  .inputbox:focus {
     border: 0;
     outline: none;
   }
-  .page-part{
+  .page-part {
     text-align: left;
   }
 }
@@ -45,57 +50,65 @@ export default {
   data() {
     return {
       value4: [],
-      classify1: ['早餐','宝宝辅食','烘焙','食疗养生'
+      classify1: ["早餐", "宝宝辅食", "烘焙", "食疗养生"],
+      classify2: ["早餐", "午餐", "晚餐", "宵夜"],
+      classify3: [
+        "快手菜",
+        "汤羹",
+        "素食",
+        "川菜",
+        "粤菜",
+        "下酒菜",
+        "下饭菜",
+        "家常菜",
+        "凉菜沙拉"
       ],
-      classify2: ['早餐','午餐','晚餐','宵夜'
-      ],
-      classify3: ['快手菜','汤羹','素食','川菜','粤菜','下酒菜','下饭菜','家常菜','凉菜沙拉'
-      ],
-      classify4: ['点心','粥品','面食','米食','饮品'
-      ],
-      classify5: ['春季时令','夏季时令','秋季时令','冬季时令'
-      ],
+      classify4: ["点心", "粥品", "面食", "米食", "饮品"],
+      classify5: ["春季时令", "夏季时令", "秋季时令", "冬季时令"],
       inputval: "",
       inputarr: [],
-      newarritem:''
+      newarritem: "",
+      classifyList:[]
     };
+  },
+  created() {
+    if (this.$route != undefined) {
+      this.classifyList = this.$route.params;
+      this.inputval = this.classifyList.new;
+      if(this.inputval == ''){
+        
+      }
+      this.value4= this.classifyList.new;
+    } else {
+    }
   },
   methods: {
     openConfirm() {
-      MessageBox.confirm("", {
-        message: "编辑还未保存，你确定要退出吗？",
-        title: "提示",
-        confirmButtonText: "确定",
-        cancelButtonText: "取消"
-      })
-        .then(action => {
-          if (action == "confirm") {
-            this.$router.push("/CreateBook");
-          }
-        })
-        .catch(err => {
-          if (err == "cancel") {
-            //取消的回调
-          }
-        });
+            this.$router.push({
+              name: "CreateBook",
+              params: { new: this.inputarr }
+            });
+    },
+    save() {
+      this.$router.push({ name: "CreateBook", params: { new: this.inputarr } });
     }
   },
   watch: {
     value4: {
       handler: function(newVal) {
         this.inputval = "";
-        this.inputarr=[]
+        this.inputarr = [];
         if (this.value4.length != 0) {
           for (var i = 0; i < this.value4.length; i++) {
-            this.inputval += this.value4[i]+ "、";
+            this.inputval += this.value4[i] + "、";
           }
-          this.inputarr = this.inputval.split('、');
-          this.inputarr.length=this.inputarr.length-1;
-          this.inputval=this.inputval.slice(0,this.inputval.length-1)
+          this.inputarr = this.inputval.split("、");
+          this.inputarr.length = this.inputarr.length - 1;
+          this.inputval = this.inputval.slice(0, this.inputval.length - 1);
         }
       },
       deep: true
-    },
+    }
   }
 };
 </script>
