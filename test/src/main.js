@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'
-
+import 'lib-flexible/flexible.js'
 
 Vue.config.productionTip = false
 Vue.use(mintui)

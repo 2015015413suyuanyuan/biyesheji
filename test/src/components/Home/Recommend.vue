@@ -45,6 +45,7 @@
 
 <style lang="scss" scoped>
 .page-tabbar {
+  overflow: hidden;
   p{
     margin: 0;
     padding: 0;
@@ -63,7 +64,7 @@
     text-align: center;
     margin: 0 auto;
     .img1 {
-      width: 80vw;
+      width: 340px;
       height: 140px;
     }
     .content-detail {
@@ -72,6 +73,7 @@
         width: 70vw;
         float: left;
         text-align: left;
+        padding: 10px 0 10px 18px;
         .sp1{
           font-size: 14px;
         }
@@ -81,6 +83,9 @@
       }
       .img-right {
         float: right;
+        margin: 0 auto;
+        text-align: center;
+        margin-right: 18px;
         .img2 {
           width: 32px;
           height: 32px;
@@ -88,7 +93,6 @@
         }
         .sp3{
           text-align: left;
-          font-size: 12px;
         }
       }
     }
