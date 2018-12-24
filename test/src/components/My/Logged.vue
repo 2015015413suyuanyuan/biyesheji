@@ -16,9 +16,14 @@ export default {
   name: 'page-tabbar',
   data() {
     return {
-      selected: '外卖'
+      isHasBookList: false
     };
   },
+  methods: {
+    change(){
+      this.isHasBookList = !this.isHasBookList
+    }
+  }
 };
 </script>
 

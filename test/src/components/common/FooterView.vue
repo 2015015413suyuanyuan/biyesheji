@@ -4,14 +4,14 @@
       <router-link :to="item.link" v-if="item.isShow" class="footer-list">
         <!-- 主要为了满足“推荐”的图片比其他的图片大的需求 -->
         <div v-if="index === 0" class="item" @click="activeFooter(item.name)">
-          <img :src='item.activeImg' v-if="item.isActive" :style="firstImgStyle" />
-          <img :src='item.defaultImg' v-else :style="firstImgStyle"/>
+          <img :src='item.activeImg' v-if="item.isActive"/>
+          <img :src='item.defaultImg' v-else/>
           <div class="title active" v-if="item.isActive" >{{ item.title }}</div>
           <div class="title" v-else>{{ item.title }}</div>
         </div>
         <div v-else class="item" @click="activeFooter(item.name)">
-          <img :src='item.activeImg' v-if="item.isActive" :style="imgStyle" />
-          <img :src='item.defaultImg' v-else :style="imgStyle"/>
+          <img :src='item.activeImg' v-if="item.isActive"/>
+          <img :src='item.defaultImg' v-else/>
           <div class="title active" v-if="item.isActive" >{{ item.title }}</div>
           <div class="title" v-else>{{ item.title }}</div>
         </div>
@@ -54,21 +54,15 @@ export default {
           link: '/Classify',
         },
         {
-          name: 'My',
+          name: 'NoLogged',
           isShow: true,
           isActive: false,
           title: '我的',
           defaultImg: '/static/img/footer4.png',
           activeImg: '/static/img/footter4.png',
-          link: '/My',
+          link: '/NoLogged',
         },
-      ],
-      imgStyle: {
-        height: '22px',
-      },
-      firstImgStyle: {
-        height: '25px',
-      },
+      ]
     };
   },
   created() {
@@ -124,7 +118,7 @@ export default {
   left: 0;
   bottom: 0;
   width: 100vw;
-  height: px2vw(100);
+  height: 45px;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
@@ -142,17 +136,22 @@ a.footer-list {
 }
 
 .item {
-  height: px2vw(100);
+  height: 54px;
   width: 100%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   background: #fafafa;
+  
+  img {
+    width: 24px;
+    height: 24px;
+  }
 
   .title {
     color: #333;
-    font-size: 10px;
+    font-size: 14px;
     vertical-align: middle;
     background: transparent;
   }
