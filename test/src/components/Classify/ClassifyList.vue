@@ -2,7 +2,7 @@
   <div class="page-classifylist">
       <div class="classify-list" v-for="(item,index) in classifyList" :key="index">
           <div class="classify-title">{{item.title}}</div>
-          <div v-for="(item1,index1) in item.list" :key="index1" class="item">
+          <div v-for="(item1,index1) in item.list" :key="index1" class="item"  :class="{marginStyle : index1 % 3 === 1}">
               {{item1}}
           </div>
       </div>
@@ -15,6 +15,7 @@
     text-align: center;
     overflow: hidden;
     .classify-list{
+        padding: 7px;
         .classify-title{
             width: 171px;
             height: 35px;
@@ -23,12 +24,17 @@
             color: #FF9800;
             background-color: white;
             font-size: 14px; 
-             margin: 0 auto;
+            margin: 0 auto;
+            margin-bottom: 23px;
         }
         .item{
             width: 110px;
             height: 60px;
             float: left;
+            padding-top: 7px;
+            padding-left: 6px;
+            background-color: red;
+            margin-bottom: 6px;
         }
     }
     .classify-list::after{
@@ -42,6 +48,9 @@
         clear: both;
         content: '';
 }
+            .marginStyle {
+                margin: 0px 6px;
+            }
 </style>
 
 <script>
