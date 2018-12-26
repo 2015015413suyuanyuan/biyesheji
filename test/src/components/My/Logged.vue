@@ -36,7 +36,6 @@
 
 <style lang="scss" scoped>
 .page-tabbar {
-  overflow: hidden;
   background-color: #FFF9EF;
   position: relative;
   height: 100vh;
@@ -91,18 +90,23 @@
   .content {
     padding: 20px 0 ;
     margin-top: 14px;
-    
+    margin-bottom: 30px;
       .list {
         .cookbook {
-            color: #FF9800;
-            font-size: 18px; 
-            text-align: left;
-            padding-left: 10px;
+          padding: 0;
+          margin: 0;
+          color: #FF9800;
+          font-size: 18px; 
+          text-align: left;
+          padding-left: 10px;
+          height: 46px;
+          line-height: 46px;
+          background-color: white;
         }
         .foodItem {
           height: 140px;
           background-color: white;
-          margin-bottom: 10px;
+          margin-bottom: 19px;
           .foodItemlfet {
             float: left;
             vertical-align: middle;
@@ -124,11 +128,12 @@
             font-size: 16px;
             font-family: SourceHanSansSC-regular;
             button {
+              outline: none;
               width: 69px;
               height: 27px;
               border-radius: 4px;
-              background-color: rgba(255, 152, 0, 1);
-              color: rgba(255, 255, 255, 1);
+              background-color: #E3E0E0;
+              color: #918E8E;
               font-size: 14px;
               text-align: center;
               font-family: Microsoft Yahei;
@@ -161,7 +166,7 @@ export default {
       isHasBookList: false,
       myFavoriteBookList: [
         {
-          img: '/static/img/food1.jpg',
+          img: '/static/img/food2.jpg',
           name: '锅包肉'
         },
         {
@@ -169,7 +174,11 @@ export default {
           name: '糖醋排骨'
         },
         {
-          img: '/static/img/food1.jpg',
+          img: '/static/img/food2.jpg',
+          name: '酱香猪蹄'
+        },
+        {
+          img: '/static/img/food2.jpg',
           name: '酱香猪蹄'
         }
       ]
