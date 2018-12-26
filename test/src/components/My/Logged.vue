@@ -22,7 +22,11 @@
         <p class='cookbook'>我喜欢的菜谱~</p>
         <div class="foodItem" v-for="(item,index) in myFavoriteBookList" :key="index">
           <div class='foodItemlfet'>
-
+            <img :src="item.img" alt="">
+          </div>
+          <div class='foodItemright'>
+            <p>{{item.name}}</p>
+            <button>删除</button>
           </div>
         </div>
       </div>
@@ -87,21 +91,58 @@
   .content {
     padding: 20px 0 ;
     margin-top: 14px;
-    background-color: white;
+    
       .list {
-        img {
-            width: 200px;
-            margin-bottom: 31px;
-        }
-        p {
-            color: #A8A8A8;
-            font-size: 20px;
-        }
         .cookbook {
             color: #FF9800;
             font-size: 18px; 
             text-align: left;
             padding-left: 10px;
+        }
+        .foodItem {
+          height: 140px;
+          background-color: white;
+          margin-bottom: 10px;
+          .foodItemlfet {
+            float: left;
+            vertical-align: middle;
+            padding-top: 12px;
+            padding-left: 10px;
+            img {
+              width: 200px;
+              height: 120px;
+              border-radius: 18px;
+            }
+          }
+          .foodItemright {
+            float: right;
+            width: 150px;
+            height: 140px;
+            text-align: left;
+            position: relative;
+            color: rgba(16, 16, 16, 1);
+            font-size: 16px;
+            font-family: SourceHanSansSC-regular;
+            button {
+              width: 69px;
+              height: 27px;
+              border-radius: 4px;
+              background-color: rgba(255, 152, 0, 1);
+              color: rgba(255, 255, 255, 1);
+              font-size: 14px;
+              text-align: center;
+              font-family: Microsoft Yahei;
+              border: 1px solid rgba(255, 255, 255, 0);
+              position: absolute;
+              right: 22px;
+              bottom: 8px;
+            }
+          }
+        }
+        .foodItem::after {
+          display: block;
+          content: '';
+          clear: both;
         }
       }
   }
@@ -117,18 +158,18 @@ export default {
   name: 'page-tabbar',
   data() {
     return {
-      isHasBookList: true,
+      isHasBookList: false,
       myFavoriteBookList: [
         {
-          img: '../../assets/food1.png',
+          img: '/static/img/food1.jpg',
           name: '锅包肉'
         },
         {
-          img: '../../assets/food2.png',
+          img: '/static/img/food2.jpg',
           name: '糖醋排骨'
         },
         {
-          img: '../../assets/food3.png',
+          img: '/static/img/food1.jpg',
           name: '酱香猪蹄'
         }
       ]
