@@ -102,6 +102,7 @@ export default {
       text-align: center;
       font-family: Microsoft Yahei;
       border: 1px solid rgba(187, 187, 187, 1);
+      outline: none;
     }
 }
 

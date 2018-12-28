@@ -4,6 +4,7 @@ import Router from 'vue-router'
 // 菜谱分类
 import Classify from '@/components/Classify/Classify'
 import ClassifyList from '@/components/Classify/ClassifyList'
+import ClassifyListDetail from '@/components/Classify/ClassifyListDetail'
 
 // 主页 
 import Home from '@/components/Home/Home'
@@ -109,6 +110,12 @@ export default new Router({
       path: '/CookClassify',
       name: 'CookClassify',
       component: CookClassify,
+      meta: { navShow: false}
+    },
+    {
+      path: '/ClassifyListDetail',
+      name: 'ClassifyListDetail',
+      component: ClassifyListDetail,
       meta: { navShow: false}
     },
     {

@@ -1,16 +1,16 @@
 <template>
   <div class="page-tabbar">
-    <div class="img-right">
+    <div class="img-right" @click="toStoryDetail">
         <p class="p1">把大海装进盒子里送给你吃</p>
         <img src="/static/img/4.jpg" alt="" class="img2">
         <p class="p2"><span>来自</span><span>饮品记</span></p>
     </div>
-    <div class="img-right">
+    <div class="img-right" @click="toStoryDetail">
         <p class="p1">把大海装进盒子里送给你吃</p>
         <img src="/static/img/2.jpg" alt="" class="img2">
         <p class="p2"><span>来自</span><span>饮品记</span></p>
     </div>
-    <div class="img-right">
+    <div class="img-right" @click="toStoryDetail">
         <p class="p1">把大海装进盒子里送给你吃</p>
         <img src="/static/img/3.jpg" alt="" class="img2">
         <p class="p2"><span>来自</span><span>饮品记</span></p>
@@ -68,6 +68,13 @@ export default {
     return {
       selected: "外卖"
     };
+  },
+  methods: {
+    toStoryDetail(){
+      this.$router.push({
+              name: "KitchenStoryDetails"
+      });
+    }
   }
 };
 </script>
