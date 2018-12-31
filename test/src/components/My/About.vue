@@ -47,7 +47,6 @@
 }
 </style>
 <script>
-import { Tabbar } from 'mint-ui';
 import Vue from 'vue'
 import Router from 'vue-router'
 

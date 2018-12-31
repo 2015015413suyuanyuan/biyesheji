@@ -5,7 +5,7 @@
         <mt-button icon='back' class="back"></mt-button>
     </router-link>
     </mt-header>
-      <div class="content contentone">
+      <div class="content contentone" @click="toCookBookDetail">
         <img src="/static/img/2.jpg" alt="" class="img1">
         <div class="content-detail">
           <div class="text-left">
@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div class="content">
+      <div class="content" @click="toCookBookDetail">
         <img src="/static/img/2.jpg" alt="" class="img1">
         <div class="content-detail">
           <div class="text-left">
@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-      <div class="content">
+      <div class="content" @click="toCookBookDetail">
         <img src="/static/img/2.jpg" alt="" class="img1">
         <div class="content-detail">
           <div class="text-left">
@@ -116,8 +116,14 @@ export default {
       selected: "外卖"
     };
   },
+  methods: {
+    toCookBookDetail(){
+      this.$router.push({
+        name: "CookBookDetail"
+      });
+    }
+  }
 
 };
 </script>
-
 
