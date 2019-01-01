@@ -24,4 +24,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+  p {
+    padding: 0;
+    margin: 0;
+  }
 </style>

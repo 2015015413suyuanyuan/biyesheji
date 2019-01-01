@@ -12,7 +12,20 @@
 </template>
 
 <style lang="scss" scoped>
-
+.page-step {
+  .step {
+      p {
+        text-align: left;
+        padding-left: 12px;
+      }
+    .step-image {
+      img {
+        width: 95vw;
+        height: 170px;
+      }
+    }
+  }
+}
 </style>
 
 
