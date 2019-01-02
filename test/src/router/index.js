@@ -36,6 +36,8 @@ import Search from '@/components/Search/Search'
 import Result from '@/components/Search/Result'
 import CookBook1 from '@/components/CookBook/CookBook1'
 
+import CookBookDetail from '@/components/CookBookDetail/CookBookDetail'
+
 Vue.use(Router)
 
 export default new Router({
@@ -158,6 +160,12 @@ export default new Router({
       path: '/ClassifyList',
       name: 'ClassifyList',
       component: ClassifyList,
+      meta: { navShow: false}
+    },
+    {
+      path: '/CookBookDetail',
+      name: 'CookBookDetail',
+      component: CookBookDetail,
       meta: { navShow: false}
     }
   ]
