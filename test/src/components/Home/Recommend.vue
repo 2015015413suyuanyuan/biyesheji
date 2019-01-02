@@ -1,5 +1,5 @@
 <template>
-  <div class="page-tabbar">
+  <div class="page-tabbar" @click="toCookBookDetail">
       <h1>每日推荐</h1>
       <div class="content">
         <img src="/static/img/2.jpg" alt="" class="img1">
@@ -116,6 +116,13 @@ export default {
     return {
       selected: "外卖"
     };
+  },
+  methods: {
+    toCookBookDetail(){
+      this.$router.push({
+        name: "CookBookDetail"
+      });
+    }
   }
 };
 </script>

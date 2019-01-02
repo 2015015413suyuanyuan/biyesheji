@@ -14,10 +14,6 @@ import CookBook from '@/components/CookBook/CookBook'
 import CreateBook from '@/components/CookBook/CreateBook'
 import CookClassify from '@/components/CookBook/CookClassify'
 
-// 菜谱详情
-import DetailsHome from '@/components/Details/DetailsHome'
-
-
 // 厨房故事
 import KitchenStory from '@/components/KitchenStory/KitchenStory'
 import KitchenStoryDetails from '@/components/KitchenStory/KitchenStoryDetails'
@@ -143,12 +139,6 @@ export default new Router({
       name: 'KitchenStory',
       component: KitchenStory,
       meta: { navShow: true}
-    },
-    {
-      path: '/DetailsHome',
-      name: 'DetailsHome',
-      component: DetailsHome,
-      meta: { navShow: false}
     },
     {
       path: '/Classify',

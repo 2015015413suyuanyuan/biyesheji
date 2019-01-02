@@ -1,9 +1,10 @@
 <template>
   <div class="CookBookDetail">
-      <mt-header title="菜谱详情">
+      <mt-header title="菜谱详情" class='headertitle'>
         <router-link to="/" slot="left">
           <mt-button  icon='back'></mt-button>
         </router-link>
+        <img src="../../assets/heart.png" alt="" slot='right' @click="like" class='like'>
       </mt-header>
       <div class='headerimg'>
           <img :src="img" alt="">
@@ -104,7 +105,9 @@ components: {
   
   },
   methods: {
-
+    like () {
+      console.log('点赞')
+    }
   },
   mounted() {
     // 从API获取最新的底部导航图片和类别【暂时没用到】
@@ -121,6 +124,15 @@ components: {
   p {
     padding: 0;
     margin: 0;
+  }
+  .headertitle {
+    color: rgba(0, 0, 0, 1);
+    font-size: 20px;
+    font-family: SourceHanSansSC-regular;
+
+    .like {
+      width: 30px;
+    }
   }
   .headerimg {
     img {
