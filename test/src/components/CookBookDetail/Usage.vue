@@ -1,19 +1,31 @@
 <template>
   <div class="page-usage">
-    <p class="title">用料</p>
+    <p class="title">材料</p>
       <div v-for="(item,index) in usage" class="usage-li" :key="index">
-        <div class='rich' contenteditable="true" :placeholder=item.usage1></div>
-        <div class='rich' contenteditable="true" :placeholder=item.usage2></div>
+        <div class='rich left'>{{item.usage1}}</div>
+        <div class='rich right'>{{item.usage2}}</div>
       </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .page-usage {
+    .title {
+      padding: 0;
+      margin: 0;
+      color: #101010;
+      font-size: 18px;
+      text-align: left;
+      padding-left: 10px;
+      height: 27px;
+    }
     .usage-li{
       height: auto;
       padding: 5px 0;
       display: flex;
+    }
+    .usage-li:nth-child(even){
+      background-color: #F4F3F3;
     }
     .usage-li::after {
       display:block;
@@ -25,13 +37,12 @@
     width: 45vw; 
     min-height: 20px; 
     max-height: 300px;
-    _height: 120px; 
+    _height: 120px;
     margin-left: auto; 
     margin-right: auto; 
-    padding: 3px; 
     outline: 0; 
-    font-size: 12px; 
-    line-height: 24px;
+    font-size: 15px;
+    color: #101010;
     word-wrap: break-word;
     overflow-x: hidden;
     overflow-y: auto;
@@ -40,18 +51,6 @@
     display: flex;
     align-items:center;
     justify-content:left;
-}
-    .rich:empty:before{
-        content: attr(placeholder);   /* element attribute*/
-        /*content: 'this is content';*/
-        color:#A29999;
-    }
-    .rich:focus:before{
-    content:none;
-    }
-  .addstep {
-    text-align: left;
-    color: #FFBA00;
   }
 }
 </style>
@@ -64,16 +63,16 @@ export default {
     return {
       usage:[
         {
-          'usage1':'食材：如鸡蛋',
-          'usage2':'用量：如一只'
+          'usage1':'鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋',
+          'usage2':'一只鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋'
         },
         {
-          'usage1':'食材：如鸡蛋',
-          'usage2':'用量：如一只'
+          'usage1':'鸡蛋300g鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋加单',
+          'usage2':'一只'
         },
         {
-          'usage1':'食材：如鸡蛋',
-          'usage2':'用量：如一只'
+          'usage1':'鸡蛋',
+          'usage2':'一只一只一只一只一只一只一只'
         }
       ]
     };
