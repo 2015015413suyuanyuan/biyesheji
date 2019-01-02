@@ -19,6 +19,7 @@
     color: #2c3e50;
     background-color: white;
     padding: 0 5px;
+    font-size: 20px;
   }
   .txtred {
     color: red;
@@ -30,6 +31,7 @@
     padding: 0;
     width: 100%;
     border: 0;
+    margin-top: 80px;
   }
   .inputbox:focus {
     border: 0;
@@ -78,7 +80,7 @@ export default {
       if(this.inputval == ''){
         
       }
-      this.value4= this.classifyList.new;
+      this.value4= '';
     } else {
     }
   },

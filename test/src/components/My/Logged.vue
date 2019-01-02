@@ -46,7 +46,9 @@
       </div>
     </div>
     <div class='v-modal' style='z-index: 2006;display:none;' ref='modal'></div>
+      <MyDiyBook></MyDiyBook>
   </div>
+
 </template>
 
 
@@ -55,7 +57,7 @@ import { Tabbar } from 'mint-ui';
 import Vue from 'vue'
 import Router from 'vue-router'
 import { MessageBox } from 'mint-ui';
-
+import MyDiyBook from './MyDiyBook.vue'
 export default {
   name: 'page-tabbar',
   data() {
@@ -79,8 +81,37 @@ export default {
           img: '/static/img/food2.jpg',
           name: '酱香猪蹄'
         }
+      ],
+      myDiyBookList: [
+        {
+          img: '/static/img/food2.jpg',
+          name: '锅包肉',
+          userImg: '/static/img/food2.jpg',
+          userName: '手机用户1111'
+        },
+        {
+          img: '/static/img/food2.jpg',
+          name: '糖醋排骨',
+          userImg: '/static/img/food2.jpg',
+          userName: '手机用户1111'
+        },
+        {
+          img: '/static/img/food2.jpg',
+          name: '酱香猪蹄',
+          userImg: '/static/img/food2.jpg',
+          userName: '手机用户1111'
+        },
+        {
+          img: '/static/img/food2.jpg',
+          name: '酱香猪蹄',
+          userImg: '/static/img/food2.jpg',
+          userName: '手机用户1111'
+        }        
       ]
     };
+  },
+  components: {
+    MyDiyBook
   },
   methods: {
     change(){
