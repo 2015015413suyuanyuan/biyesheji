@@ -1,14 +1,20 @@
 <template>
   <div class="page-tabbar">
-      <h1>搜索页面首页</h1>
+    <input type="search">
   </div>
 </template>
 
-<style>
-
+<style lang="scss" scoped>
+  input {
+    display: block;
+    width: 100vw;
+    height: 100px;
+    font-size: 30px;
+  }
 </style>
+
+
 <script>
-import { Tabbar } from 'mint-ui';
 import Vue from 'vue'
 import Router from 'vue-router'
 
@@ -16,9 +22,27 @@ export default {
   name: 'page-tabbar',
   data() {
     return {
-      selected: '外卖'
+      value: '',
+      defaultResult: [
+        'Apple',
+        'Banana',
+        'Orange',
+        'Durian',
+        'Lemon',
+        'Peach',
+        'Cherry',
+        'Berry',
+        'Core',
+        'Fig',
+        'Haw',
+        'Melon',
+        'Plum',
+        'Pear',
+        'Peanut',
+        'Other'
+      ]
     };
-  },
+  }
 };
 </script>
 
