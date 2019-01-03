@@ -1,6 +1,6 @@
 <template>
   <div class="CookBookDetail">
-      <mt-header title="菜谱详情" class='headertitle'>
+      <mt-header title="菜谱详情" class='headertitle' fixed>
         <router-link to="/" slot="left">
           <mt-button  icon='back'></mt-button>
         </router-link>
@@ -138,6 +138,7 @@ components: {
     img {
       width: 100vw;
       height: 220px;
+      margin-top: 55px;
     }
   }
   article {

@@ -33,7 +33,7 @@
             float: left;
             padding-top: 7px;
             padding-left: 6px;
-            background-color: red;
+            background-color: #ccc;
             margin-bottom: 6px;
         }
     }
