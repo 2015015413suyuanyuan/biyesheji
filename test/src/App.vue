@@ -29,3 +29,32 @@ export default {
     margin: 0;
   }
 </style>
+<style lang="scss">
+
+$color-primary: white;
+ 
+.mint-header {
+  background-color: $color-primary;
+  color: #101010;
+}
+.mint-header-title {
+  font-size: 20px;
+  overflow: visible;
+  padding: 0;
+  margin: 0;
+}
+.mint-header .mint-button {
+  font-size: 18px;
+}
+.mint-button--small {
+  width: 49.5vw;
+  height: 46px;
+  border: 0;
+  background-color: white;
+  box-shadow: none;
+  font-size: 18px;
+}
+.mint-button::after {
+  background-color: white;
+}
+</style>

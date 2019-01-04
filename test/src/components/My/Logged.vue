@@ -32,11 +32,11 @@
 
 
     <div class="nav">
-      <mt-button size="small" @click.native.prevent="active = 'tab-container1'">我喜欢的菜谱</mt-button>
-      <mt-button size="small" @click.native.prevent="active = 'tab-container2'">我的作品</mt-button>
+      <mt-button size="small" @click.native.prevent="active = 'tab-container1'" @click.native='changeStyle("tab-container1")' :class="{active: classObject1}">我喜欢的菜谱</mt-button>
+      <mt-button size="small" @click.native.prevent="active = 'tab-container2'" @click.native='changeStyle("tab-container2")' :class="{active: classObject2}">我的作品</mt-button>
     </div>
     <div class="page-tab-container">
-      <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
+      <mt-tab-container class="page-tabbar-tab-container" v-model="active">
         <mt-tab-container-item id="tab-container1">
           <div class="content">
             <div class='list' v-if="isHasBookList">
@@ -78,6 +78,8 @@ export default {
   name: 'page-tabbar',
   data() {
     return {
+      classObject1: true,
+      classObject2: false,
       active: 'tab-container1',
       deleteIndex: '',
       isHasBookList: false,
@@ -147,6 +149,16 @@ export default {
     cancel(){
       this.$refs.modal.style.display = 'none'
       this.$refs.msgbox.style.display = 'none'
+    },
+    changeStyle(str){
+      if(str == 'tab-container1'){
+        this.classObject1 = true
+        this.classObject2 = false
+      }
+      if(str == 'tab-container2'){
+        this.classObject2 = true
+        this.classObject1 = false
+      }
     }
   }
 };
@@ -155,12 +167,18 @@ export default {
 
 <style lang="scss" scoped>
 .page-tabbar {
+    // 我的作品 我喜欢的菜谱样式
+    .active {
+      border-radius: 0;
+      color: #FF9800;
+      border-bottom: 2px solid #FF9800;
+    }
   .item {
     display: inline-block;
   }
-  .nav {
-    padding: 10px;
-  }
+  // .nav {
+  //   padding: 10px;
+  // }
   .link {
     color: inherit;
     padding: 20px;
@@ -229,18 +247,6 @@ export default {
         font-size: 20px;
         margin-top: 31px;
         color: #A8A8A8;
-      }
-      // 我的作品 我喜欢的菜谱样式
-      .cookbook {
-        padding: 0;
-        margin: 0;
-        color: #FF9800;
-        font-size: 18px; 
-        text-align: left;
-        padding-left: 10px;
-        height: 46px;
-        line-height: 46px;
-        background-color: white;
       }
       .foodItem {
         height: 140px;

@@ -70,8 +70,11 @@ export default {
 
 <style lang="scss" scoped>
 .page {
+margin-top: 12px;
 .MyDiyBookItem {
     position: relative;
+    margin-bottom: 19px;
+    background-color: white;
     .bookImg {
         width: 100vw;
         height: 140px;
