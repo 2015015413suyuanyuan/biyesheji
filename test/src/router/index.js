@@ -29,6 +29,7 @@ import Login from '@/components/My/Login'
 
 // 搜索菜谱
 import Search from '@/components/Search/Search'
+import SearchHome from '@/components/Search/SearchHome'
 import Result from '@/components/Search/Result'
 import CookBook1 from '@/components/CookBook/CookBook1'
 
@@ -120,6 +121,12 @@ export default new Router({
       path: '/Search',
       name: 'Search',
       component: Search,
+      meta: { navShow: false}
+    },
+    {
+      path: '/SearchHome',
+      name: 'SearchHome',
+      component: SearchHome,
       meta: { navShow: false}
     },
     {
