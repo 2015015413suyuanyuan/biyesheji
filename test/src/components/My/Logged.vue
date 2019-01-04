@@ -12,25 +12,7 @@
     <div @click="change">
       切换是否有菜谱
     </div>
-    <div class="content">
-      <div class='list' v-if="isHasBookList">
-        <p class='cookbook'>我喜欢的菜谱~</p>
-        <img src="../../assets/like.png" alt="" class='nothingimg'>
-        <p class='nothingtxt'>目前没有内容</p>
-      </div>
-      <div class='list' v-else>
-        <p class='cookbook'>我喜欢的菜谱~</p>
-        <div class="foodItem" v-for="(item,index) in myFavoriteBookList" :key="index">
-          <div class='foodItemlfet'>
-            <img :src="item.img" alt="">
-          </div>
-          <div class='foodItemright'>
-            <p>{{item.name}}</p>
-            <button @click="del(index)">删除</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <!-- 确认删除的弹出框 -->
     <div class='msgbox' style="position:absolute;z-index: 2007;display:none;" ref="msgbox">
       <div class='mint-msgbox'>
@@ -46,7 +28,39 @@
       </div>
     </div>
     <div class='v-modal' style='z-index: 2006;display:none;' ref='modal'></div>
-      <MyDiyBook></MyDiyBook>
+      
+
+
+    <div class="nav">
+      <mt-button size="small" @click.native.prevent="active = 'tab-container1'">我喜欢的菜谱</mt-button>
+      <mt-button size="small" @click.native.prevent="active = 'tab-container2'">我的作品</mt-button>
+    </div>
+    <div class="page-tab-container">
+      <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
+        <mt-tab-container-item id="tab-container1">
+          <div class="content">
+            <div class='list' v-if="isHasBookList">
+              <img src="../../assets/like.png" alt="" class='nothingimg'>
+              <p class='nothingtxt'>目前没有内容</p>
+            </div>
+            <div class='list' v-else>
+              <div class="foodItem" v-for="(item,index) in myFavoriteBookList" :key="index">
+                <div class='foodItemlfet'>
+                  <img :src="item.img" alt="">
+                </div>
+                <div class='foodItemright'>
+                  <p>{{item.name}}</p>
+                  <button @click="del(index)">删除</button>
+                </div>
+              </div>
+            </div>
+          </div>         
+        </mt-tab-container-item>
+        <mt-tab-container-item id="tab-container2">
+          <MyDiyBook></MyDiyBook>
+        </mt-tab-container-item>
+      </mt-tab-container>
+    </div>
   </div>
 
 </template>
@@ -58,10 +72,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { MessageBox } from 'mint-ui';
 import MyDiyBook from './MyDiyBook.vue'
+import { TabContainer, TabContainerItem } from 'mint-ui';
+
 export default {
   name: 'page-tabbar',
   data() {
     return {
+      active: 'tab-container1',
       deleteIndex: '',
       isHasBookList: false,
       myFavoriteBookList: [
@@ -138,6 +155,17 @@ export default {
 
 <style lang="scss" scoped>
 .page-tabbar {
+  .item {
+    display: inline-block;
+  }
+  .nav {
+    padding: 10px;
+  }
+  .link {
+    color: inherit;
+    padding: 20px;
+    display: block;
+  }
   background-color: #FFF9EF;
   position: relative;
   height: 100vh;
@@ -190,9 +218,7 @@ export default {
     clear: both;
   }
   .content {
-    padding: 20px 0 ;
-    margin-top: 14px;
-    margin-bottom: 30px;
+    margin-bottom: 70px;
     .list {
       .nothingimg {
         height: 170px;
@@ -204,6 +230,7 @@ export default {
         margin-top: 31px;
         color: #A8A8A8;
       }
+      // 我的作品 我喜欢的菜谱样式
       .cookbook {
         padding: 0;
         margin: 0;

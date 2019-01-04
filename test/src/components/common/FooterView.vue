@@ -123,7 +123,7 @@ export default {
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  z-index: 11;
+  z-index: 20000;
 }
 
 .footer-list {
