@@ -60,6 +60,7 @@
         text-align: center;
         border: 1px solid rgba(187, 187, 187, 1);
         padding-left: 24px;
+        font-size: 16px;
       }
     }
   }

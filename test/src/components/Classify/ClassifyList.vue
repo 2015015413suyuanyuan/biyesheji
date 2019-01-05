@@ -14,6 +14,7 @@
     margin: 0 auto;
     text-align: center;
     overflow: hidden;
+    margin-bottom: 60px;
     .classify-list{
         padding: 7px;
         .classify-title{
