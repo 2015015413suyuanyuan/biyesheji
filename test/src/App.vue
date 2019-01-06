@@ -57,4 +57,20 @@ $color-primary: white;
 .mint-button::after {
   background-color: white;
 }
+.mint-checkbox-input:checked + .mint-checkbox-core {
+  background-color: white;
+}
+.mint-checkbox-input:checked + .mint-checkbox-core::after {
+  border-color: #ffba00;
+}
+.mint-checkbox-core::after {
+  width: 8px;
+  height: 12px;
+}
+.mint-checkbox-core {
+  border: 0;
+}
+  .mint-checkbox-label {
+    font-size: 14px !important;
+  }
 </style>

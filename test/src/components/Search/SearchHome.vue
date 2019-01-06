@@ -18,9 +18,10 @@
       <ul class='readHistoryList'>
         <li v-for="(item,index) in readList" :key="index">
           <img :src="item.img" alt="">
-          <p>
-            <span>{{item.userName}}</span>
-            <span>{{item.like}}</span>
+          <p class="txt">
+            <span class="name">{{item.name}}</span>
+            <span class="userName">{{item.userName}}</span>
+            <span class="like">点赞{{item.like}}</span>
           </p>
         </li>
       </ul>
@@ -30,11 +31,13 @@
 
 <style lang="scss" scoped>
 .page-search {
+  background-color: #FFF9EF;
   .searchHistory{
     .searchheader {
       margin-top: 50px;
       margin-right: 27px;
       margin-left: 27px;
+      padding-top: 15px;
       span {
         font-size: 16px;
         float: left;
@@ -55,9 +58,8 @@
       padding: 0;
       margin-top: 10px;
       list-style: none;
-      background-color: red;
       padding-top: 8px;
-      padding-left: 26px;
+      padding-left: 13px;
       li {
         display: block;
           width: 70px;
@@ -67,7 +69,7 @@
           float: left;
           background-color: rgba(244, 243, 243, 1);
           text-align: center;
-          margin-left: 8px;
+          margin-left: 12px;
           margin-bottom: 8px;
           border-radius: 3px;
       }
@@ -81,6 +83,8 @@
   .readHistory {
     .readheader {
       margin-top: 50px;
+      margin-right: 27px;
+      margin-left: 27px;
       span {
         font-size: 16px;
         float: left;
@@ -103,12 +107,48 @@
         clear: both;
       }
       img {
+        left: 24px;
+        top: 220px;
         width: 116px;
         height: 90px;
-        float: left;
+        border-radius: 11px;
       }
       p {
         float: right;
+      }
+      .txt {
+        width: 220px;
+        span {
+          width: 100%;
+          display: block;
+          float: left;
+        }
+        .name {
+          width: 55px;
+          height: 20px;
+          color: rgba(0, 0, 0, 1);
+          font-size: 18px;
+          text-align: left;
+          font-family: 方正楷体-标准;
+          margin-bottom: 30px;
+        }
+        .userName {
+          color: rgba(0, 0, 0, 0.76);
+          font-size: 14px;
+          text-align: left;
+          font-family: SourceHanSansSC-regular;
+        }
+        .like {
+          color: rgba(0, 0, 0, 0.76);
+          font-size: 14px;
+          text-align: left;
+          font-family: SourceHanSansSC-regular;
+        }
+      }
+      .txt::after {
+        display: block;
+        content: '';
+        clear: both;
       }
     }
     .readheader::after {
@@ -136,19 +176,19 @@ export default {
       ],
       readList: [
         {
-          img: '/static/img/footer1.png',
+          img: '/static/img/food2.jpg',
           name: '红烧肉',
           userName: '手机用户1111',
           like: '123333'
         },
         {
-          img: '/static/img/footer1.png',
+          img: '/static/img/food1.jpg',
           name: '红烧肉',
           userName: '手机用户1111',
           like: '123'
         },
         {
-          img: '/static/img/footer1.png',
+          img: '/static/img/food2.jpg',
           name: '红烧肉',
           userName: '手机用户1111',
           like: '123'

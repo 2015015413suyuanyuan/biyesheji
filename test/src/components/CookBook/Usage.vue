@@ -13,6 +13,12 @@
 
 <style lang="scss" scoped>
 .page-usage {
+  .title {
+    color: rgba(16, 16, 16, 1);
+    font-size: 20px;
+    text-align: left;
+    font-family: SourceHanSansSC-bold;
+  }
     .usage-li{
       height: auto;
       padding: 5px 0;
@@ -33,7 +39,7 @@
     margin-right: auto; 
     padding: 3px; 
     outline: 0; 
-    font-size: 12px; 
+    font-size: 16px; 
     line-height: 24px;
     word-wrap: break-word;
     overflow-x: hidden;
@@ -55,6 +61,7 @@
   .addstep {
     text-align: left;
     color: #FFBA00;
+    font-size: 16px;
   }
 }
 </style>

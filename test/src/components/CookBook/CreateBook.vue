@@ -4,7 +4,7 @@
         <mt-button class="canclecolor"  @click.native="openConfirm" slot="left">取消</mt-button>
         <mt-button slot="right">保存</mt-button>
     </mt-header> 
-    <SimpleCropper></SimpleCropper>
+    <Cropper></Cropper>
     <Usage></Usage>
     <Step></Step>
     <section>
@@ -20,11 +20,11 @@
 </div>
 </template>
 <script>
-import SimpleCropper from './SimpleCropper'
 import { MessageBox } from 'mint-ui';
 import Step from './Step'
 import { Header } from 'mint-ui';
 import Usage from './Usage'
+import Cropper from './Cropper.vue';
 
 export default {
     data() {
@@ -33,9 +33,9 @@ export default {
         };
     },
     components: {
-        SimpleCropper,
         Step,
-        Usage
+        Usage,
+        Cropper
     },
     methods: {
       openConfirm() {
@@ -63,12 +63,14 @@ export default {
 .tip{
     text-align: left;
     font-weight: bolder;
+    font-size: 19px;
 }
 .inputTip{
     outline: none;
     border: 0;
     width: 100%;
     height: 30px;
+    font-size: 16px;
 }
 
 .box{

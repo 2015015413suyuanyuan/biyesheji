@@ -5,6 +5,7 @@
       <mt-button  class="canclecolor" slot="right" @click.native="save">完成</mt-button>
     </mt-header>
     <input type="text" v-model="inputval" disabled placeholder="如：快手菜、早餐、汤羹、零食" class="inputbox">
+    <p class="all">所有分类</p>
     <mt-checklist align="right" class="page-part" title="热门分类" v-model="value4" :options="classify1"></mt-checklist>
     <mt-checklist align="right" class="page-part" title="一日三餐" v-model="value4" :options="classify2"></mt-checklist>
     <mt-checklist align="right" class="page-part" title="家常菜谱" v-model="value4" :options="classify3"></mt-checklist>
@@ -19,7 +20,9 @@
     color: #2c3e50;
     background-color: white;
     padding: 0 5px;
-    font-size: 20px;
+    font-size: 14px;
+    height: 54px;
+    line-height: 54px;
   }
   .txtred {
     color: red;
@@ -31,11 +34,20 @@
     padding: 0;
     width: 100%;
     border: 0;
-    margin-top: 80px;
+    margin-top: 40px;
+    overflow: scroll
   }
   .inputbox:focus {
     border: 0;
     outline: none;
+  }
+  .all {
+    text-align: left;
+    background-color: #F4F3F3;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    padding-left: 10px;
   }
   .page-part {
     text-align: left;
@@ -74,7 +86,7 @@ export default {
     };
   },
   created() {
-    if (this.$route != undefined) {
+    if (JSON.stringify(this.$route.params) !== "{}") {
       this.classifyList = this.$route.params;
       this.inputval = this.classifyList.new;
       if(this.inputval == ''){

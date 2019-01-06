@@ -2,19 +2,22 @@
 <div class="step">
     <p class="cooktitle">做法</p>
     <div v-for="(item, index) in step" class="little" :key="index">
-        <p class="txt">步骤{{index+1}}</p>
-        <div class="upload">
-            <div class="img-container">
-                <p :class="{displayImg:!item.displayImg}">
-                    +步骤图(或15秒小视频)
-                    <br>
-                    清晰的步骤图会让菜谱更瘦欢迎
-                </p>
-                <img :src="item.img" alt="user image" class="special" :class="{displayImg:item.displayImg}"> 
-            </div>
-            <input type="file" @change="getFile(index,item.img)" ref="file" id="file">
+      <p class="txt">步骤{{index+1}}</p>
+      <div class="upload">
+        <div class="img-container">
+          <article :class="{displayImg:!item.displayImg}" class="pstyle">
+            <p class="p1">
+                +步骤图
+            </p>
+            <p class="p2">
+                清晰的步骤图会让菜谱更瘦欢迎
+            </p>
+          </article>
+          <img :src="item.img" alt="user image" class="special" :class="{displayImg:item.displayImg}"> 
         </div>
-        <input type="text" placeholder="添加步骤说明" class="detail" v-model="item.detail">
+          <input type="file" @change="getFile(index,item.img)" ref="file" id="file">
+      </div>
+      <input type="text" placeholder="添加步骤说明" class="detail" v-model="item.detail">
     </div> 
     <p class="addstep" @click="addStep">
         增加一步
@@ -23,69 +26,81 @@
 </template>
 <style lang="scss" scoped>
 .step{
-    width: 100%;
-    overflow: hidden;
-    input{
-        outline: none;
-    }
+  width: 100vw;
+  overflow: hidden;
+  input{
+      outline: none;
+  }
+
+  p {
+      margin: 0;
+      padding: 0;
+  }
+  .addstep{
+      padding: 5px 0;
+      color: #FFBA00;
+      text-align: left;
+      font-size: 16px;
+  }
+  .cooktitle{
+      padding: 5px 0;
+      text-align: left;
+      font-weight: bolder;
+      font-size: 20px;
+  }
+  .little{
+      position: relative;
+      margin-bottom: 10px;
+  }
+  .txt{
+      font-weight: bolder;
+      text-align: left;
+      font-size: 19px;
+  }
+  .detail{
+      width: 100vw;
+      height: 20px;
+      border: 0;
+      padding: 10px 0;
+      font-size: 16px;
+  }
+  .img-container{
+      width: 100%;
+      height: 120px;
     .displayImg{
         display: none;
     }
-    p {
-        margin: 0;
-        padding: 0;
-    }
-    .addstep{
-        padding: 5px 0;
-        color: #FFBA00;
-        text-align: left;
-    }
-    .cooktitle{
-        padding: 5px 0;
-        text-align: left;
-        font-weight: bolder;
-    }
-    .little{
-        position: relative;
-        margin-bottom: 30px;
-    }
-    .txt{
-        font-weight: bolder;
-        text-align: left;
-    }
-    .detail{
-        width: 100vw;
-        height: 20px;
-        border: 0;
-        padding: 10px 0;
-    }
-    .img-container{
+    .special{
         width: 100%;
-        height: 120px;
-
-
-        .special{
-            width: 100%;
-            height:120px;
-        }
+        height:120px;
     }
+  }
 
-    .upload{
-        position: relative;
-        margin-top: 10px;
-        width: 100%;
-        height: 100%;
-        background-color: #efefed;
-        color: #b3b3b3;
-    }
-    #file{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-    }
+  .upload{
+    position: relative;
+    margin-top: 10px;
+    width: 100vw;
+    height: 220px;
+    background-color: #efefed;
+    color: #b3b3b3;
+  }
+  #file{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+  }
+  .pstyle {
+      height: 220px;
+      p {
+          height: 28px;
+      }
+      .p1 {
+          padding-top: 82px;
+      }
+  }
 }
 </style>
 <script>
@@ -93,26 +108,26 @@ export default {
     data() {
       return {
           removeClass:true,
-                step:[
-                    {
-                        num:'1',
-                        img:'',
-                        detail:'',
-                        displayImg:true
-                    },
-                    {
-                        num:'2',
-                        img:'',
-                        detail:'',
-                        displayImg:true
-                    },
-                    {
-                        num:'3',
-                        img:'',
-                        detail:'',
-                        displayImg:true
-                    }
-                ]
+          step:[
+            {
+                num:'1',
+                img:'',
+                detail:'',
+                displayImg:true
+            },
+            {
+                num:'2',
+                img:'',
+                detail:'',
+                displayImg:true
+            },
+            {
+                num:'3',
+                img:'',
+                detail:'',
+                displayImg:true
+            }
+          ]
       };
     },  
     watch: {
