@@ -1,7 +1,7 @@
 <template>
   <div class="page-usage">
     <p class="title">用料</p>
-      <div v-for="(item,index) in usage" class="usage-li">
+      <div v-for="(item,index) in usage" class="usage-li" :class="{'frist': index == 0}">
         <div class='rich' contenteditable="true" :placeholder=item.usage1></div>
         <div class='rich' contenteditable="true" :placeholder=item.usage2></div>
       </div>
@@ -13,31 +13,40 @@
 
 <style lang="scss" scoped>
 .page-usage {
+  width: 95vw;
+  margin: 0 auto;
+  margin-bottom: 36px;
+  margin-top: 28px;
   .title {
     color: rgba(16, 16, 16, 1);
-    font-size: 20px;
+    font-weight: bolder;
+    font-size: 0.533333rem;
     text-align: left;
     font-family: SourceHanSansSC-bold;
+    margin-bottom: 19px;
   }
-    .usage-li{
-      height: auto;
-      padding: 5px 0;
-      display: flex;
-    }
-    .usage-li::after {
-      display:block;
-      content: '';
-      clear:both;
-      height: 0px;      
-    }
+  .usage-li{
+    height: auto;
+    padding: 8px 0;
+    display: flex;
+    border-bottom: 1px solid rgba(227, 224, 224, 1);
+    font-size: 16px;
+  }
+  .frist {
+    border-top: 1px solid rgba(227, 224, 224, 1);
+  }
+
+  .usage-li::after {
+    display:block;
+    content: '';
+    clear:both;
+    height: 0px;      
+  }
 	.rich {
     width: 45vw; 
     min-height: 20px; 
     max-height: 300px;
     _height: 120px; 
-    margin-left: auto; 
-    margin-right: auto; 
-    padding: 3px; 
     outline: 0; 
     font-size: 16px; 
     line-height: 24px;
@@ -50,19 +59,20 @@
     align-items:center;
     justify-content:left;
 }
-    .rich:empty:before{
-        content: attr(placeholder);   /* element attribute*/
-        /*content: 'this is content';*/
-        color:#A29999;
-    }
-    .rich:focus:before{
-    content:none;
-    }
-  .addstep {
-    text-align: left;
-    color: #FFBA00;
-    font-size: 16px;
-  }
+.rich:empty:before{
+    content: attr(placeholder);   /* element attribute*/
+    /*content: 'this is content';*/
+    color:#A29999;
+}
+.rich:focus:before{
+content:none;
+}
+.addstep {
+  margin-top: 15px;
+  text-align: left;
+  color: #FFBA00;
+  font-size: 16px;
+}
 }
 </style>
 

@@ -4,7 +4,7 @@
         <router-link to="/" slot="left">
           <mt-button  icon='back'></mt-button>
         </router-link>
-        <img src="../../assets/img/heart.png" alt="" slot='right' @click="like" class='like'>
+        <img :src="imgHeart" alt="" slot='right' @click="like" class='like'>
       </mt-header>
       <div class='headerimg'>
           <img :src="img" alt="">
@@ -57,6 +57,8 @@ export default {
   data() {
     return {
       img :'/static/img/food2.jpg',
+      imgHeart: '/static/img/likes.png',
+      isHeart: false,
       commentList:[
         {
           img: '/static/img/food2.jpg',
@@ -107,10 +109,16 @@ components: {
   methods: {
     like () {
       console.log('点赞')
+      this.isHeart = !this.isHeart
+      if( this.isHeart ) {
+        this.imgHeart = '/static/img/like.png'
+      }
+      else {
+        this.imgHeart = '/static/img/likes.png'
+      }
     }
   },
   mounted() {
-    // 从API获取最新的底部导航图片和类别【暂时没用到】
   },
   computed: {
   },

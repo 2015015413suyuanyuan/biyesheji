@@ -19,16 +19,21 @@
 .page-cookbook1 {
     main {
         p {
-            margin: 20px 0;
             padding: 0;
+            font-size: 18px;
+            color: #101010;
+            margin: 20px 0;
         }
         .head {
-            width: 100px;
-            height: 100px;
+            margin-top: 50px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
         }
         .create {
-            width: 35vw;
+            width: 45vw;
+            border: 1px solid rgba(187, 187, 187, 1);
+
         }
         .cancleunderline {
             text-decoration: none;

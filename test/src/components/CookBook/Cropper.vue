@@ -3,7 +3,7 @@
     <div class="img-container">
         <article :class="{displayImg:!step.displayImg}" class="pstyle">
             <p class="p1">
-                +菜谱封面
+                + 菜谱封面
             </p>
             <p class="p2">
                 诱人的封面图是吸引厨友的关键
@@ -70,6 +70,8 @@
   }
   .pstyle {
       height: 220px;
+      font-size: 18px;
+      color: #A29999;
       p {
           height: 28px;
       }
@@ -93,6 +95,7 @@
       width: 100%;
       height: 100%;
       opacity: 0;
+      font-size: 18px;
   }
 }
 

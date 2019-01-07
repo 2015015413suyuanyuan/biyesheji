@@ -14,9 +14,9 @@
             </p>
           </article>
     </div>
-    <div class="like">
-      <img src="../../assets/img/good.png" alt="" class="good">
-      <span>88</span>
+    <div class="like" @click="good">
+      <img :src="Good" alt="" class="good">
+      <span>{{num}}</span>
     </div>
   </div>
 </template>
@@ -86,9 +86,26 @@ export default {
   name: 'page-tabbar',
   data() {
     return {
-      selected: '外卖'
+      Good: '/static/img/good.png',
+      // 是否点赞
+      isGood: false,
+      num: 88
     };
   },
+  methods: {
+    good () {
+      this.isGood = !this.isGood
+      if(this.isGood){
+        this.Good = '/static/img/goods.png'
+        this.num = this.num + 1
+        this.isFirstCome++
+      }
+      else {
+          this.num = this.num - 1 
+        this.Good = '/static/img/good.png'
+      }
+    }
+  }
 };
 </script>
 

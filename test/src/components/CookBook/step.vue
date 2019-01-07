@@ -7,7 +7,7 @@
         <div class="img-container">
           <article :class="{displayImg:!item.displayImg}" class="pstyle">
             <p class="p1">
-                +步骤图
+                + 步骤图
             </p>
             <p class="p2">
                 清晰的步骤图会让菜谱更瘦欢迎
@@ -26,7 +26,8 @@
 </template>
 <style lang="scss" scoped>
 .step{
-  width: 100vw;
+  width: 95vw;
+  margin: 0 auto;
   overflow: hidden;
   input{
       outline: none;
@@ -47,6 +48,7 @@
       text-align: left;
       font-weight: bolder;
       font-size: 20px;
+      color: #101010;
   }
   .little{
       position: relative;
@@ -56,6 +58,7 @@
       font-weight: bolder;
       text-align: left;
       font-size: 19px;
+      color: #101010;
   }
   .detail{
       width: 100vw;
@@ -63,6 +66,7 @@
       border: 0;
       padding: 10px 0;
       font-size: 16px;
+      color: #A29999;
   }
   .img-container{
       width: 100%;
@@ -91,9 +95,12 @@
       width: 100%;
       height: 100%;
       opacity: 0;
+      font-size: 18px;
   }
   .pstyle {
       height: 220px;
+      font-size: 18px;
+      color: #A29999;
       p {
           height: 28px;
       }
