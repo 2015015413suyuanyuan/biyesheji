@@ -32,7 +32,7 @@
         }
         .create {
             width: 45vw;
-            border: 1px solid rgba(187, 187, 187, 1);
+            border: 1px solid #9ee6fc;
 
         }
         .cancleunderline {

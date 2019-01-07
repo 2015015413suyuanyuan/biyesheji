@@ -5,6 +5,9 @@
     <mt-button slot="right">保存</mt-button>
   </mt-header> 
   <Cropper></Cropper>
+  <section class="inputspe">
+    <input type="text" placeholder="写下你的菜谱名吧" autofocus >
+  </section>
   <Usage></Usage>
   <Step></Step>
   <section>
@@ -13,12 +16,12 @@
   </section>
   <router-link to="/CookClassify" class="linktoclassify">
     <div class="box">
-      <span>推荐分类</span>
+      <span>推荐至分类</span>
       <i class="right"></i>
     </div>
   </router-link>
-  <ul>
-    <li></li>
+  <ul class='classifyList'>
+    <li v-for="(item, index) in classifyList" :key="index">{{item}}</li>
   </ul>
 </div>
 </template>
@@ -32,13 +35,14 @@ import Cropper from './Cropper.vue';
 export default {
   data() {
     return {
-      filesPreview: [],
+      classifyList:[],
+      isShowClassifyList: false
     };
   },
-  created()  {
-    
+  created()  { 
     if(JSON.stringify(this.$route.params.new) != '[]'){
-      console.log(JSON.stringify(this.$route.params.new))
+      this.isShowClassifyList = true
+      this.classifyList = this.$route.params.new
     }
   },
   components: {
@@ -73,6 +77,8 @@ export default {
   text-align: left;
   font-weight: bolder;
   font-size: 19px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 .inputTip{
   outline: none;
@@ -80,12 +86,17 @@ export default {
   width: 100%;
   height: 30px;
   font-size: 16px;
+  margin-bottom: 30px;
 }
 
 .box{
   text-align: left;
   position: relative;
   font-size: 18px;
+  margin-bottom: 10px;
+}
+.box span {
+  padding-left: 12px;
 }
 .right::after {
   border: solid 2px #999;
@@ -112,5 +123,48 @@ section {
   margin: 0 auto;
   text-align: left;
 }
-
+.classifyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 14px;
+}
+.classifyList::after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.classifyList li {
+  display: block;
+  float: left;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  background-color: rgba(255, 152, 0, 1);
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  margin-right: 9px;
+  margin-bottom: 11px;
+}
+.inputspe {
+  margin: 0 auto;
+  text-align: center;
+  width: 95vw;
+  height: 56px;
+  line-height: 56px;
+  margin-top: 18px;
+  border-bottom: 1px solid #ccc;
+}
+.inputspe input {
+  width: 95vw;
+  border: 0;
+  outline: none;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  color: rgba(85, 83, 83, 1);
+  font-size: 24px;
+  font-family: Microsoft Yahei;
+}
 </style>

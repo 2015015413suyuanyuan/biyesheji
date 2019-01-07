@@ -7,7 +7,7 @@
             </router-link>
         </mt-header>
         <section class="inputspe">
-            <input type="text" placeholder="写下你的菜谱名吧" autofocus >
+            <div class='rich' contenteditable="true" placeholder='写下你的菜谱名吧'></div>
         </section>
         <section class="inputspe1">
             <p class="tip">提示</p>
@@ -57,24 +57,45 @@ export default {
   }
 
   .inputspe {
-    margin: 0 auto;
-    text-align: center;
-    width: 95vw;
-    height: 50px;
-    line-height: 50px;
-    margin-top: 40px;
-    border-bottom: 1px solid #ccc;
-    input {
-        width: 95vw;
-        border: 0;
-        outline: none;
-        text-align: center;
-        height: 40px;
-        line-height: 40px;
-        font-size: 20px;
-    }
+
+
   }
 
+  .inputspe{
+    margin-top: 40px;
+    border-bottom: 1px solid #ccc;
+    height: auto;
+    padding: 8px 0;
+    display: flex;
+    border-bottom: 1px solid rgba(227, 224, 224, 1);
+    font-size: 14px;
+  }
+
+	.rich {
+    width: 95vw; 
+    min-height: 20px; 
+    max-height: 600px;
+    _height: 120px; 
+    outline: 0; 
+    font-size: 14px; 
+    line-height: 24px;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    float: left;
+    text-align: left;
+    display: flex;
+    align-items:center;
+    justify-content:left;
+}
+.rich:empty:before{
+    content: attr(placeholder);   /* element attribute*/
+    /*content: 'this is content';*/
+    color:#A29999;
+}
+.rich:focus:before{
+content:none;
+}
   .inputspe1 {
     width: 95vw;
     margin: 0 auto;
