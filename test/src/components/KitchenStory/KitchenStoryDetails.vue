@@ -6,7 +6,7 @@
       </router-link>
     </mt-header>
     <div class='detail'>
-      <img src="../../assets/MyLogo.png" alt="">
+      <img src="../../assets/img/MyLogo.png" alt="">
           <article>
             <h2>外国留学生第一次吃中国面食, 吃了3个小时, 服务员买单笑晕了!</h2>
             <p>
@@ -15,7 +15,7 @@
           </article>
     </div>
     <div class="like">
-      <img src="../../assets/good.png" alt="" class="good">
+      <img src="../../assets/img/good.png" alt="" class="good">
       <span>88</span>
     </div>
   </div>
@@ -66,6 +66,7 @@
   position: relative;
   padding-left: 22px;
   margin-bottom: 55px;
+  margin-top: 9px;
   .good {
    width: 18px;
    height: 18px;

@@ -4,7 +4,7 @@
       <span class="mint-button-icon">
         <i class="mintui mintui-back"></i>
       </span>
-      <span class='searchimg'><img src="../../assets/search.png" alt="search"></span>
+      <span class='searchimg'><img src="../../assets/img/search.png" alt="search"></span>
       <input type="search" list='name' result placeholder="搜索菜谱" class='searchinput' v-model="value" @input="changeIsShow()"/>
       <span class='searchtext'>搜索</span>
     </div>
@@ -104,7 +104,7 @@
       width: 20px;
       border-radius: 50%;
       background-color: white;
-      background-image: url('../../assets/close.jpg');
+      background-image: url('../../assets/img/close.jpg');
       background-size: 100%;
       background-repeat: no-repeat;
   }

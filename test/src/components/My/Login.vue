@@ -1,7 +1,7 @@
 <template>
 <div class="noLogin">
     <router-link to="/NoLogged" slot="left" icon='back'>
-        <img src="../../assets/close.png" alt="" class='close'>
+        <img src="../../assets/img/close.png" alt="" class='close'>
     </router-link>
     <span class='title'>美食加</span>
     <div class="page-part">

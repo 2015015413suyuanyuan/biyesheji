@@ -13,7 +13,7 @@
     <div class="like">
         <div class="list">
             <p class='cookbook'>我喜欢的菜谱~</p>
-            <img src="../../assets/like.png" alt="">
+            <img src="../../assets/img/like.png" alt="">
             <p>目前没有内容</p>
         </div>
     </div>

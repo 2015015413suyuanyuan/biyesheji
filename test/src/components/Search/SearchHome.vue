@@ -4,7 +4,7 @@
     <div class='searchHistory'>
       <div class='searchheader'>
         <span>历史搜索</span>
-        <img src="../../assets/delete.png" alt="">
+        <img src="../../assets/img/delete.png" alt="">
       </div>
       <ul class='searchHistoryList'>
         <li v-for="(item,index) in optionList" :key="index">{{item}}</li>
@@ -13,7 +13,7 @@
     <div class='readHistory'>
       <div class='readheader'>
         <span>阅读历史</span>
-        <img src="../../assets/delete.png" alt="">
+        <img src="../../assets/img/delete.png" alt="">
       </div>
       <ul class='readHistoryList'>
         <li v-for="(item,index) in readList" :key="index">

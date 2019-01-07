@@ -6,7 +6,7 @@
             <img :src="item.img" alt="">
         </div>
         <div class='edit'>
-            <img src="../../assets/edit.png" alt="" class='editPencil'>
+            <img src="../../assets/img/edit.png" alt="" class='editPencil'>
         </div>
     </div>
     <div class='mongolia'>

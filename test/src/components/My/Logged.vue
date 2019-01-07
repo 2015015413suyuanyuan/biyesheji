@@ -2,7 +2,7 @@
   <div class="page-tabbar">
     <div class='header'>
       <div class='header-left'>
-        <img src="../../assets/logo.jpg" alt="">
+        <img src="../../assets/img/logo.jpg" alt="">
         <p>厨友154331094</p>
       </div>
       <div class='header-right'>
@@ -40,7 +40,7 @@
         <mt-tab-container-item id="tab-container1">
           <div class="content">
             <div class='list' v-if="isHasBookList">
-              <img src="../../assets/like.png" alt="" class='nothingimg'>
+              <img src="../../assets/img/like.png" alt="" class='nothingimg'>
               <p class='nothingtxt'>目前没有内容</p>
             </div>
             <div class='list' v-else>

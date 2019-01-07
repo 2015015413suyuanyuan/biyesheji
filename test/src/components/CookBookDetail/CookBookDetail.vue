@@ -4,7 +4,7 @@
         <router-link to="/" slot="left">
           <mt-button  icon='back'></mt-button>
         </router-link>
-        <img src="../../assets/heart.png" alt="" slot='right' @click="like" class='like'>
+        <img src="../../assets/img/heart.png" alt="" slot='right' @click="like" class='like'>
       </mt-header>
       <div class='headerimg'>
           <img :src="img" alt="">

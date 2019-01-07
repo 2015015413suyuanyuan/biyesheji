@@ -6,7 +6,7 @@
       </router-link>
     </mt-header>
     <div class='detail'>
-      <img src="../../assets/MyLogo.png" alt="">
+      <img src="../../assets/img//MyLogo.png" alt="">
       <p class='title'>美食加</p>
       <p class='version'>版本号v1.0.0</p>
     </div>

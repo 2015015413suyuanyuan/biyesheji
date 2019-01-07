@@ -1,7 +1,7 @@
 <template>
 <div class="noLogin">
     <router-link to="/NoLogged" slot="left" icon='back'>
-        <img src="../../assets/close.png" alt="" class='close'>
+        <img src="../../assets/img/close.png" alt="" class='close'>
     </router-link>
     <p class='p1'>开始准备好好吃饭</p>
     <p class='p2'>
@@ -14,7 +14,7 @@
         <mt-field placeholder="设置密码（不少于6位）" type="password" class='password'></mt-field>
     </div>
     <div>
-        <img src="../../assets/rightarrow.png" alt="" class='toLogin' @click ="toRegiste">
+        <img src="../../assets/img/rightarrow.png" alt="" class='toLogin' @click ="toRegiste">
     </div>
 </div>
 </template>

@@ -35,6 +35,7 @@
             padding-top: 7px;
             padding-left: 6px;
             background-color: #ccc;
+            background-image: url('../../assets/img/img6.png');
             margin-bottom: 6px;
         }
     }
