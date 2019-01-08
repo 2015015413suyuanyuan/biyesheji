@@ -2,13 +2,13 @@
     <div class="cookbook">
         <mt-header fixed title="创建菜谱">
             <mt-button class="canclecolor"  @click.native="openConfirm"  slot="left">取消</mt-button>
-            <router-link to="/CreateBook" slot="right">
+            <router-link to="/CreateBook" slot="right" class='colorStyle'>
                 <mt-button>继续</mt-button>
             </router-link>
         </mt-header>
-        <section class="inputspe">
+        <div class="inputspe">
             <div class='rich' contenteditable="true" placeholder='写下你的菜谱名吧'></div>
-        </section>
+        </div>
         <section class="inputspe1">
             <p class="tip">提示</p>
             <p class='specialLineHeight'>
@@ -52,50 +52,42 @@ export default {
   color: #888888;
   text-align: left;
 
-  .canclecolor{
+  .canclecolor,.colorStyle{
       color: #FF9800 !important;
   }
-
-  .inputspe {
-
-
-  }
-
   .inputspe{
+    margin: 0 auto;
     margin-top: 40px;
-    border-bottom: 1px solid #ccc;
     height: auto;
     padding: 8px 0;
     display: flex;
-    border-bottom: 1px solid rgba(227, 224, 224, 1);
-    font-size: 14px;
+    border-bottom: 1px solid #e3e0e0;
+    width: 95vw;
+    .rich {
+      width: 95vw;
+      min-height: 20px;
+      max-height: 300px;
+      _height: 120px;
+      margin-left: auto;
+      margin-right: auto;
+      outline: 0;
+      font-size: 14px;
+      line-height: 24px;
+      word-wrap: break-word;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align: center;
+      color: #101010;
+    }
+    .rich:empty:before{
+      content: attr(placeholder);
+      color:#A29999;
+      font-size: 20px !important;
+    }
+    .rich:focus:before{
+      content:none;
+    }
   }
-
-	.rich {
-    width: 95vw; 
-    min-height: 20px; 
-    max-height: 600px;
-    _height: 120px; 
-    outline: 0; 
-    font-size: 14px; 
-    line-height: 24px;
-    word-wrap: break-word;
-    overflow-x: hidden;
-    overflow-y: auto;
-    float: left;
-    text-align: left;
-    display: flex;
-    align-items:center;
-    justify-content:left;
-}
-.rich:empty:before{
-    content: attr(placeholder);   /* element attribute*/
-    /*content: 'this is content';*/
-    color:#A29999;
-}
-.rich:focus:before{
-content:none;
-}
   .inputspe1 {
     width: 95vw;
     margin: 0 auto;

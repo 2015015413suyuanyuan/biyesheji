@@ -8,6 +8,9 @@
   <section class="inputspe">
     <input type="text" placeholder="写下你的菜谱名吧" autofocus >
   </section>
+  <div class="inputspe1">
+    <div class='rich' contenteditable="true" placeholder='输入这道美食背后的故事'></div>
+  </div>
   <Usage></Usage>
   <Step></Step>
   <section>
@@ -69,7 +72,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .canclecolor{
   color: #FF9800 !important;
 }
@@ -154,7 +157,7 @@ section {
   height: 56px;
   line-height: 56px;
   margin-top: 18px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #e3e0e0;
 }
 .inputspe input {
   width: 95vw;
@@ -166,5 +169,38 @@ section {
   color: rgba(85, 83, 83, 1);
   font-size: 24px;
   font-family: Microsoft Yahei;
+}
+.inputspe1{
+  margin: 0 auto;
+  margin-bottom: 36px;
+  height: auto;
+  padding: 19px 0;
+  display: flex;
+  width: 95vw;
+  .rich {
+    width: 95vw;
+    min-height: 20px;
+    max-height: 300px;
+    _height: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    outline: 0;
+    font-size: 12px;
+    line-height: 24px;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    color: #101010;
+    text-align: left;
+  }
+  .rich:empty:before{
+    content: attr(placeholder);
+    color:#A29999;
+    font-size: 20px !important;
+  }
+  .rich:focus:before{
+    content:none;
+  }
 }
 </style>

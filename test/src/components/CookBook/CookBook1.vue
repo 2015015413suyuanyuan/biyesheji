@@ -31,7 +31,8 @@
             border-radius: 50%;
         }
         .create {
-            width: 45vw;
+            width: 117px;
+            height: 220px;
             border: 1px solid #9ee6fc;
 
         }
