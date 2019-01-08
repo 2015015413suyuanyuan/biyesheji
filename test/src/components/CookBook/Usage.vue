@@ -112,13 +112,17 @@
       .txtBox {
        float: left;
        display: flex;
+        justify-content : center;
+          align-items:center;
        .yongliao {
          width: 100px;
          padding: 10px;
+         word-break:break-all;
        }
        .yongliang {
          width: 100px;
          padding: 10px;
+         word-break:break-all;
        }
       }
       .txtBox::after {
@@ -157,15 +161,15 @@ export default {
     return {
       usage:[
         {
-          'usage':'食材：如鸡蛋如鸡蛋如鸡蛋如鸡蛋如鸡蛋如鸡蛋1',
+          'usage':'食材：如鸡蛋如鸡dfaasdfdsfadsdsfdsfadf蛋如鸡蛋如鸡蛋如鸡蛋如鸡蛋1',
           'usage2':'用量：如一只1'
         },
                 {
-          'usage':'食材：如鸡蛋2',
+          'usage':'食材：如鸡dffdsafdsfsdafsadfdasffdsafdsafsadfsdfsdf蛋2',
           'usage2':'用量：如一只2'
         },
                 {
-          'usage':'食材：如鸡蛋3',
+          'usage':'食材：如鸡蛋3食材：如鸡蛋3食材：如鸡蛋3食材：如鸡蛋3食材：如鸡蛋3',
           'usage2':'用量：如一只3'
         }
       ]
