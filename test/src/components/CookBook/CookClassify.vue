@@ -98,10 +98,10 @@ export default {
   },
   methods: {
     openConfirm() {
-            this.$router.push({
-              name: "CreateBook",
-              params: { new: this.inputarr }
-            });
+      this.$router.push({
+        name: "CreateBook",
+        params: { new: this.inputarr }
+      });
     },
     save() {
       this.$router.push({ name: "CreateBook", params: { new: this.inputarr } });

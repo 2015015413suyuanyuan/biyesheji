@@ -2,20 +2,16 @@
 <div>
   <mt-header fixed title="创建菜谱">
     <mt-button class="canclecolor"  @click.native="openConfirm" slot="left">取消</mt-button>
-    <mt-button slot="right">保存</mt-button>
   </mt-header> 
   <Cropper></Cropper>
-  <section class="inputspe">
-    <input type="text" placeholder="写下你的菜谱名吧" autofocus >
-  </section>
-  <div class="inputspe1">
-    <div class='rich' contenteditable="true" placeholder='输入这道美食背后的故事'></div>
-  </div>
+  <MyInput v-model='inputVlue' :placeholderValue='placeHolder' class='MyClass'></MyInput>
+  <div class="hr"></div>
+  <MyInputaStory v-model='inputStoryValue' :placeholderValue='storyPlaceHolder' class='storyClass'></MyInputaStory>
   <Usage></Usage>
   <Step></Step>
   <section>
     <p class="tip">小贴士</p>
-    <input type="textarea" class="inputTip" placeholder="这道菜还有哪些需要注意的细节和小技巧？">
+    <MyInputTip v-model='inputTipValue' :placeholderValue='tipPlaceHolder' ></MyInputTip>
   </section>
   <router-link to="/CookClassify" class="linktoclassify">
     <div class="box">
@@ -26,6 +22,9 @@
   <ul class='classifyList'>
     <li v-for="(item, index) in classifyList" :key="index">{{item}}</li>
   </ul>
+  <div class='myBtn'>
+    发布这个菜谱
+  </div>
 </div>
 </template>
 <script>
@@ -34,12 +33,21 @@ import Step from './Step'
 import { Header } from 'mint-ui';
 import Usage from './Usage'
 import Cropper from './Cropper.vue';
+import MyInput from './MyInput.vue'
+import MyInputaStory from './MyInputaStory.vue'
+import MyInputTip from './MyInputTip.vue'
 
 export default {
   data() {
     return {
+      inputVlue: '',
+      inputStoryValue: '',
+      inputTipValue: '',
       classifyList:[],
-      isShowClassifyList: false
+      isShowClassifyList: false,
+      placeHolder: '写下你的菜谱名吧',
+      storyPlaceHolder: '输入这道美食背后的故事',
+      tipPlaceHolder: '这道菜还有哪些需要注意的细节和小技巧？'
     };
   },
   created()  { 
@@ -47,11 +55,17 @@ export default {
       this.isShowClassifyList = true
       this.classifyList = this.$route.params.new
     }
+    if(this.$route.params.cookName  != ''){
+      this.inputVlue = this.$route.params.cookName
+    }
   },
   components: {
     Step,
     Usage,
-    Cropper
+    Cropper,
+    MyInput,
+    MyInputaStory,
+    MyInputTip
   },
   methods: {
   openConfirm() {
@@ -91,15 +105,13 @@ export default {
   font-size: 16px;
   margin-bottom: 30px;
 }
-
 .box{
+  margin: 0 auto;
   text-align: left;
   position: relative;
   font-size: 18px;
   margin-bottom: 10px;
-}
-.box span {
-  padding-left: 12px;
+  width: 95vw;
 }
 .right::after {
   border: solid 2px #999;
@@ -150,27 +162,7 @@ section {
   margin-right: 9px;
   margin-bottom: 11px;
 }
-.inputspe {
-  margin: 0 auto;
-  text-align: center;
-  width: 95vw;
-  height: 56px;
-  line-height: 56px;
-  margin-top: 18px;
-  border-bottom: 1px solid #e3e0e0;
-}
-.inputspe input {
-  width: 95vw;
-  border: 0;
-  outline: none;
-  text-align: center;
-  height: 40px;
-  line-height: 40px;
-  color: rgba(85, 83, 83, 1);
-  font-size: 24px;
-  font-family: Microsoft Yahei;
-}
-.inputspe1{
+.inputspe1 {
   margin: 0 auto;
   margin-bottom: 36px;
   height: auto;
@@ -202,5 +194,31 @@ section {
   .rich:focus:before{
     content:none;
   }
+}
+.myBtn {
+  background-color: #FFBA00;
+  color: white;
+  width: 100vw;
+  height: 62px;
+  line-height: 62px;
+  font-size: 21px;
+  margin-top: 36px;
+}
+.MyClass {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 22px;
+  padding: 13px 0;
+  color: #555353
+}
+.storyClass {
+  font-size: 14px;
+  padding: 19px 0;
+}
+.hr {
+  width: 95vw;
+  height: 1px;
+  background: #E3E0E0;
+  margin: 0 auto;
 }
 </style>

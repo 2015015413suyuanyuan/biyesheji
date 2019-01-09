@@ -72,7 +72,6 @@ export default {
       for (let index = 0, size = this.footerList.length; index < size; index += 1) {
         const item = this.footerList[index];
         if (item.name !== url1) {
-          console.log(item.name);
           item.isActive = false;
         } else {
           item.isActive = true;
