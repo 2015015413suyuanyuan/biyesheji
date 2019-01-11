@@ -196,23 +196,16 @@ export default {
     return {
       usage:[
         {
-          'usage':'食材：如鸡蛋如鸡dfaasdfdsfadsdsfdsfadf蛋如鸡蛋如鸡蛋如鸡蛋如鸡蛋1',
-          'usage2':'用量：如一只1'
-        },
-                {
-          'usage':'食材：如鸡dffdsafdsfsdafsadfdasffdsafdsafsadfsdfsdf蛋2',
-          'usage2':'用量：如一只2'
-        },
-                {
-          'usage':'食材：如鸡蛋3食材：如鸡蛋3食材：如鸡蛋3食材：如鸡蛋3食材：如鸡蛋3',
-          'usage2':'用量：如一只3'
+          'usage':'食材：如鸡蛋',
+          'usage2':'用量：如一只'
         }
       ],
       isChangeIndex: false
     };
   },
   created() {
-    
+    this.usage = Object.assign([], this.usage)
+
   },
   components: {
       draggable,
