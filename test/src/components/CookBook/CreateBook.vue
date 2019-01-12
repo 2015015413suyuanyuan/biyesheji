@@ -25,6 +25,21 @@
   <div class='myBtn'>
     发布这个菜谱
   </div>
+  <!-- 提示用户是否退出编辑 -->
+  <div class='msgbox' style="position:absolute;z-index: 2007;display:none;" ref="msgbox">
+    <div class='mint-msgbox'>
+      <div class='title'>编辑还未保存</div>
+      <div class='textbox'>
+        <div class='cancel' @click="cancel">
+          继续编辑
+        </div>
+        <div class='sure' @click="dele">
+          退出
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='v-modal' style='z-index: 2006;display:none;' ref='modal'></div>
 </div>
 </template>
 <script>
@@ -69,20 +84,16 @@ export default {
   },
   methods: {
   openConfirm() {
-    MessageBox.confirm('',{
-    message: '编辑还未保存，你确定要退出吗？', 
-    title: '提示', 
-    confirmButtonText: '确定', 
-    cancelButtonText: '取消' 
-    }).then(action => {
-      if(action == 'confirm'){
-          this.$router.push('/')
-      }
-    }).catch(err=> {
-      if (err == 'cancel') {     //取消的回调
-      } 
-    });
-  }
+    this.$refs.modal.style.display = 'block'
+    this.$refs.msgbox.style.display = 'block'  
+  },
+  cancel(){
+    this.$refs.modal.style.display = 'none'
+    this.$refs.msgbox.style.display = 'none'
+  },
+  dele(){
+    this.$router.push('/')
+  },
   }
 }
 </script>
@@ -220,5 +231,50 @@ section {
   height: 1px;
   background: #E3E0E0;
   margin: 0 auto;
+}
+.mint-msgbox {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  background-color: #fff;
+  width: 75%;
+  border-radius: 0.08rem;
+  font-size: 0.426667rem;
+  -webkit-user-select: none;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: .2s;
+  transition: .2s;
+
+  .title {
+    height: 60px;
+    line-height: 60px;
+  }
+
+  .textbox::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+  .textbox {
+    border-top: 1px solid rgb(243, 238, 238);
+    .cancel {
+      width: 50%;
+      float: left;
+      height: 35px;
+      line-height: 35px;
+    }
+    .sure {
+      width: 50%;
+      height: 35px;
+      line-height: 35px;
+      float: left;
+      background-color: #FF9800;
+      color: white;
+    }
+  }
 }
 </style>
