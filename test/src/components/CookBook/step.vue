@@ -62,13 +62,14 @@
   }
   .img-container{
       width: 100%;
-      height: 120px;
+      height: 100%;
     .displayImg{
         display: none;
     }
     .special{
         width: 100%;
-        height:120px;
+        height:100%;
+        background-color: white;
     }
   }
 
@@ -164,7 +165,8 @@ export default {
     },
     addStep (){
       this.$set(this.step,this.step.length,{num:'4',img:'',detail:'',displayImg:true})
-      this.step.push({num:'4',img:'',detail:'',displayImg:true});
+      console.log(this.step)
+    //   this.step.push({num:'4',img:'',detail:'',displayImg:true});
     }
   }
 }    

@@ -10,6 +10,7 @@
       <p class='title'>美食加</p>
       <p class='version'>版本号v1.0.0</p>
     </div>
+    <Progress :num='num'></Progress>
   </div>
 </template>
 
@@ -49,14 +50,19 @@
 <script>
 import Vue from 'vue'
 import Router from 'vue-router'
+import Progress from './Progress'
 
 export default {
   name: 'page-tabbar',
   data() {
     return {
-      selected: '外卖'
+      selected: '外卖',
+      num: 50
     };
   },
+  components: {
+    Progress
+  }
 };
 </script>
 

@@ -3,9 +3,9 @@
     <!-- 编辑用料信息 -->
     <div class='editBox' v-show="!isChangeIndex">
       <p class="title">用料</p>
-      <div v-for="(item,index) in usage" class="usage-li" :class="{'frist': index == 0}" :key="index">
-        <div class='rich' contenteditable="true" :placeholder=item.usage @blur="dayin"></div>
-        <div class='rich' contenteditable="true" :placeholder=item.usage2 @blur='dayin'></div>
+      <div v-for="(item,index) in usage" class="usage-li" :key="index">
+        <MyInputUsage v-model='item.usage' :placeholderValue='placeHolder' class='MyClass'></MyInputUsage>
+        <MyInputUsage v-model='item.usage2' :placeholderValue='placeHolder' class='MyClass'></MyInputUsage>
       </div>
       <p class="addstep">
         <span class='addALine'  @click="addStep">再增加一行</span>
@@ -66,28 +66,6 @@
       content: '';
       clear:both;
       height: 0px;      
-    }
-    .rich {
-      width: 45vw; 
-      min-height: 20px; 
-      max-height: 300px;
-      _height: 120px; 
-      outline: 0; 
-      font-size: 16px; 
-      line-height: 24px;
-      word-wrap: break-word;
-      overflow-x: hidden;
-      overflow-y: auto;
-      float: left;
-      text-align: left;
-      display: flex;
-      align-items:center;
-      justify-content:left;
-    }
-    .rich:empty:before{
-        content: attr(placeholder);   /* element attribute*/
-        /*content: 'this is content';*/
-        color:#A29999;
     }
     .rich:focus:before{
     content:none;
@@ -189,15 +167,17 @@
 
 <script>
 import draggable from 'vuedraggable'
+import MyInputUsage from './MyInputUsage';
 
 export default {
   name: 'footer-view',
   data() {
     return {
+      placeHolder: '111',
       usage:[
         {
-          'usage':'食材：如鸡蛋',
-          'usage2':'用量：如一只'
+          'usage':'',
+          'usage2':''
         }
       ],
       isChangeIndex: false
@@ -209,30 +189,22 @@ export default {
   },
   components: {
       draggable,
+      MyInputUsage
   },
   methods: {
     addStep () {
-      // this.usage.push({
-      //   'usage':'食材：如dfadsfdsfsdafdsafdsfdsafsdafadsf鸡蛋',
-      //   'usage2':'用量：如一只'
-      // });
-      this.$set(this.usage,this.usage.length,{'usage':'食材：如鸡蛋','usage2':'用量：如一只'})
+      this.$set(this.usage,this.usage.length,{'usage':'','usage2':''})
     },
     remove: function(item, index) {
-      // Remove job from GUI
       this.usage.splice(index, 1);
-      console.log(this.usage);
     },
     changeIndex(){
       this.isChangeIndex = true
-      console.log(this.usage,'调整之前')
     },
     changeOver(){
       this.isChangeIndex = false
-      console.log(this.usage,'调整之后')
     },
     dayin(){
-      console.log('dayin',this.usage)
     }
   },
 
