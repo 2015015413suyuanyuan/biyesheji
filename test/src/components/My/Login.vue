@@ -5,11 +5,11 @@
     </router-link>
     <span class='title'>美食加</span>
     <div class="page-part">
-        <mt-field placeholder="请输入用户名" type="tel" class='tel'></mt-field>
-        <mt-field placeholder="请输入密码" type="password" class='password'></mt-field>
+        <mt-field placeholder="请输入用户名" class='tel' v-model="tel"></mt-field>
+        <mt-field placeholder="请输入密码" type="password" class='password' v-model="password"></mt-field>
     </div>
     <div>
-        <button class='btn'>登录</button>
+        <button class='btn' @click="login">登录</button>
     </div>
 </div>
 </template>
@@ -19,16 +19,42 @@ export default {
     data() {
         return {
             filesPreview: [],
+            tel: '',
+            password: '',
+
         };
     },
     components: {
        
     },
     methods: {
-        toRegiste() {
-            this.$router.push({
-              name: "Logged"
-            });
+        login() {
+            console.log(this.tel,this.password)
+            const reg =  /^[0-9a-zA-Z]*$/g
+
+            if(reg.test(this.tel) && this.tel.length <= 11) {
+                console.log('tre')
+            } else {
+                console.log('false')
+            }
+            const data = {
+                "username": this.tel,
+                "password": this.password
+            }
+            const data1 = this.qs.parse(data)
+            console.log(data1)
+            this.axios.post('http://140.143.75.82:81/index.php/register', data1,{
+                        // headers: {
+                        //             'Content-Type': 'application/json'
+                        //         }
+            }).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            } )
+            // this.$router.push({
+            //   name: "Logged"
+            // });
         }
     }
 }

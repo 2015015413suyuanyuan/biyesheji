@@ -7,9 +7,14 @@ import store from './store'
 import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import 'lib-flexible/flexible.js'
+import axios from 'axios'
+import Qs from 'qs'
 
 Vue.config.productionTip = false
 Vue.use(mintui)
+Vue.prototype.axios = axios;
+Vue.prototype.qs = Qs;
+Vue.prototype.HOST='/api'
 
 /* eslint-disable no-new */
 new Vue({
