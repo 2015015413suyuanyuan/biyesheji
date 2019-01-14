@@ -38,6 +38,7 @@
             reader.onloadend = function () {
                 img = this.result;
                 step.img=this.result;
+                console.log(this.result,'this.result')
             }
         },
     },

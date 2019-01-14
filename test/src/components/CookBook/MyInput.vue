@@ -35,7 +35,6 @@ export default{
   },
   watch: {
     'value'(){
-      console.log(this.value)
       if (!this.isLocked || !this.innerText) {
         this.innerText = this.value;
       }

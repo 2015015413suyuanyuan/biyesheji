@@ -17,7 +17,7 @@
         </div>
           <input type="file" @change="getFile(index,item.img)" ref="file" id="file">
       </div>
-      <MyInputStep v-model='item.detail' :placeholderValue='placeHolder' class='MyClass'></MyInputStep>
+      <MyInputStep v-model='item.detail' :placeholderValue='placeHolder' :idx='index' class='MyClass' @toFatherData='getStepText'></MyInputStep>
     </div> 
     <p class="addstep" @click="addStep">
         增加一步
@@ -112,6 +112,7 @@ export default {
       removeClass:true,
       inputVlue: '',
       placeHolder: '添加步骤说明',
+      idx: 1,
       step:[
         {
             num:'1',
@@ -161,12 +162,14 @@ export default {
       reader.onloadend = function () {
         img = this.result;
         step[idx].img=this.result;
+        console.log('this.result', this.result)
       }
     },
     addStep (){
       this.$set(this.step,this.step.length,{num:'4',img:'',detail:'',displayImg:true})
-      console.log(this.step)
-    //   this.step.push({num:'4',img:'',detail:'',displayImg:true});
+    },
+    getStepText (data){
+        console.log('data',data)
     }
   }
 }    

@@ -13,7 +13,7 @@
     <p class="tip">小贴士</p>
     <MyInputTip v-model='inputTipValue' :placeholderValue='tipPlaceHolder' ></MyInputTip>
   </section>
-  <router-link to="/CookClassify" class="linktoclassify">
+  <!-- <router-link to="/CookClassify" class="linktoclassify">
     <div class="box">
       <span>推荐至分类</span>
       <i class="right"></i>
@@ -21,7 +21,7 @@
   </router-link>
   <ul class='classifyList'>
     <li v-for="(item, index) in classifyList" :key="index">{{item}}</li>
-  </ul>
+  </ul> -->
   <div class='myBtn'>
     发布这个菜谱
   </div>

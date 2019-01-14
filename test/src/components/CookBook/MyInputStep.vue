@@ -3,7 +3,7 @@
          v-html="innerText"
          :contenteditable="canEdit"
          @focus="isLocked = true"
-         @blur="isLocked = false"
+         @blur="toFatherData"
          @input="changeText"
          :placeholder='placeholderValue'
          >
@@ -24,6 +24,10 @@ export default{
     canEdit: {
       type: Boolean,
       default: true
+    },
+    idx: {
+      type: Number,
+      default: 1
     }
   },
   data(){
@@ -35,7 +39,6 @@ export default{
   },
   watch: {
     'value'(){
-      console.log(this.value)
       if (!this.isLocked || !this.innerText) {
         this.innerText = this.value;
       }
@@ -44,6 +47,10 @@ export default{
   methods: {
     changeText(){
       this.$emit('input', this.$el.innerHTML);
+    },
+    toFatherData(){
+      this.isLocked = false
+      this.$emit('toFatherData',[this.$el.innerHTML,this.idx])
     }
   }
 }

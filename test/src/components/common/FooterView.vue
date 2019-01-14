@@ -45,15 +45,6 @@ export default {
           link: '/KitchenStory',
         },
         {
-          name: 'Classify',
-          isShow: true,
-          isActive: false,
-          title: '菜谱分类',
-          defaultImg: '/static/img/footer3.png',
-          activeImg: '/static/img/footter3.png',
-          link: '/Classify',
-        },
-        {
           name: 'NoLogged',
           isShow: true,
           isActive: false,
