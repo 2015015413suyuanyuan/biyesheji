@@ -1,7 +1,7 @@
 <template>
   <div class="page-tabbar">
     <div class='header'>
-      <span class="mint-button-icon">
+      <span class="mint-button-icon" @click="backPage">
         <i class="mintui mintui-back"></i>
       </span>
       <span class='searchimg'><img src="../../assets/img/search.png" alt="search"></span>
@@ -138,6 +138,9 @@ export default {
       }else {
         this.isShowList = false
       }
+    },
+    backPage () {
+      this.$router.back(-1);
     }
   }
 };

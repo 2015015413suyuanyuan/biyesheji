@@ -6,7 +6,7 @@
         <i class="searchicon">
             <img src="/static/img/search.png" alt>
         </i>
-        <input type="search" placeholder="搜索菜谱" class="searchbar">
+        <input type="search" placeholder="搜索菜谱" class="searchbar" @click="toSearch">
       </div>
     </div>
     <div class="add-box">
@@ -126,7 +126,14 @@ export default {
   },
   components: {
     Recommend
-  }
+  },
+  methods: {
+    toSearch() {
+      this.$router.push({
+        name: "Search"
+      });
+    }
+  },
 };
 </script>
 

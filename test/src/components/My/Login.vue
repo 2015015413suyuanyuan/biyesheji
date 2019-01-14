@@ -11,6 +11,7 @@
     <div>
         <button class='btn' @click="login">登录</button>
     </div>
+    <img :src="img" alt="">
 </div>
 </template>
 <script>
@@ -21,6 +22,7 @@ export default {
             filesPreview: [],
             tel: '',
             password: '',
+            img: 'http://140.143.75.82:81/images/3egpDsmX3PqLW6tc9NzUBlSUtnD8oqS7Bpf3cf6K.jpeg'
 
         };
     },
@@ -29,7 +31,6 @@ export default {
     },
     methods: {
         login() {
-            console.log(this.tel,this.password)
             const reg =  /^[0-9a-zA-Z]*$/g
 
             if(reg.test(this.tel) && this.tel.length <= 11) {
@@ -42,11 +43,11 @@ export default {
                 "password": this.password
             }
             const data1 = this.qs.parse(data)
-            console.log(data1)
+            // console.log(data1)
             this.axios.post('http://140.143.75.82:81/index.php/register', data1,{
-                        // headers: {
-                        //             'Content-Type': 'application/json'
-                        //         }
+                        headers: {
+                                    'Content-Type': 'application/json'
+                                }
             }).then((res) => {
                 console.log(res)
             }).catch((err) => {

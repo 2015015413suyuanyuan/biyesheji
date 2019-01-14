@@ -32,6 +32,7 @@
 <style lang="scss" scoped>
 .page-search {
   background-color: #FFF9EF;
+  height: 100vh;
   .searchHistory{
     .searchheader {
       margin-top: 50px;
