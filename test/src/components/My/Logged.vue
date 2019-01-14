@@ -6,7 +6,7 @@
         <p>厨友154331094</p>
       </div>
       <div class='header-right'>
-        <button>退出按钮</button>
+        <button @click="NoLogin">退出按钮</button>
       </div>
     </div>
     <div @click="change">
@@ -132,6 +132,30 @@ export default {
   components: {
     MyDiyBook
   },
+  created() {
+      var username = localStorage.getItem('username');
+      console.log(username)
+      const data = {
+        "username": username
+      }
+      const data1 = this.qs.parse(data)
+      this.axios.post('http://140.143.75.82:81/index.php/basicInfo', data1,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        // if(res.data.message == '注册成功') {
+        //   localStorage.setItem('username', JSON.stringify(res.data.username));
+        //   localStorage.setItem('id', JSON.stringify(res.data.id));
+        //   localStorage.setItem('state', JSON.stringify(res.data.state));
+        //   this.$router.push({
+        //     name: "Logged",
+        //     params: { username: res.data.username }
+        //   });       
+        // }
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+  },
   methods: {
     change(){
       this.isHasBookList = !this.isHasBookList
@@ -142,7 +166,7 @@ export default {
       this.$refs.msgbox.style.display = 'block'  
     },
     dele(){
-     this.myFavoriteBookList.splice(this.deleteIndex,1)
+      this.myFavoriteBookList.splice(this.deleteIndex,1)
       this.$refs.modal.style.display = 'none'
       this.$refs.msgbox.style.display = 'none'
     },
@@ -159,6 +183,26 @@ export default {
         this.classObject2 = true
         this.classObject1 = false
       }
+    },
+    NoLogin() {
+      console.log('退出登录',this.$route.params.username)
+      const data = {
+        "username": this.$route.params.username
+      }
+      this.axios.post('http://140.143.75.82:81/index.php/logout', this.qs.parse(data),{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        if(res.data.message == '退出成功') {
+          localStorage.clear();
+          localStorage.setItem('state', '0');
+          this.$router.push({
+            name: "NoLogged"
+          });       
+        }
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })      
     }
   }
 };

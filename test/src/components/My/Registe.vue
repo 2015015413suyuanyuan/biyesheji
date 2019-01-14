@@ -10,86 +10,133 @@
         分享你的三餐，做一个热爱生活的人~
     </p>
     <div class="page-part">
-        <mt-field placeholder="请输入用户名" type="tel" class='tel'></mt-field>
-        <mt-field placeholder="设置密码（不少于6位）" type="password" class='password'></mt-field>
+        <mt-field placeholder="用户名(不超过10位的数字+字母组合)" type="tel" class='tel' v-model="tel"></mt-field>
+        <mt-field placeholder="密码(不少于6位的数字+字母组合)" type="password" class='password' v-model="password"></mt-field>
     </div>
     <div>
         <img src="../../assets/img/rightarrow.png" alt="" class='toLogin' @click ="toRegiste">
+    </div>
+    <div class="hasUserName" @click="toLogin">
+      已有账号？去<span>登陆</span>吧~
     </div>
 </div>
 </template>
 <script>
 
 export default {
-    data() {
-        return {
-            filesPreview: [],
-        };
+  data() {
+    return {
+      filesPreview: [],
+      tel: '',
+      password: '',
+    };
+  },
+  components: {
+      
+  },
+  methods: {
+    toLogin() {
+      this.$router.push({
+        name: "Login"
+      });
     },
-    components: {
-       
-    },
-    methods: {
-        toRegiste() {
-            this.$router.push({
-              name: "Logged"
-            });
+    toRegiste() {
+      const reg =  /^[0-9a-zA-Z]*$/g
+
+      if(reg.test(this.tel) && this.tel.length <= 11) {
+        console.log('tre')
+      } else {
+        console.log('false')
+      }
+      const data = {
+        "username": this.tel,
+        "password": this.password
+      }
+      const data1 = this.qs.parse(data)
+      this.axios.post('http://140.143.75.82:81/index.php/register', data1,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        if(res.data.message == '注册成功') {
+          localStorage.setItem('username', JSON.stringify(res.data.username));
+          localStorage.setItem('id', JSON.stringify(res.data.id));
+          localStorage.setItem('state', JSON.stringify(res.data.state));
+          console.log(localStorage.getItem('username'));
+          this.$router.push({
+            name: "Logged",
+            params: { username: res.data.username }            
+          });         
         }
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
+      // this.$router.push({
+      //   name: "Logged"
+      // });
     }
+  }
 }
 </script>
 <style  lang="scss" scoped>
 .noLogin{
-    background-color: #FFF9EF;
-    height: 100vh;
-    overflow-y: hidden;
-    position: relative;
-    .close {
-        position: absolute;
-        left: 27px;
-        top: 27px;
-        width: 24px;
-        height: 24px;
+  background-color: #FFF9EF;
+  height: 100vh;
+  overflow-y: hidden;
+  position: relative;
+  .close {
+    position: absolute;
+    left: 27px;
+    top: 27px;
+    width: 24px;
+    height: 24px;
+  }
+  p {
+    padding: 0;
+    margin: 0;
+  }
+  .p1 {
+    font-size: 20px;
+    margin-top: 74px;
+  }
+  .p2 {
+    margin: 0 auto;
+    text-align: left;
+    width: 300px;
+    height: 66px;
+    font-size: 15px;
+    margin-top: 37px;
+    margin-bottom: 25px;
+  }
+  .page-part {
+    .tel,.password {
+      margin: 0 auto;
+      width: 300px;
+      height: 35px;
+      border-radius: 10px;
+      color: rgba(136, 136, 136, 1);
+      font-size: 16px;
+      text-align: left;
+      font-family: Microsoft Yahei;
+      border: 1px solid rgba(187, 187, 187, 1);
     }
-    p {
-        padding: 0;
-        margin: 0;
+    .password {
+      margin-top: 11px;
     }
-    .p1 {
-        font-size: 20px;
-        margin-top: 74px;
+  }
+  .toLogin {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 46px;
+  }
+  .hasUserName {
+    margin-top: 160px;
+    font-size: 14px;
+
+    span {
+      color: #FF9800;
     }
-    .p2 {
-        margin: 0 auto;
-        text-align: left;
-        width: 300px;
-        height: 66px;
-        font-size: 15px;
-        margin-top: 37px;
-        margin-bottom: 25px;
-    }
-    .page-part {
-        .tel,.password {
-            margin: 0 auto;
-            width: 300px;
-            height: 35px;
-            border-radius: 10px;
-            color: rgba(136, 136, 136, 1);
-            font-size: 16px;
-            text-align: left;
-            font-family: Microsoft Yahei;
-            border: 1px solid rgba(187, 187, 187, 1);
-        }
-        .password {
-            margin-top: 11px;
-        }
-    }
-    .toLogin {
-        width: 50px;
-        height: 50px;
-        margin: 0 auto;
-        margin-top: 46px;
-    }
+  }
 }
 
 </style>

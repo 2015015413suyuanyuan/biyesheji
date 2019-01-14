@@ -10,7 +10,6 @@
       <p class='title'>美食加</p>
       <p class='version'>版本号v1.0.0</p>
     </div>
-    <Progress :num='num'></Progress>
   </div>
 </template>
 
@@ -50,7 +49,6 @@
 <script>
 import Vue from 'vue'
 import Router from 'vue-router'
-import Progress from './Progress'
 
 export default {
   name: 'page-tabbar',
@@ -61,7 +59,6 @@ export default {
     };
   },
   components: {
-    Progress
   }
 };
 </script>
