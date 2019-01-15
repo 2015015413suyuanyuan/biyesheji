@@ -31,7 +31,8 @@
               </div>              
           </div>
         </transition-group>
-      </draggable> 
+      </draggable>
+      <div v-if="isShowInfo" class='Info'>用料最少为一种哦~</div>
       <div class='save' @click="changeOver">调整完成</div>
     </div> 
   </div>
@@ -51,6 +52,14 @@
     text-align: left;
     font-family: SourceHanSansSC-bold;
     margin-bottom: 19px;
+  }
+  .Info {
+    text-align: left;
+    color: #FFBA00;
+    font-size: 16px;
+    width: 50vw;
+    float: left;
+    padding: 5px 0;
   }
   .editBox {
     .usage-li{
@@ -227,6 +236,7 @@ export default {
   data() {
     return {
       placeHolder: '111',
+      isShowInfo: false,
       usage:[
         {
           'usage':'',
@@ -249,7 +259,12 @@ export default {
       this.$set(this.usage,this.usage.length,{'usage':'','usage2':''})
     },
     remove: function(item, index) {
-      this.usage.splice(index, 1);
+      if(this.usage.length >=2){
+        this.usage.splice(index, 1);
+      } else {
+        this.isShowInfo = true
+      }
+      
     },
     changeIndex(){
       this.isChangeIndex = true
