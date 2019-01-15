@@ -1,8 +1,8 @@
 <template>
   <div class="page-usage">
+    <p class="title">用料</p>
     <!-- 编辑用料信息 -->
     <div class='editBox' v-show="!isChangeIndex">
-      <p class="title">用料</p>
       <div v-for="(item,index) in usage" class="usage-li" :key="index">
         <MyInputUsage v-model='item.usage' :placeholderValue='placeHolder' class='MyClass'></MyInputUsage>
         <MyInputUsage v-model='item.usage2' :placeholderValue='placeHolder' class='MyClass'></MyInputUsage>
@@ -20,9 +20,11 @@
               <div class='imgLeft'>
                 <img src="../../assets/img/del.png" class="delete" alt="删除" v-on:click="remove(item, index)">
               </div>
-              <div class='txtBox'>
-                <div class='yongliao'>{{item.usage}}</div>
-                <div class='yongliang'>{{item.usage2}}</div>
+              <div class='editBox1'>
+                <div class="usage-li" :key="index">
+                  <MyInputUsage v-model='item.usage' :placeholderValue='placeHolder' class='MyClass'></MyInputUsage>
+                  <MyInputUsage v-model='item.usage2' :placeholderValue='placeHolder' class='MyClass'></MyInputUsage>
+                </div>
               </div>
               <div class='imgRight'>
                 <img src="../../assets/img/more11.png" class="move" alt="移动">
@@ -41,15 +43,16 @@
   margin: 0 auto;
   margin-bottom: 36px;
   margin-top: 18px;
+  overflow: hidden;
+  .title {
+    color: rgba(16, 16, 16, 1);
+    font-weight: bolder;
+    font-size: 0.533333rem;
+    text-align: left;
+    font-family: SourceHanSansSC-bold;
+    margin-bottom: 19px;
+  }
   .editBox {
-    .title {
-      color: rgba(16, 16, 16, 1);
-      font-weight: bolder;
-      font-size: 0.533333rem;
-      text-align: left;
-      font-family: SourceHanSansSC-bold;
-      margin-bottom: 19px;
-    }
     .usage-li{
       height: auto;
       padding: 8px 0;
@@ -90,6 +93,56 @@
     }
   }
   .dragDiv {
+
+  .editBox1 {
+    .title {
+      color: rgba(16, 16, 16, 1);
+      font-weight: bolder;
+      font-size: 0.533333rem;
+      text-align: left;
+      font-family: SourceHanSansSC-bold;
+      margin-bottom: 19px;
+    }
+    .usage-li{
+      width: 75vw;
+      height: auto;
+      padding: 8px 0;
+      display: flex;
+      font-size: 16px;
+    }
+    .frist {
+      border-top: 1px solid rgba(227, 224, 224, 1);
+    }
+
+    .usage-li::after {
+      display:block;
+      content: '';
+      clear:both;
+      height: 0px;      
+    }
+    .rich:focus:before{
+    content:none;
+    }
+    .addstep {
+      margin-top: 15px;
+      text-align: left;
+      color: #FFBA00;
+      font-size: 16px;
+
+      .addALine {
+        float: left;
+      }
+      .changeIndex {
+        float: right;
+      }
+    }
+    .addstep::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+
     .list-complete-item {
       height: auto;
       font-size: 16px;
