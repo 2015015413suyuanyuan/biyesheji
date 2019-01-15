@@ -31,7 +31,7 @@
         </transition-group>
       </draggable> 
       <div class='save' @click="changeOver">调整完成</div>
-    </div>    
+    </div> 
   </div>
 </template>
 
@@ -202,6 +202,7 @@ export default {
       this.isChangeIndex = true
     },
     changeOver(){
+      console.log('调整完成，usage',this.usage);
       this.isChangeIndex = false
     },
     dayin(){

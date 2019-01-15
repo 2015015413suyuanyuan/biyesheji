@@ -57,7 +57,7 @@ export default {
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.data.message == '注册成功') {
-          localStorage.setItem('username', JSON.stringify(res.data.username));
+          localStorage.setItem('username', res.data.username);
           localStorage.setItem('id', JSON.stringify(res.data.id));
           localStorage.setItem('state', JSON.stringify(res.data.state));
           console.log(localStorage.getItem('username'));

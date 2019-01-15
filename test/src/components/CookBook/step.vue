@@ -1,27 +1,64 @@
 <template>
 <div class="step">
     <p class="cooktitle">做法</p>
-    <div v-for="(item, index) in step" class="little" :key="index">
-      <p class="txt">步骤{{index+1}}</p>
-      <div class="upload">
-        <div class="img-container">
-          <article :class="{displayImg:!item.displayImg}" class="pstyle">
-            <p class="p1">
-                + 步骤图
-            </p>
-            <p class="p2">
-                清晰的步骤图会让菜谱更瘦欢迎
-            </p>
-          </article>
-          <img :src="item.img" alt="user image" class="special" :class="{displayImg:item.displayImg}"> 
+    <div class='editStep' v-show="!isShowChange">
+      <div v-for="(item, index) in step" class="little" :key="index">
+        <p class="txt">步骤{{index+1}}</p>
+        <div class="upload">
+          <div class="img-container">
+            <article :class="{displayImg:!item.displayImg}" class="pstyle">
+              <p class="p1">
+                  + 步骤图
+              </p>
+              <p class="p2">
+                  清晰的步骤图会让菜谱更瘦欢迎
+              </p>
+            </article>
+            <img :src="item.img" alt="user image" class="special" :class="{displayImg:item.displayImg}"> 
+          </div>
+            <input type="file" @change="getFile(index,item.img)" ref="file" id="file">
         </div>
-          <input type="file" @change="getFile(index,item.img)" ref="file" id="file">
-      </div>
-      <MyInputStep v-model='item.detail' :placeholderValue='placeHolder' :idx='index' class='MyClass' @toFatherData='getStepText'></MyInputStep>
-    </div> 
-    <p class="addstep" @click="addStep">
-        增加一步
-    </p> 
+        <MyInputStep v-model='item.detail' :placeholderValue='placeHolder' :idx='index' class='MyClass' @toFatherData='getStepText'></MyInputStep>
+      </div> 
+      <p class="addstep">
+          <span @click="addStep">增加一步</span>
+          <span @click="changeStep" class='textRight'>调整步骤</span>
+      </p>
+    </div>
+
+    <div class='changeStep' v-show="isShowChange">
+      <draggable :list="step" class='dragDiv'> 
+        <transition-group name="list-complete">
+          <div v-for="(item, index) in step" :key="index" class="list-complete-item">
+              <div class='imgLeft'>
+                <img src="../../assets/img/del.png" class="delete" alt="删除" v-on:click="remove(item, index)">
+              </div>
+              <div class='content'>
+                <div class="upload">
+                  <div class="img-container">
+                    <article :class="{displayImg:!item.displayImg}" class="pstyle">
+                      <p class="p1">
+                          + 步骤图
+                      </p>
+                      <p class="p2">
+                          清晰的步骤图会让菜谱更瘦欢迎
+                      </p>
+                    </article>
+                    <img :src="item.img" alt="user image" class="special" :class="{displayImg:item.displayImg}"> 
+                  </div>
+                  <input type="file" @change="getFile(index,item.img)" ref="file" class="file">
+                </div>
+                <MyInputStep v-model='item.detail' :placeholderValue='placeHolder' :idx='index' class='MyClass' @toFatherData='getStepText'></MyInputStep>
+              </div>
+              <div class='imgRight'>
+                <img src="../../assets/img/more11.png" class="move" alt="移动">
+              </div>              
+          </div>
+        </transition-group>
+      </draggable>
+      <div class='Info' v-show="mostOneStep">最少一个步骤哦~</div>
+      <div class='save' @click="changeOver">调整完成</div>
+    </div>
 </div>
 </template>
 <style lang="scss" scoped>
@@ -32,17 +69,6 @@
   input{
       outline: none;
   }
-
-  p {
-      margin: 0;
-      padding: 0;
-  }
-  .addstep{
-      padding: 5px 0;
-      color: #FFBA00;
-      text-align: left;
-      font-size: 16px;
-  }
   .cooktitle{
       padding: 5px 0;
       text-align: left;
@@ -50,61 +76,177 @@
       font-size: 20px;
       color: #101010;
   }
-  .little{
-      position: relative;
-      margin-bottom: 10px;
+  p {
+      margin: 0;
+      padding: 0;
   }
-  .txt{
-      font-weight: bolder;
-      text-align: left;
-      font-size: 19px;
-      color: #101010;
-  }
-  .img-container{
-      width: 100%;
-      height: 100%;
-    .displayImg{
-        display: none;
+  .editStep {
+    .addstep{
+        margin-top: 5px;
+        color: #FFBA00;
+        text-align: left;
+        font-size: 16px;
+        .textRight {
+          float: right;
+        }
     }
-    .special{
+    .little{
+        position: relative;
+        margin-bottom: 10px;
+    }
+    .txt{
+        font-weight: bolder;
+        text-align: left;
+        font-size: 19px;
+        color: #101010;
+    }
+    .img-container{
         width: 100%;
-        height:100%;
-        background-color: white;
+        height: 100%;
+      .displayImg{
+          display: none;
+      }
+      .special{
+          width: 100%;
+          height:100%;
+          background-color: white;
+      }
+    }
+
+    .upload{
+      position: relative;
+      margin-top: 10px;
+      width: 100vw;
+      height: 220px;
+      background-color: #efefed;
+      color: #b3b3b3;
+    }
+    #file{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        font-size: 18px;
+    }
+    .pstyle {
+        height: 220px;
+        font-size: 18px;
+        color: #A29999;
+        p {
+            height: 28px;
+        }
+        .p1 {
+            padding-top: 82px;
+        }
     }
   }
+  .save {
+    color: #FFBA00;
+    font-size: 16px;
+    text-align: right;
+    padding: 5px 0;
+    width: 30vw;
+    float: right;
+  }
+.dragDiv {
+  .content {
+    width: 70vw;
+    margin-right: 25px;
+  }
+  .list-complete-item {
+    height: auto;
+    font-size: 16px;
+    color: #101010;
+    border-bottom: 1px solid #e3e3e3;
+    text-align: left;
+    display: flex;
+    align-items:center;
 
-  .upload{
-    position: relative;
-    margin-top: 10px;
-    width: 100vw;
-    height: 220px;
-    background-color: #efefed;
-    color: #b3b3b3;
-  }
-  #file{
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      font-size: 18px;
-  }
-  .pstyle {
-      height: 220px;
-      font-size: 18px;
-      color: #A29999;
-      p {
-          height: 28px;
+    .imgLeft {
+      width: 35px;
+      display: flex;
+      justify-content : left;
+      align-items:left;
+      img {
+        width: 24px;
+        height: 24px;
       }
-      .p1 {
-          padding-top: 82px;
+    }
+
+    .imgRight {
+      width: 35px;
+      display: flex;
+      justify-content : right;
+      align-items:right;
+      img {
+        width: 24px;
+        height: 24px;
       }
+    }
+    .upload {
+      position: relative;
+      margin-top: 10px;
+      width: 70vw;
+      height: 120px;
+      background-color: #efefed;
+      color: #b3b3b3;
+
+      .file {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70vw;
+        height: 120px;
+        opacity: 0;
+        font-size: 18px;
+      }
+    }
+    .pstyle {
+      width: 60vw;
+    }
+    .img-container{
+        width: 70vw;
+        height: 120px;
+      .displayImg{
+          display: none;
+      }
+      .special{
+          width: 100%;
+          height:100%;
+          background-color: white;
+      }
+    }
+    .MyClass {
+      clear: both;
+      width: 70vw;
+    }
+  }
+  .list-complete-item::after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+  }
+  .dragDiv::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+  .Info {
+    text-align: left;
+    color: #FFBA00;
+    font-size: 16px;
+    width: 50vw;
+    float: left;
+    padding: 5px 0;
   }
 }
 </style>
 <script>
 import MyInputStep from './MyInputStep';
+import draggable from 'vuedraggable';
 
 export default {
   data() {
@@ -132,23 +274,28 @@ export default {
             detail:'',
             displayImg:true
         }
-      ]
+      ],
+      // 显示调整步骤
+      isShowChange: false,
+      // 显示提示信息 最少一步
+      mostOneStep: false
     };
   },
   components: {
-    MyInputStep
+    MyInputStep,
+    draggable
   },
-    watch: {
-      step: {
-        handler: function (newVal) {
-          for(var i=0;i<newVal.length;i++){
-              if(newVal[i].img !== ''){
-              newVal[i].displayImg = false;
-              }
-          }
-        },
-        deep: true
-      }
+  watch: {
+    step: {
+      handler: function (newVal) {
+        for(var i=0;i<newVal.length;i++){
+            if(newVal[i].img !== ''){
+            newVal[i].displayImg = false;
+            }
+        }
+      },
+      deep: true
+    }
   },
   methods: {
     getFile (idx,img) {
@@ -166,12 +313,25 @@ export default {
       }
     },
     addStep (){
-      this.$set(this.step,this.step.length,{num:'4',img:'',detail:'',displayImg:true})
+    this.$set(this.step,this.step.length,{num:'4',img:'',detail:'',displayImg:true})
     },
     getStepText (data){
-        console.log('data',data)
+      console.log('data',data)
+    },
+    remove: function(item, index) {
+      if(this.step.length<=1) {
+        this.mostOneStep = true
+      } else {
+        this.step.splice(index, 1);
+      }
+    },
+    changeStep () {
+      this.isShowChange = true
+    },
+    changeOver() {
+      console.log('调整完成，step',this.step);
+      this.isShowChange = false
     }
   }
 }    
 </script>
-
