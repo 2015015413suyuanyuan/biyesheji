@@ -1,5 +1,5 @@
 <template>
-    <div class="edit-div3"
+    <div class="edit-div4"
          v-html="innerText"
          :contenteditable="canEdit"
          @focus="isLocked = true"
@@ -48,7 +48,7 @@ export default{
 }
 </script>
 <style lang="scss"  scoped>
-  .edit-div3 {
+  .edit-div4 {
     margin: 0 auto;
     width: 95vw;
     min-height: 30px;
@@ -64,6 +64,7 @@ export default{
     font-size: 8px;
     &[contenteditable=true]{
       -webkit-user-modify: read-write-plaintext-only;
+      font-size: 16px;
       &:empty:before {
         content: attr(placeholder);
         font-size: 16px;

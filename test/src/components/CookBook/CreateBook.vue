@@ -13,16 +13,7 @@
     <p class="tip">小贴士</p>
     <MyInputTip v-model='inputTipValue' :placeholderValue='tipPlaceHolder' ></MyInputTip>
   </section>
-  <!-- <router-link to="/CookClassify" class="linktoclassify">
-    <div class="box">
-      <span>推荐至分类</span>
-      <i class="right"></i>
-    </div>
-  </router-link>
-  <ul class='classifyList'>
-    <li v-for="(item, index) in classifyList" :key="index">{{item}}</li>
-  </ul> -->
-  <div class='myBtn'>
+  <div class='myBtn' @click="publicTheCook">
     发布这个菜谱
   </div>
   <!-- 提示用户是否退出编辑 -->
@@ -83,17 +74,20 @@ export default {
     MyInputTip
   },
   methods: {
-  openConfirm() {
-    this.$refs.modal.style.display = 'block'
-    this.$refs.msgbox.style.display = 'block'  
-  },
-  cancel(){
-    this.$refs.modal.style.display = 'none'
-    this.$refs.msgbox.style.display = 'none'
-  },
-  dele(){
-    this.$router.push('/')
-  },
+    openConfirm() {
+      this.$refs.modal.style.display = 'block'
+      this.$refs.msgbox.style.display = 'block'  
+    },
+    cancel(){
+      this.$refs.modal.style.display = 'none'
+      this.$refs.msgbox.style.display = 'none'
+    },
+    dele(){
+      this.$router.push('/')
+    },
+    publicTheCook() {
+      console.log('this.inputVlue', this.inputVlue,'this.inputTipValue', this.inputTipValue,'inputStoryValue',this.inputStoryValue,'usage',JSON.parse(localStorage.getItem('usage')))
+    }
   }
 }
 </script>

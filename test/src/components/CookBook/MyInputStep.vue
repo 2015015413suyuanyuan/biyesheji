@@ -73,6 +73,7 @@ export default{
     font-size: 10px;
     &[contenteditable=true]{
       -webkit-user-modify: read-write-plaintext-only;
+      font-size: 14px;
       &:empty:before {
         content: attr(placeholder);
         font-size: 16px;

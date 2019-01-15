@@ -3,7 +3,7 @@
          v-html="innerText"
          :contenteditable="canEdit"
          @focus="isLocked = true"
-         @blur="isLocked = false"
+         @blur="Locked"
          @input="changeText"
          :placeholder='placeholderValue'
          >
@@ -43,6 +43,10 @@ export default{
   methods: {
     changeText(){
       this.$emit('input', this.$el.innerHTML);
+    },
+    Locked(){
+      this.isLocked = false;
+      this.$emit('blurUsage',this.$el.innerHTML);
     }
   }
 }
@@ -65,6 +69,7 @@ export default{
     font-size: 10px;
     &[contenteditable=true]{
       -webkit-user-modify: read-write-plaintext-only;
+      font-size: 18px;
       &:empty:before {
         content: attr(placeholder);
         font-size: 16px;

@@ -66,6 +66,7 @@ export default{
     &[contenteditable=true]{
       text-align: left;
       -webkit-user-modify: read-write-plaintext-only;
+      font-size: 16px;
       &:empty:before {
         content: attr(placeholder);
         font-size: 16px;
