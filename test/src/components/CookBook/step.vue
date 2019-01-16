@@ -48,6 +48,17 @@
                   </div>
                   <input type="file" @change="getFile(index,item.img)" ref="file" class="file">
                 </div>
+                    <div class="edit-div1"
+                      v-html="item.detail"
+                      :contenteditable="canEdit"
+                      @focus="isLocked = true"
+                      @blur="toFatherData"
+                      @input="changeText"
+                      :placeholder='placeholderValue'
+                      ref="inputStep"
+                      id="inputStep"
+                      >
+                  </div>
                 <MyInputStep :placeholderValue='placeHolder' :idx='index' class='MyClass' @toFatherData='getStepText'></MyInputStep>
               </div>
               <div class='imgRight'>
@@ -242,6 +253,32 @@
     float: left;
     padding: 5px 0;
   }
+  .edit-div1 {
+    text-align: left;
+    margin: 0 auto;
+    width: 95vw;
+    min-height: 30px;
+    max-height: 300px;
+    _height: 26px;
+    line-height: 30px;
+    overflow: auto;
+    word-break: break-all;
+    outline: none;
+    user-select: text;
+    white-space: pre-wrap;
+    color: #101010;
+    font-size: 10px;
+    &[contenteditable=true]{
+      -webkit-user-modify: read-write-plaintext-only;
+      font-size: 14px;
+      &:empty:before {
+        content: attr(placeholder);
+        font-size: 16px;
+        display: block;
+        color: #A29999;
+      }
+    }
+  }
 }
 </style>
 <script>
@@ -252,6 +289,8 @@ import { sep } from 'path';
 export default {
   data() {
     return {
+      isLocked: false,
+      innerText: '',
       removeClass:true,
       inputVlue: '',
       placeHolder: '添加步骤说明',
@@ -350,7 +389,10 @@ export default {
     changeOver() {
       localStorage.setItem('step',JSON.stringify(this.step));
       this.isShowChange = false
-    }
+    },
+    changeText(){
+      this.$refs.inputStep.innerHTML
+    },
   }
 }    
 </script>
