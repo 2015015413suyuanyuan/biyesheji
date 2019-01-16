@@ -5,7 +5,7 @@
             <!-- <router-link to="/CreateBook" slot="right" :class="{ colorStyle: isActive }"> -->
             <mt-button slot="right" class='disabledA' :class="{ colorStyle: isActive }" @click.native="toNext">继续</mt-button>
         </mt-header>
-        <MyInput v-model='inputVlue' :placeholderValue='placeHolder' class='MyClass'></MyInput>
+        <MyInput  :placeholderValue='placeHolder' class='MyClass' @cookName1='cookName1'></MyInput>
         <section class="inputspe1">
             <p class="tip">提示</p>
             <p class='specialLineHeight'>
@@ -34,23 +34,15 @@
 import { MessageBox } from 'mint-ui';
 import { Header } from 'mint-ui';
 import MyInput from './MyInput.vue'
+import MyInputTip from './MyInputTip.vue'
 export default {
   name: 'page-cookbook',
   data() {
     return {
-      inputVlue: '',
       placeHolder: '写下你的菜谱名吧',
-      isActive: false
+      isActive: false,
+      cookName: ''
     };
-  },
-  watch: {
-    'inputVlue'(){
-      if(this.inputVlue != ''){
-        this.isActive = true
-      }else {
-        this.isActive = false
-      }
-    }
   },
   methods: {
     openConfirm() {
@@ -61,20 +53,30 @@ export default {
       if(this.isActive){
         this.$router.push({
           name: "CreateBook",
-          params: { cookName: this.inputVlue }
-      });
+          params: { cookName: this.cookName }
+        });
+        localStorage.setItem('cookName',this.cookName);
       }
     },
-  cancel(){
-    this.$refs.modal.style.display = 'none'
-    this.$refs.msgbox.style.display = 'none'
-  },
-  dele(){
-    this.$router.push('/')
-  },
+    cancel(){
+      this.$refs.modal.style.display = 'none'
+      this.$refs.msgbox.style.display = 'none'
+    },
+    dele(){
+      this.$router.push('/')
+    },
+    cookName1(data){
+      this.cookName = data;
+      if(this.cookName != ''){
+        this.isActive = true
+      }else {
+        this.isActive = false
+      }
+    }
   },
   components: {
-    MyInput
+    MyInput,
+    MyInputTip
   }
 };   
 </script>

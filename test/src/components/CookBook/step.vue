@@ -18,7 +18,7 @@
           </div>
             <input type="file" @change="getFile(index,item.img)" ref="file" id="file">
         </div>
-        <MyInputStep v-model='item.detail' :placeholderValue='placeHolder' :idx='index' class='MyClass' @toFatherData='getStepText'></MyInputStep>
+        <MyInputStep :placeholderValue='placeHolder' :idx='index' class='MyClass' @toFatherData='getStepText'></MyInputStep>
       </div> 
       <p class="addstep">
           <span @click="addStep">增加一步</span>
@@ -48,7 +48,7 @@
                   </div>
                   <input type="file" @change="getFile(index,item.img)" ref="file" class="file">
                 </div>
-                <MyInputStep v-model='item.detail' :placeholderValue='placeHolder' :idx='index' class='MyClass' @toFatherData='getStepText'></MyInputStep>
+                <MyInputStep :placeholderValue='placeHolder' :idx='index' class='MyClass' @toFatherData='getStepText'></MyInputStep>
               </div>
               <div class='imgRight'>
                 <img src="../../assets/img/more11.png" class="move" alt="移动">
@@ -247,6 +247,7 @@
 <script>
 import MyInputStep from './MyInputStep';
 import draggable from 'vuedraggable';
+import { sep } from 'path';
 
 export default {
   data() {
@@ -260,19 +261,22 @@ export default {
             num:'1',
             img:'',
             detail:'',
-            displayImg:true
+            displayImg:true,
+            back:''
         },
         {
             num:'2',
             img:'',
             detail:'',
-            displayImg:true
+            displayImg:true,
+            back:''
         },
         {
             num:'3',
             img:'',
             detail:'',
-            displayImg:true
+            displayImg:true,
+            back:''
         }
       ],
       // 显示调整步骤
@@ -298,38 +302,53 @@ export default {
     }
   },
   methods: {
-    getFile (idx,img) {
+    getFile (idx,img,detail) {
+      const that = this;
       var step = this.step;
       const e = window.event;
       let _this = this
       var files = e.target.files[0]
+      this.file = files
+      const params = new FormData();
+      params.append('file',this.file,this.file.name);
+      that.axios.post('http://140.143.75.82:81/index.php/upload', params,{
+        headers: {'Content-Type': 'multipart/form-data'}
+      }).then((res) => {
+        if(res.data != ''){ 
+          console.log(res.data.image)
+          this.step[idx].back= res.data.image
+
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
       if (!e || !window.FileReader) return  // 看支持不支持FileReader
       let reader = new FileReader()
       reader.readAsDataURL(files) // 这里是最关键的一步，转换就在这里
       reader.onloadend = function () {
         img = this.result;
         step[idx].img=this.result;
-        console.log('this.result', this.result)
       }
     },
     addStep (){
     this.$set(this.step,this.step.length,{num:'4',img:'',detail:'',displayImg:true})
     },
     getStepText (data){
-      console.log('data',data)
+      localStorage.setItem('step',JSON.stringify(this.step));
     },
     remove: function(item, index) {
       if(this.step.length<=1) {
         this.mostOneStep = true
       } else {
         this.step.splice(index, 1);
+        localStorage.setItem('step',JSON.stringify(this.step));
       }
     },
     changeStep () {
       this.isShowChange = true
     },
     changeOver() {
-      console.log('调整完成，step',this.step);
+      localStorage.setItem('step',JSON.stringify(this.step));
       this.isShowChange = false
     }
   }

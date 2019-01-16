@@ -7,7 +7,6 @@ import Home from '@/components/Home/Home'
 // 创建菜谱 
 import CookBook from '@/components/CookBook/CookBook'
 import CreateBook from '@/components/CookBook/CreateBook'
-import CookClassify from '@/components/CookBook/CookClassify'
 
 // 厨房故事
 import KitchenStory from '@/components/KitchenStory/KitchenStory'
@@ -98,12 +97,6 @@ export default new Router({
       path: '/CookBook1',
       name: 'CookBook1',
       component: CookBook1,
-      meta: { navShow: false}
-    },
-    {
-      path: '/CookClassify',
-      name: 'CookClassify',
-      component: CookClassify,
       meta: { navShow: false}
     },
     {

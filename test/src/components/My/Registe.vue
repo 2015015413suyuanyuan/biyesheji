@@ -60,7 +60,6 @@ export default {
           localStorage.setItem('username', res.data.username);
           localStorage.setItem('id', JSON.stringify(res.data.id));
           localStorage.setItem('state', JSON.stringify(res.data.state));
-          console.log(localStorage.getItem('username'));
           this.$router.push({
             name: "Logged",
             params: { username: res.data.username }            

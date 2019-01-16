@@ -4,8 +4,8 @@
     <!-- 编辑用料信息 -->
     <div class='editBox' v-show="!isChangeIndex">
       <div v-for="(item,index) in usage" class="usage-li" :key="index">
-        <MyInputUsage v-model='item.usage' :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
-        <MyInputUsage v-model='item.usage2' :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
+        <MyInputUsage :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
+        <MyInputUsage :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
       </div>
       <p class="addstep">
         <span class='addALine'  @click="addStep">再增加一行</span>
@@ -22,8 +22,8 @@
               </div>
               <div class='editBox1'>
                 <div class="usage-li" :key="index">
-                  <MyInputUsage v-model='item.usage' :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
-                  <MyInputUsage v-model='item.usage2' :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
+                  <MyInputUsage :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
+                  <MyInputUsage :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
                 </div>
               </div>
               <div class='imgRight'>
@@ -264,13 +264,12 @@ export default {
       } else {
         this.isShowInfo = true
       }
-      
     },
     changeIndex(){
       this.isChangeIndex = true
     },
     changeOver(){
-      console.log('调整完成，usage',this.usage);
+      localStorage.setItem('usage',JSON.stringify(this.usage));
       this.isChangeIndex = false
     },
     dayin(){

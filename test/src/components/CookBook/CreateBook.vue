@@ -4,14 +4,24 @@
     <mt-button class="canclecolor"  @click.native="openConfirm" slot="left">取消</mt-button>
   </mt-header> 
   <Cropper></Cropper>
-  <MyInput v-model='inputVlue' :placeholderValue='placeHolder' class='MyClass'></MyInput>
+  <div class="edit-div123 MyClass"
+      v-html="innerText"
+      :contenteditable="canEdit"
+      @focus="isLocked = true"
+      @blur="isLocked = false"
+      @input="changeText"
+      :placeholder='placeholderValue'
+      ref='input111'
+      id="input111"
+      >
+</div>
   <div class="hr"></div>
-  <MyInputaStory v-model='inputStoryValue' :placeholderValue='storyPlaceHolder' class='storyClass'></MyInputaStory>
+  <MyInputaStory :placeholderValue='storyPlaceHolder' class='storyClass'></MyInputaStory>
   <Usage></Usage>
   <Step></Step>
   <section>
     <p class="tip">小贴士</p>
-    <MyInputTip v-model='inputTipValue' :placeholderValue='tipPlaceHolder' ></MyInputTip>
+    <MyInputTip :placeholderValue='tipPlaceHolder' ></MyInputTip>
   </section>
   <div class='myBtn' @click="publicTheCook">
     发布这个菜谱
@@ -46,6 +56,11 @@ import MyInputTip from './MyInputTip.vue'
 export default {
   data() {
     return {
+      value: '',
+      canEdit: true,
+      innerText: this.value,
+      isLocked: false,
+      placeholderValue: '',
       inputVlue: '',
       inputStoryValue: '',
       inputTipValue: '',
@@ -56,14 +71,15 @@ export default {
       tipPlaceHolder: '这道菜还有哪些需要注意的细节和小技巧？'
     };
   },
-  created()  { 
+  created()  {
     if(JSON.stringify(this.$route.params.new) != '[]'){
       this.isShowClassifyList = true
       this.classifyList = this.$route.params.new
     }
     if(this.$route.params.cookName  != ''){
-      this.inputVlue = this.$route.params.cookName
+      this.innerText = this.$route.params.cookName
     }
+    localStorage.clear();
   },
   components: {
     Step,
@@ -86,14 +102,47 @@ export default {
       this.$router.push('/')
     },
     publicTheCook() {
-      console.log('this.inputVlue', this.inputVlue,'this.inputTipValue', this.inputTipValue,'inputStoryValue',this.inputStoryValue,'usage',JSON.parse(localStorage.getItem('usage')))
-    }
+      console.log('this.inputVlue', this.inputVlue,'this.inputTipValue', 
+      this.inputTipValue,'inputStoryValue',this.inputStoryValue,
+      'usage',JSON.parse(localStorage.getItem('usage')),
+      'step',JSON.parse(localStorage.getItem('step')),
+      // 'coverImage',localStorage.getItem('coverImage'),
+      )
+    },
+    changeText(){
+      console.log( this.$refs.input111.innerHTML);
+    }   
   }
 }
 </script>
 <style lang="scss" scoped>
 .canclecolor{
   color: #FF9800 !important;
+}
+.edit-div123 {
+  margin: 0 auto;
+  width: 95vw;
+  min-height: 30px;
+  max-height: 300px;
+  _height: 26px;
+  line-height: 30px;
+  overflow: auto;
+  word-break: break-all;
+  outline: none;
+  user-select: text;
+  white-space: pre-wrap;
+  color: #101010;
+  font-size: 22px;
+  &[contenteditable=true]{
+    -webkit-user-modify: read-write-plaintext-only;
+    font-size: 16px;
+    &:empty:before {
+      content: attr(placeholder);
+      font-size: 22px;
+      display: block;
+      color: #555353;
+    }
+  }
 }
 .tip{
   text-align: left;

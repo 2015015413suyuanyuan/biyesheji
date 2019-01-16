@@ -30,19 +30,12 @@ export default{
     return {
       innerText: this.value,
       isLocked: false,
-      placeHolderStyle: {}
-    }
-  },
-  watch: {
-    'value'(){
-      if (!this.isLocked || !this.innerText) {
-        this.innerText = this.value;
-      }
     }
   },
   methods: {
     changeText(){
       this.$emit('input', this.$el.innerHTML);
+      this.$emit('cookName1',this.$el.innerHTML);
     }
   }
 }

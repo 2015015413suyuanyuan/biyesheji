@@ -2,7 +2,7 @@
   <div class="page-tabbar">
     <div class='header'>
       <div class='header-left'>
-        <img src="../../assets/img/logo.jpg" alt="">
+        <img :src="userImage" alt="">
         <p>厨友154331094</p>
       </div>
       <div class='header-right'>
@@ -126,7 +126,8 @@ export default {
           userImg: '/static/img/food2.jpg',
           userName: '手机用户1111'
         }        
-      ]
+      ],
+      userImage: '',
     };
   },
   components: {
@@ -136,22 +137,14 @@ export default {
       var username = localStorage.getItem('username');
       console.log(username)
       const data = {
-        "username": username
+        "username": 'zz'
       }
       const data1 = this.qs.parse(data)
       this.axios.post('http://140.143.75.82:81/index.php/basicInfo', data1,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        // if(res.data.message == '注册成功') {
-        //   localStorage.setItem('username', JSON.stringify(res.data.username));
-        //   localStorage.setItem('id', JSON.stringify(res.data.id));
-        //   localStorage.setItem('state', JSON.stringify(res.data.state));
-        //   this.$router.push({
-        //     name: "Logged",
-        //     params: { username: res.data.username }
-        //   });       
-        // }
-        console.log(res)
+        console.log(res.data[0].image)
+        this.userImage = res.data[0].image
       }).catch((err) => {
         console.log(err)
       })

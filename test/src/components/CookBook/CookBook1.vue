@@ -12,7 +12,8 @@
             <img src="../../assets/img/create.jpg" class="create" alt="创建菜单进入图片">
             <p>创建菜单</p>        
         </router-link>
-    </main>   
+    </main>
+    
 </div>
 </template>
 <style lang="scss" scoped>
@@ -56,6 +57,6 @@ export default {
     return {
       value: "外卖"
     };
-  }
+  },
 };
 </script>
