@@ -4,24 +4,11 @@
     <mt-button class="canclecolor"  @click.native="openConfirm" slot="left">取消</mt-button>
   </mt-header> 
   <Cropper></Cropper>
-  <div class="edit-div123 MyClass"
-      v-html="innerText"
-      :contenteditable="canEdit"
-      @focus="isLocked = true"
-      @blur="isLocked = false"
-      @input="changeText"
-      :placeholder='placeholderValue'
-      ref='input111'
-      id="input111"
-      >
-</div>
   <div class="hr"></div>
-  <MyInputaStory :placeholderValue='storyPlaceHolder' class='storyClass'></MyInputaStory>
   <Usage></Usage>
   <Step></Step>
   <section>
     <p class="tip">小贴士</p>
-    <MyInputTip :placeholderValue='tipPlaceHolder' ></MyInputTip>
   </section>
   <div class='myBtn' @click="publicTheCook">
     发布这个菜谱
@@ -49,26 +36,12 @@ import Step from './Step'
 import { Header } from 'mint-ui';
 import Usage from './Usage'
 import Cropper from './Cropper.vue';
-import MyInput from './MyInput.vue'
-import MyInputaStory from './MyInputaStory.vue'
-import MyInputTip from './MyInputTip.vue'
 
 export default {
   data() {
     return {
-      value: '',
-      canEdit: true,
-      innerText: this.value,
-      isLocked: false,
-      placeholderValue: '',
-      inputVlue: '',
-      inputStoryValue: '',
-      inputTipValue: '',
       classifyList:[],
       isShowClassifyList: false,
-      placeHolder: '写下你的菜谱名吧',
-      storyPlaceHolder: '输入这道美食背后的故事',
-      tipPlaceHolder: '这道菜还有哪些需要注意的细节和小技巧？'
     };
   },
   created()  {
@@ -85,9 +58,6 @@ export default {
     Step,
     Usage,
     Cropper,
-    MyInput,
-    MyInputaStory,
-    MyInputTip
   },
   methods: {
     openConfirm() {

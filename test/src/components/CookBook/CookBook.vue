@@ -5,7 +5,6 @@
             <!-- <router-link to="/CreateBook" slot="right" :class="{ colorStyle: isActive }"> -->
             <mt-button slot="right" class='disabledA' :class="{ colorStyle: isActive }" @click.native="toNext">继续</mt-button>
         </mt-header>
-        <MyInput  :placeholderValue='placeHolder' class='MyClass' @cookName1='cookName1'></MyInput>
         <section class="inputspe1">
             <p class="tip">提示</p>
             <p class='specialLineHeight'>
@@ -33,13 +32,11 @@
 <script>
 import { MessageBox } from 'mint-ui';
 import { Header } from 'mint-ui';
-import MyInput from './MyInput.vue'
-import MyInputTip from './MyInputTip.vue'
+
 export default {
   name: 'page-cookbook',
   data() {
     return {
-      placeHolder: '写下你的菜谱名吧',
       isActive: false,
       cookName: ''
     };
@@ -65,19 +62,7 @@ export default {
     dele(){
       this.$router.push('/')
     },
-    cookName1(data){
-      this.cookName = data;
-      if(this.cookName != ''){
-        this.isActive = true
-      }else {
-        this.isActive = false
-      }
-    }
   },
-  components: {
-    MyInput,
-    MyInputTip
-  }
 };   
 </script>
 <style lang="scss" scoped>

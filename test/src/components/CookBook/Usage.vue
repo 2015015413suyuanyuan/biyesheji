@@ -4,8 +4,6 @@
     <!-- 编辑用料信息 -->
     <div class='editBox' v-show="!isChangeIndex">
       <div v-for="(item,index) in usage" class="usage-li" :key="index">
-        <MyInputUsage :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
-        <MyInputUsage :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
       </div>
       <p class="addstep">
         <span class='addALine'  @click="addStep">再增加一行</span>
@@ -22,8 +20,6 @@
               </div>
               <div class='editBox1'>
                 <div class="usage-li" :key="index">
-                  <MyInputUsage :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
-                  <MyInputUsage :placeholderValue='placeHolder' class='MyClass' @blurUsage="pushlicUsage"></MyInputUsage>
                 </div>
               </div>
               <div class='imgRight'>
@@ -37,6 +33,59 @@
     </div> 
   </div>
 </template>
+
+
+
+<script>
+import draggable from 'vuedraggable'
+
+export default {
+  name: 'footer-view',
+  data() {
+    return {
+      isShowInfo: false,
+      usage:[
+        {
+          'usage':'',
+          'usage2':''
+        }
+      ],
+      isChangeIndex: false
+    };
+  },
+  created() {
+    this.usage = Object.assign([], this.usage)
+
+  },
+  components: {
+      draggable,
+  },
+  methods: {
+    addStep () {
+      this.$set(this.usage,this.usage.length,{'usage':'','usage2':''})
+    },
+    remove: function(item, index) {
+      if(this.usage.length >=2){
+        this.usage.splice(index, 1);
+      } else {
+        this.isShowInfo = true
+      }
+    },
+    changeIndex(){
+      this.isChangeIndex = true
+    },
+    changeOver(){
+      localStorage.setItem('usage',JSON.stringify(this.usage));
+      this.isChangeIndex = false
+    },
+    dayin(){
+    },
+    pushlicUsage() {
+      localStorage.setItem('usage',JSON.stringify(this.usage));
+    }
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .page-usage {
@@ -225,58 +274,3 @@
   }
 }
 </style>
-
-
-<script>
-import draggable from 'vuedraggable'
-import MyInputUsage from './MyInputUsage';
-
-export default {
-  name: 'footer-view',
-  data() {
-    return {
-      placeHolder: '111',
-      isShowInfo: false,
-      usage:[
-        {
-          'usage':'',
-          'usage2':''
-        }
-      ],
-      isChangeIndex: false
-    };
-  },
-  created() {
-    this.usage = Object.assign([], this.usage)
-
-  },
-  components: {
-      draggable,
-      MyInputUsage
-  },
-  methods: {
-    addStep () {
-      this.$set(this.usage,this.usage.length,{'usage':'','usage2':''})
-    },
-    remove: function(item, index) {
-      if(this.usage.length >=2){
-        this.usage.splice(index, 1);
-      } else {
-        this.isShowInfo = true
-      }
-    },
-    changeIndex(){
-      this.isChangeIndex = true
-    },
-    changeOver(){
-      localStorage.setItem('usage',JSON.stringify(this.usage));
-      this.isChangeIndex = false
-    },
-    dayin(){
-    },
-    pushlicUsage() {
-      localStorage.setItem('usage',JSON.stringify(this.usage));
-    }
-  },
-};
-</script>
