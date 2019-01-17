@@ -1,7 +1,7 @@
 <template>
   <div class="page-tabbar">
     <div class='header'>
-      <div class='header-left'>
+      <div class='header-left' @click="changeInfo">
         <img :src="userImage" alt="">
         <p>厨友154331094</p>
       </div>
@@ -70,7 +70,6 @@
 import { Tabbar } from 'mint-ui';
 import Vue from 'vue'
 import Router from 'vue-router'
-import { MessageBox } from 'mint-ui';
 import MyDiyBook from './MyDiyBook.vue'
 import { TabContainer, TabContainerItem } from 'mint-ui';
 
@@ -134,10 +133,8 @@ export default {
     MyDiyBook
   },
   created() {
-      var username = localStorage.getItem('username');
-      console.log(username)
       const data = {
-        "username": 'zz'
+        "username": localStorage.getItem('username')
       }
       const data1 = this.qs.parse(data)
       this.axios.post('http://140.143.75.82:81/index.php/basicInfo', data1,{
@@ -150,6 +147,11 @@ export default {
       })
   },
   methods: {
+    changeInfo() {
+      this.$router.push({
+        name: "ChangeInfo"
+      });  
+    },
     change(){
       this.isHasBookList = !this.isHasBookList
     },
@@ -180,13 +182,14 @@ export default {
     NoLogin() {
       console.log('退出登录',this.$route.params.username)
       const data = {
-        "username": this.$route.params.username
+        "username": localStorage.getItem('username')
       }
       this.axios.post('http://140.143.75.82:81/index.php/logout', this.qs.parse(data),{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.data.message == '退出成功') {
-          localStorage.clear();
+          localStorage.removeItem('username')
+          localStorage.removeItem('id')
           localStorage.setItem('state', '0');
           this.$router.push({
             name: "NoLogged"

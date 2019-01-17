@@ -1,9 +1,9 @@
 <template>
   <div class="page-usage">
     <p class="title">材料</p>
-      <div v-for="(item,index) in usage" class="usage-li" :key="index">
-        <div class='rich left'>{{item.usage1}}</div>
-        <div class='rich right'>{{item.usage2}}</div>
+      <div v-for="(item,index) in materials" class="usage-li" :key="index">
+        <div class='rich left'>{{item.materials_used}}</div>
+        <div class='rich right'>{{item.dosage}}</div>
       </div>
   </div>
 </template>
@@ -59,22 +59,9 @@
 <script>
 export default {
   name: 'footer-view',
+  props:['materials'],
   data() {
     return {
-      usage:[
-        {
-          'usage1':'鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋',
-          'usage2':'一只鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋'
-        },
-        {
-          'usage1':'鸡蛋300g鸡蛋鸡蛋鸡蛋鸡蛋鸡蛋加单',
-          'usage2':'一只'
-        },
-        {
-          'usage1':'鸡蛋',
-          'usage2':'一只一只一只一只一只一只一只'
-        }
-      ]
     };
   },
   created() {

@@ -10,9 +10,7 @@
       </div>
     </div>
     <div class="add-box">
-      <router-link to="/CookBook1" slot="right">
-        <img src="/static/img/plus.png" alt class="add">
-      </router-link>
+      <img src="/static/img/plus.png" alt class="add" @click="toCreateCook" slot="right">
     </div>
   </div>
   <div class="page-swipe">
@@ -116,6 +114,7 @@ import { Swipe, SwipeItem } from "mint-ui";
 import Vue from "vue";
 import Router from "vue-router";
 import Recommend from "./Recommend.vue";
+import { MessageBox } from 'mint-ui';
 
 export default {
   name: "page-tabbar",
@@ -132,6 +131,31 @@ export default {
       this.$router.push({
         name: "Search"
       });
+    },
+    // 判断是否登录 如果登录 去创建菜谱
+    toCreateCook(){
+      if(localStorage.getItem('username')){
+        this.$router.push({
+          name: "CookBook1"
+        });
+      }else{
+        MessageBox.confirm('',{
+          message: '创建菜谱需要登录哦~',
+          title: '',
+          confirmButtonText: '去登录',
+          cancelButtonText: '取消'
+        }).then(action => {
+          if(action == 'confirm'){
+            this.$router.push({
+              name: "Login"
+            });
+          }
+        }).catch(err => {
+          if(err == 'cancel') {
+            console.log('222')
+          }
+        })
+      }
     }
   },
 };

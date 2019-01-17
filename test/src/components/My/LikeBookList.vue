@@ -84,7 +84,6 @@ clear: both;
 
 <script>
 import Vue from 'vue'
-import { MessageBox } from 'mint-ui';
 
 export default {
   name: 'page-tabbar',

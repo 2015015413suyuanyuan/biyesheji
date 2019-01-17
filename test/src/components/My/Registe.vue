@@ -56,18 +56,23 @@ export default {
       this.axios.post('http://140.143.75.82:81/index.php/register', data1,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        if(res.data.message == '注册成功') {
+        if(res.data.status_code == '200') {
+          console.log('dafd',res)
           localStorage.setItem('username', res.data.username);
           localStorage.setItem('id', JSON.stringify(res.data.id));
+          console.log(localStorage.getItem('id'))
           localStorage.setItem('state', JSON.stringify(res.data.state));
+          console.log(JSON.stringify(res.data.id))
           this.$router.push({
             name: "Logged",
             params: { username: res.data.username }            
           });         
+        }else {
+          console.log('1111')
         }
-        console.log(res)
       }).catch((err) => {
         console.log(err)
+        console.log('err')
       })
       // this.$router.push({
       //   name: "Logged"

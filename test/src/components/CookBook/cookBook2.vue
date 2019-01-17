@@ -6,7 +6,7 @@
             <mt-button slot="right" class='disabledA' :class="{ colorStyle: isActive }" @click.native="toNext">继续</mt-button>
         </mt-header>
         <div class='MyClass'>
-          <i-input class="menuName" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderMenuName" v-model='menu_name' @on-change='testMenuName(menu_name)'></i-input>
+          <i-input class="menuName" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderMenuName" v-model='menu_name' @on-change='testMenuName(menu_name)' @on-blur='testMenuName(menu_name)'></i-input>
         </div>
         <section class="inputspe1">
             <p class="tip">提示</p>
@@ -33,7 +33,6 @@
     </div>
 </template>
 <script>
-import { MessageBox } from 'mint-ui';
 import { Header } from 'mint-ui';
 export default {
   name: 'page-cookbook',
@@ -44,7 +43,13 @@ export default {
       menu_name: ''
     };
   },
-  methods: {
+  mounted() {
+    this.$Message.config({
+        top: 10,
+        duration: 1.5
+    });
+  },
+    methods: {
     openConfirm() {
       this.$refs.modal.style.display = 'block'
       this.$refs.msgbox.style.display = 'block'        
@@ -66,7 +71,7 @@ export default {
     },
     testMenuName(menu_name) {
       if(menu_name == ''){
-        console.log('menu_name不能为空哦')
+        this.$Message.warning('菜谱名不能为空哦');
       }else {
         localStorage.setItem('menu_name',menu_name)
         this.isActive = true

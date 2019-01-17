@@ -108,4 +108,23 @@ textarea.ivu-input {
 .tipInput>.ivu-input {
   font-size: 16px;
 }
+.ivu-modal-confirm-body {
+  padding-left: 0;
+}
+.mint-msgbox-confirm {
+background-color: #ffba00;
+color: white;
+}
+.mint-msgbox-message {
+  color: #101010;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+.mint-msgbox-cancel {
+  border-right: 0;
+  // 
+}
+.mint-msgbox-content {
+  border-bottom: 1px solid rgb(243, 238, 238);
+}
 </style>

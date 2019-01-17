@@ -7,37 +7,37 @@
         <img :src="imgHeart" alt="" slot='right' @click="like" class='like'>
       </mt-header>
       <div class='headerimg'>
-          <img :src="img" alt="">
+          <img :src="cover" alt="">
       </div>
       <article>
-          <h1>爱心早餐</h1>
+          <h1>{{menu_name}}</h1>
           <p class="left">“</p>
           <p class='detail'>
-              重阳节，为每年的农历九月初九日，是中华民族的传统节日。《易经》中把“九”定为阳数，九月九日，两九相重，故曰“重阳”；因日与月皆逢九，故又称为“重九”。九九归真，一元肇始，古人认为九九重阳是吉祥的日子。古时民间在重阳节有登高祈福、秋游赏菊、佩插茱萸、祭神祭祖及饮宴求寿等习俗。
+              {{story}}
           </p>
           <p class="right">”</p>
       </article>
-      <Usage></Usage>
-      <Step></Step>
+      <Usage :materials='materials'></Usage>
+      <Step :step='step'></Step>
       <p class='littleTip'>- 小贴士 -</p>
       <div class='TipList'>
-        <div v-for="(item,index) in littleTip" :key="index">
-          {{item.index}}、{{item.title}}
+        <div>
+          {{tips}}
         </div>
       </div>
       <div class="comment">
         <h1>评论</h1>
-        <div class="commentItem" v-for="(item,index) in commentList" :key="index">
+        <div class="commentItem" v-for="(item,index) in comment" :key="index">
           <div class="itemLeft">
-            <img :src="item.img" alt="">
+            <img :src="item.image" alt="">
           </div>
           <div class="itemRight">
             <div class="textTop">
-              {{item.name}}
+              {{item.username}}
             </div>
-            <div class="textBottom">
+            <!-- <div class="textBottom">
               {{item.time}}
-            </div>
+            </div> -->
           </div>
           <p>{{item.content}}</p>
         </div>
@@ -56,47 +56,16 @@ export default {
   name: 'footer-view',
   data() {
     return {
+      cover: '',
+      menu_name: '',
+      story: '',
+      tips: '',
+      materials: [],
+      step: [],
       img :'/static/img/food2.jpg',
       imgHeart: '/static/img/likes.png',
       isHeart: false,
-      commentList:[
-        {
-          img: '/static/img/food2.jpg',
-          name: '煮迷qcMQM4',
-          time: '2018/10/11 12:12',
-          content: '看起来很好吃，很有食欲！！加油加油！'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '煮迷qcMQM4',
-          time: '2018/10/11 12:12',
-          content: '看起来很好吃，很有食欲！！加油加油！'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '煮迷qcMQM4',
-          time: '2018/10/11 12:12',
-          content: '看起来很好吃，很有食欲！！加油加油！'
-        }
-      ],
-      littleTip: [
-        {
-          index: '1',
-          title: '首先制作蔓越莓馅，将蔓越莓热水冲洗后放入小锅，放入一些纯净水，没过果干就可以'
-        },
-        {
-          index: '2',
-          title: '首先制作蔓越莓馅，将蔓越莓热水冲洗后放入小锅，放入一些纯净水，没过果干就可以'
-        },
-        {
-          index: '3',
-          title: '首先制作蔓越莓馅，将蔓越莓热水冲洗后放入小锅，放入一些纯净水，没过果干就可以'
-        },
-        {
-          index: '4',
-          title: '首先制作蔓越莓馅，将蔓越莓热水冲洗后放入小锅，放入一些纯净水，没过果干就可以'
-        }
-      ]
+      comment:[],
     };
   },
 components: {
@@ -104,7 +73,7 @@ components: {
     Step
 },
   created() {
-  
+  this.getData();
   },
   methods: {
     like () {
@@ -112,10 +81,50 @@ components: {
       this.isHeart = !this.isHeart
       if( this.isHeart ) {
         this.imgHeart = '/static/img/like.png'
+        const data = {
+          "main_menu_id": localStorage.getItem('main_menu_id'),
+          "user_id": localStorage.getItem('id')
+        }
+        const data1 = this.qs.parse(data)
+        this.axios.post('http://140.143.75.82:81/index.php/myLikeCreate', data1,{
+          headers: {'Content-Type': 'application/json'}
+        }).then((res) => {
+          if(res.message == '点赞成功') {
+            console.log('dddd')
+          }
+        }).catch((err) => {
+          console.log(err)
+          console.log('err')
+        })
       }
       else {
         this.imgHeart = '/static/img/likes.png'
       }
+    },
+    getData() {
+      const data = {
+        "menu_name": localStorage.getItem('menu_name'),
+        "user_id": localStorage.getItem('id')
+      }
+      const data1 = this.qs.parse(data)
+      this.axios.post('http://140.143.75.82:81/index.php/select', data1,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {
+          const returnData = res.data[0];
+          this.story = returnData.story
+          this.tips = returnData.tips
+          this.materials = returnData.materials
+          this.step = returnData.step
+          this.menu_name = returnData.menu_name
+          this.cover = returnData.cover
+          this.comment = returnData.comment
+          localStorage.setItem('main_menu_id',returnData.id)
+        }
+      }).catch((err) => {
+        console.log(err)
+        console.log('err')
+      })
     }
   },
   mounted() {

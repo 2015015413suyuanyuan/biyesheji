@@ -4,10 +4,10 @@
     <div class="step" v-for="(item, index) in step" :key="index">
       <p class='num'>步骤 {{index+1}}</p>
       <div class="step-image">
-        <img :src="item.img" alt="">
+        <img :src="item.image" alt="">
       </div>
       <p class='detal'>
-        {{item.detail}}
+        {{item.step}}
       </p>
     </div>
   </div>
@@ -52,18 +52,9 @@
 <script>
 export default {
   name: 'footer-view',
+  props:['step'],
   data() {
     return {
-      step: [
-        {
-          img: '/static/img/food2.jpg',
-          detail: '首先制作蔓越莓馅，将蔓越莓热水冲洗后放入小锅，放入一些纯净水，没过果干就可以'
-        },
-        {
-          img: '/static/img/food1.jpg',
-          detail: '首先制作蔓越莓馅，将蔓越莓热水冲洗后放入小锅，放入一些纯净水，没过果干就可以'
-        }
-      ]
     };
   },
   created() {

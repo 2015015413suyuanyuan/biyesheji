@@ -34,7 +34,6 @@
 </div>
 </template>
 <script>
-import { MessageBox } from 'mint-ui';
 import Step from './Step'
 import { Header } from 'mint-ui';
 import Usage from './Usage'
@@ -61,7 +60,7 @@ export default {
     if(this.$route.params.cookName  != ''){
       this.menu_name = this.$route.params.menu_name
     }
-    localStorage.clear();
+    // localStorage.clear();
   },
   components: {
     Step,
@@ -81,6 +80,7 @@ export default {
       this.$router.push('/')
     },
     publicTheCook() {
+      localStorage.setItem('menu_name',this.menu_name)
       console.log('this.tips', this.tips,
       'this.menu_name', this.menu_name,
       'story',this.story,
@@ -88,12 +88,37 @@ export default {
       'materials',JSON.parse(localStorage.getItem('materials')),
       'cover',localStorage.getItem('cover'),
       'step',localStorage.getItem('step'),
+      localStorage.getItem('id')
       )
+      const data = {
+        "user_id": localStorage.getItem('id'),
+        "cover": localStorage.getItem('cover'),
+        'menu_name': this.menu_name,
+        'story': this.story,
+        'tips': this.tips,
+        'materials': JSON.parse(localStorage.getItem('materials')),
+        'step': JSON.parse(localStorage.getItem('step'))
+      }
+      const data1 = this.qs.parse(data)
+      this.axios.post('http://140.143.75.82:81/index.php/create', data1,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+       if(res.data.message == '添加成功') {
+        this.$Message.success('创建成功');
+        this.$router.push({
+          name: "CookBookDetail"
+        });
+       }
+      }).catch((err) => {
+        console.log(err)
+      })
     },
     // 输入菜谱名是否为空的验证
     testMenuName(menu_name) {
       if(menu_name == ''){
-        console.log('menu_name不能为空哦')
+        this.$Message.warning('菜谱名不能为空哦');
+      }else {
+        localStorage.setItem('menu_name',menu_name)
       }
     }
   }
