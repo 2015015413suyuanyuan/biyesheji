@@ -37,12 +37,12 @@
 				this.file = files
 				const params = new FormData();
 				params.append('file',this.file,this.file.name);
-				console.log(params.getAll('file'))
 				that.axios.post('http://140.143.75.82:81/index.php/upload', params,{
 					headers: {'Content-Type': 'multipart/form-data'}
 				}).then((res) => {
 					if(res.data != ''){
-						localStorage.setItem('coverImage', res.data);		
+            localStorage.setItem('cover', res.data.image);
+            this.step.img = res.data.image
 					}
 				}).catch((err) => {
 					console.log(err)
@@ -52,7 +52,6 @@
 				reader.readAsDataURL(files) // 这里是最关键的一步，转换就在这里
 				reader.onloadend = function () {
 						img = this.result;
-						step.img=this.result;
 				}
 			},
     },
@@ -85,12 +84,11 @@
       height: 220px;
       font-size: 18px;
       color: #A29999;
+      padding-top: 82px;
       p {
           height: 28px;
       }
-      .p1 {
-          padding-top: 82px;
-      }
+
   }
   .img-container{
       width: 100vw;

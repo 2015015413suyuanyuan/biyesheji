@@ -6,7 +6,7 @@
         <p class="txt">步骤{{index+1}}</p>
         <div class="upload">
           <div class="img-container">
-            <article :class="{displayImg:!item.displayImg}" class="pstyle">
+            <article v-if="!item.img" class="pstyle">
               <p class="p1">
                   + 步骤图
               </p>
@@ -14,7 +14,7 @@
                   清晰的步骤图会让菜谱更瘦欢迎
               </p>
             </article>
-            <img :src="item.img" alt="user image" class="special" :class="{displayImg:item.displayImg}"> 
+            <img :src="item.img" alt="user image" class="special" v-if="item.img"> 
           </div>
             <input type="file" @change="getFile(index,item.img)" ref="file" id="file">
         </div>
@@ -35,7 +35,7 @@
               <div class='content'>
                 <div class="upload">
                   <div class="img-container">
-                    <article :class="{displayImg:!item.displayImg}" class="pstyle">
+                    <article  v-if="!item.img" class="pstyle">
                       <p class="p1">
                           + 步骤图
                       </p>
@@ -43,7 +43,7 @@
                           清晰的步骤图会让菜谱更瘦欢迎
                       </p>
                     </article>
-                    <img :src="item.img" alt="user image" class="special" :class="{displayImg:item.displayImg}"> 
+                    <img :src="item.img" alt="user image" class="special"  v-if="item.img"> 
                   </div>
                   <input type="file" @change="getFile(index,item.img)" ref="file" class="file">
                 </div>
@@ -59,6 +59,106 @@
     </div>
 </div>
 </template>
+
+
+<script>
+
+import draggable from 'vuedraggable';
+import { sep } from 'path';
+
+export default {
+  data() {
+    return {
+      isLocked: false,
+      innerText: '',
+      removeClass:true,
+      idx: 1,
+      step:[
+        {
+            img:'',
+            detail:'',
+            displayImg:true,
+        },
+        {
+            img:'',
+            detail:'',
+            displayImg:true,
+        },
+      ],
+      // 显示调整步骤
+      isShowChange: false,
+      // 显示提示信息 最少一步
+      mostOneStep: false
+    };
+  },
+  components: {
+    draggable
+  },
+  watch: {
+    step: {
+      handler: function (newVal) {
+        for(var i=0;i<newVal.length;i++){
+            if(newVal[i].img !== ''){
+            newVal[i].displayImg = false;
+            }
+        }
+      },
+      deep: true
+    }
+  },
+  methods: {
+    getFile (idx,img,detail) {
+      const that = this;
+      var step = this.step;
+      const e = window.event;
+      let _this = this
+      var files = e.target.files[0]
+      this.file = files
+      const params = new FormData();
+      params.append('file',this.file,this.file.name);
+      that.axios.post('http://140.143.75.82:81/index.php/upload', params,{
+        headers: {'Content-Type': 'multipart/form-data'}
+      }).then((res) => {
+        if(res.data != ''){ 
+          console.log(res.data.image)
+          this.step[idx].img= res.data.image
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+      if (!e || !window.FileReader) return  // 看支持不支持FileReader
+      let reader = new FileReader()
+      reader.readAsDataURL(files) // 这里是最关键的一步，转换就在这里
+      reader.onloadend = function () {
+        img = this.result;
+      }
+    },
+    addStep (){
+    this.$set(this.step,this.step.length,{img:'',detail:'',displayImg:true})
+    },
+    getStepText (data){
+      localStorage.setItem('step',JSON.stringify(this.step));
+    },
+    remove: function(item, index) {
+      if(this.step.length<=1) {
+        this.mostOneStep = true
+      } else {
+        this.step.splice(index, 1);
+        localStorage.setItem('step',JSON.stringify(this.step));
+      }
+    },
+    changeStep () {
+      this.isShowChange = true
+    },
+    changeOver() {
+      localStorage.setItem('step',JSON.stringify(this.step));
+      this.isShowChange = false
+      console.log(this.step)
+    },
+  }
+}    
+</script>
+
 <style lang="scss" scoped>
 .step{
   width: 95vw;
@@ -132,11 +232,10 @@
         height: 220px;
         font-size: 18px;
         color: #A29999;
+        padding-top: 82px;
+        
         p {
             height: 28px;
-        }
-        .p1 {
-            padding-top: 82px;
         }
     }
   }
@@ -242,115 +341,3 @@
   }
 }
 </style>
-<script>
-
-import draggable from 'vuedraggable';
-import { sep } from 'path';
-
-export default {
-  data() {
-    return {
-      isLocked: false,
-      innerText: '',
-      removeClass:true,
-      idx: 1,
-      step:[
-        {
-            num:'1',
-            img:'',
-            detail:'',
-            displayImg:true,
-            back:''
-        },
-        {
-            num:'2',
-            img:'',
-            detail:'',
-            displayImg:true,
-            back:''
-        },
-        {
-            num:'3',
-            img:'',
-            detail:'',
-            displayImg:true,
-            back:''
-        }
-      ],
-      // 显示调整步骤
-      isShowChange: false,
-      // 显示提示信息 最少一步
-      mostOneStep: false
-    };
-  },
-  components: {
-    draggable
-  },
-  watch: {
-    step: {
-      handler: function (newVal) {
-        for(var i=0;i<newVal.length;i++){
-            if(newVal[i].img !== ''){
-            newVal[i].displayImg = false;
-            }
-        }
-      },
-      deep: true
-    }
-  },
-  methods: {
-    getFile (idx,img,detail) {
-      const that = this;
-      var step = this.step;
-      const e = window.event;
-      let _this = this
-      var files = e.target.files[0]
-      this.file = files
-      const params = new FormData();
-      params.append('file',this.file,this.file.name);
-      that.axios.post('http://140.143.75.82:81/index.php/upload', params,{
-        headers: {'Content-Type': 'multipart/form-data'}
-      }).then((res) => {
-        if(res.data != ''){ 
-          console.log(res.data.image)
-          this.step[idx].back= res.data.image
-
-        }
-      }).catch((err) => {
-        console.log(err)
-      })
-      if (!e || !window.FileReader) return  // 看支持不支持FileReader
-      let reader = new FileReader()
-      reader.readAsDataURL(files) // 这里是最关键的一步，转换就在这里
-      reader.onloadend = function () {
-        img = this.result;
-        step[idx].img=this.result;
-      }
-    },
-    addStep (){
-    this.$set(this.step,this.step.length,{num:'4',img:'',detail:'',displayImg:true})
-    },
-    getStepText (data){
-      localStorage.setItem('step',JSON.stringify(this.step));
-    },
-    remove: function(item, index) {
-      if(this.step.length<=1) {
-        this.mostOneStep = true
-      } else {
-        this.step.splice(index, 1);
-        localStorage.setItem('step',JSON.stringify(this.step));
-      }
-    },
-    changeStep () {
-      this.isShowChange = true
-    },
-    changeOver() {
-      localStorage.setItem('step',JSON.stringify(this.step));
-      this.isShowChange = false
-    },
-    changeText(){
-      this.$refs.inputStep.innerHTML
-    },
-  }
-}    
-</script>

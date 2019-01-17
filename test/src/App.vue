@@ -70,7 +70,42 @@ $color-primary: white;
 .mint-checkbox-core {
   border: 0;
 }
-  .mint-checkbox-label {
-    font-size: 14px !important;
-  }
+.mint-checkbox-label {
+  font-size: 14px !important;
+}
+textarea.ivu-input {
+  resize: none !important;
+}
+.ivu-input {
+  outline: 0;
+  border: 0;
+  border-radius: 0;
+}
+.ivu-input:focus {
+  outline: 0;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 0;
+}
+.ivu-input:hover {
+  border: 0;
+  box-shadow:none;
+}
+.menuName {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.menuName>.ivu-input{
+  text-align: center !important;
+  font-size: 24px;
+}
+.story {
+  margin-top: 10px;
+}
+.story>.ivu-input {
+  font-size: 20px;
+}
+.tipInput>.ivu-input {
+  font-size: 16px;
+}
 </style>

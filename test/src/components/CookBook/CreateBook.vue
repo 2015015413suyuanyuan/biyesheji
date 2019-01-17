@@ -4,11 +4,14 @@
     <mt-button class="canclecolor"  @click.native="openConfirm" slot="left">取消</mt-button>
   </mt-header> 
   <Cropper></Cropper>
+  <i-input class="menuName" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderMenuName" v-model='menu_name'></i-input>
   <div class="hr"></div>
+  <i-input class="story" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderStory" v-model='story'></i-input>
   <Usage></Usage>
   <Step></Step>
   <section>
-    <p class="tip">小贴士</p>
+  <p class="tip">小贴士</p>
+  <i-input class='tipInput' type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderTips" v-model='tips' ></i-input>
   </section>
   <div class='myBtn' @click="publicTheCook">
     发布这个菜谱
@@ -42,6 +45,12 @@ export default {
     return {
       classifyList:[],
       isShowClassifyList: false,
+      story: '',
+      menu_name: '',
+      tips: '',
+      placeholderStory: '输入这道美食背后的故事',
+      placeholderMenuName: '写下你的菜谱名吧',
+      placeholderTips: '这道菜还有哪些需要注意的细节和小技巧？',
     };
   },
   created()  {
@@ -72,47 +81,23 @@ export default {
       this.$router.push('/')
     },
     publicTheCook() {
-      console.log('this.inputVlue', this.inputVlue,'this.inputTipValue', 
-      this.inputTipValue,'inputStoryValue',this.inputStoryValue,
+      console.log('this.tips', this.tips,
+      'this.menu_name', this.menu_name,
+      'story',this.story,
       'usage',JSON.parse(localStorage.getItem('usage')),
       'step',JSON.parse(localStorage.getItem('step')),
-      // 'coverImage',localStorage.getItem('coverImage'),
+      'cover',localStorage.getItem('cover'),
       )
     },
-    changeText(){
-      console.log( this.$refs.input111.innerHTML);
-    }   
   }
 }
 </script>
 <style lang="scss" scoped>
+.menuName>.ivu-input{
+  text-align: center !important;
+}
 .canclecolor{
   color: #FF9800 !important;
-}
-.edit-div123 {
-  margin: 0 auto;
-  width: 95vw;
-  min-height: 30px;
-  max-height: 300px;
-  _height: 26px;
-  line-height: 30px;
-  overflow: auto;
-  word-break: break-all;
-  outline: none;
-  user-select: text;
-  white-space: pre-wrap;
-  color: #101010;
-  font-size: 22px;
-  &[contenteditable=true]{
-    -webkit-user-modify: read-write-plaintext-only;
-    font-size: 16px;
-    &:empty:before {
-      content: attr(placeholder);
-      font-size: 22px;
-      display: block;
-      color: #555353;
-    }
-  }
 }
 .tip{
   text-align: left;
@@ -241,9 +226,9 @@ section {
 }
 .hr {
   width: 95vw;
-  height: 1px;
+  height: 1.5px;
   background: #E3E0E0;
-  margin: 0 auto;
+  margin: auto;
 }
 .mint-msgbox {
   position: fixed;
@@ -289,5 +274,8 @@ section {
       color: white;
     }
   }
+}
+textarea.ivu-input {
+  resize: none !important;
 }
 </style>

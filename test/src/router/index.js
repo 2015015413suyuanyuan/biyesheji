@@ -5,7 +5,6 @@ import Router from 'vue-router'
 import Home from '@/components/Home/Home'
 
 // 创建菜谱 
-import CookBook from '@/components/CookBook/CookBook'
 import CreateBook from '@/components/CookBook/CreateBook'
 
 // 厨房故事
@@ -85,12 +84,6 @@ export default new Router({
       path: '/CreateBook',
       name: 'CreateBook',
       component: CreateBook,
-      meta: { navShow: false}
-    },
-    {
-      path: '/CookBook',
-      name: 'CookBook',
-      component: CookBook,
       meta: { navShow: false}
     },
     {
