@@ -6,7 +6,7 @@
         <p class="txt">步骤{{index+1}}</p>
         <div class="upload">
           <div class="img-container">
-            <article v-if="!item.img" class="pstyle">
+            <article v-if="!item.image" class="pstyle">
               <p class="p1">
                   + 步骤图
               </p>
@@ -14,10 +14,11 @@
                   清晰的步骤图会让菜谱更瘦欢迎
               </p>
             </article>
-            <img :src="item.img" alt="user image" class="special" v-if="item.img"> 
+            <img :src="item.image" alt="user image" class="special" v-if="item.image"> 
           </div>
-            <input type="file" @change="getFile(index,item.img)" ref="file" id="file">
+            <input type="file" @change="getFile(index,item.image)" ref="file" id="file">
         </div>
+        <i-input class="story" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeStep" v-model='item.step' @on-change='temporaryStorage'></i-input>
       </div> 
       <p class="addstep">
           <span @click="addStep">增加一步</span>
@@ -35,7 +36,7 @@
               <div class='content'>
                 <div class="upload">
                   <div class="img-container">
-                    <article  v-if="!item.img" class="pstyle">
+                    <article  v-if="!item.image" class="pstyle">
                       <p class="p1">
                           + 步骤图
                       </p>
@@ -43,10 +44,11 @@
                           清晰的步骤图会让菜谱更瘦欢迎
                       </p>
                     </article>
-                    <img :src="item.img" alt="user image" class="special"  v-if="item.img"> 
+                    <img :src="item.image" alt="user image" class="special"  v-if="item.image"> 
                   </div>
-                  <input type="file" @change="getFile(index,item.img)" ref="file" class="file">
+                  <input type="file" @change="getFile(index,item.image)" ref="file" class="file">
                 </div>
+                <i-input class="story" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeStep" v-model='item.step' @on-change='temporaryStorage'></i-input>
               </div>
               <div class='imgRight'>
                 <img src="../../assets/img/more11.png" class="move" alt="移动">
@@ -69,20 +71,16 @@ import { sep } from 'path';
 export default {
   data() {
     return {
-      isLocked: false,
-      innerText: '',
+      placeStep:'添加步骤说明',
       removeClass:true,
-      idx: 1,
       step:[
         {
-            img:'',
-            detail:'',
-            displayImg:true,
+            image:'',
+            step:'',
         },
         {
-            img:'',
-            detail:'',
-            displayImg:true,
+            image:'',
+            step:'',
         },
       ],
       // 显示调整步骤
@@ -95,19 +93,19 @@ export default {
     draggable
   },
   watch: {
-    step: {
-      handler: function (newVal) {
-        for(var i=0;i<newVal.length;i++){
-            if(newVal[i].img !== ''){
-            newVal[i].displayImg = false;
-            }
-        }
-      },
-      deep: true
-    }
+    // step: {
+    //   handler: function (newVal) {
+    //     for(var i=0;i<newVal.length;i++){
+    //         if(newVal[i].img !== ''){
+    //         newVal[i].displayImg = false;
+    //         }
+    //     }
+    //   },
+    //   deep: true
+    // }
   },
   methods: {
-    getFile (idx,img,detail) {
+    getFile (idx,img) {
       const that = this;
       var step = this.step;
       const e = window.event;
@@ -121,7 +119,8 @@ export default {
       }).then((res) => {
         if(res.data != ''){ 
           console.log(res.data.image)
-          this.step[idx].img= res.data.image
+          this.step[idx].image= res.data.image
+          localStorage.setItem('step',JSON.stringify(this.step));
         }
       }).catch((err) => {
         console.log(err)
@@ -134,7 +133,7 @@ export default {
       }
     },
     addStep (){
-    this.$set(this.step,this.step.length,{img:'',detail:'',displayImg:true})
+    this.$set(this.step,this.step.length,{image:'',step:''})
     },
     getStepText (data){
       localStorage.setItem('step',JSON.stringify(this.step));
@@ -155,6 +154,9 @@ export default {
       this.isShowChange = false
       console.log(this.step)
     },
+    temporaryStorage(){
+      localStorage.setItem('step',JSON.stringify(this.step));
+    }
   }
 }    
 </script>
@@ -201,9 +203,6 @@ export default {
     .img-container{
         width: 100%;
         height: 100%;
-      .displayImg{
-          display: none;
-      }
       .special{
           width: 100%;
           height:100%;
@@ -306,9 +305,6 @@ export default {
     .img-container{
         width: 70vw;
         height: 120px;
-      .displayImg{
-          display: none;
-      }
       .special{
           width: 100%;
           height:100%;

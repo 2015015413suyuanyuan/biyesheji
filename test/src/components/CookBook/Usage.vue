@@ -3,7 +3,9 @@
     <p class="title">用料</p>
     <!-- 编辑用料信息 -->
     <div class='editBox' v-show="!isChangeIndex">
-      <div v-for="(item,index) in usage" class="usage-li" :key="index">
+      <div v-for="(item,index) in materials" class="usage-li" :key="index">
+        <i-input class="story" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeMaterials_used" v-model='item.materials_used'  @on-change='temporaryStorage'></i-input>
+        <i-input class="story" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeDosage" v-model='item.dosage'  @on-change='temporaryStorage'></i-input>
       </div>
       <p class="addstep">
         <span class='addALine'  @click="addStep">再增加一行</span>
@@ -12,14 +14,16 @@
     </div>
     <!-- 调整/删除用料 -->
     <div class='dragBox' v-show="isChangeIndex">
-      <draggable :list="usage" class='dragDiv'> 
+      <draggable :list="materials" class='dragDiv'> 
         <transition-group name="list-complete">
-          <div v-for="(item, index) in usage" :key="index" class="list-complete-item">
+          <div v-for="(item, index) in materials" :key="index" class="list-complete-item">
               <div class='imgLeft'>
                 <img src="../../assets/img/del.png" class="delete" alt="删除" v-on:click="remove(item, index)">
               </div>
               <div class='editBox1'>
                 <div class="usage-li" :key="index">
+                <i-input class="story" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeMaterials_used" v-model='item.materials_used' @on-change='temporaryStorage'></i-input>
+                <i-input class="story" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeDosage" v-model='item.dosage' @on-change='temporaryStorage'></i-input>
                 </div>
               </div>
               <div class='imgRight'>
@@ -43,18 +47,20 @@ export default {
   name: 'footer-view',
   data() {
     return {
+      placeMaterials_used: '鸡蛋',
+      placeDosage: '如：一个',
       isShowInfo: false,
-      usage:[
+      materials:[
         {
-          'usage':'',
-          'usage2':''
+          'materials_used':'',
+          'dosage':''
         }
       ],
       isChangeIndex: false
     };
   },
   created() {
-    this.usage = Object.assign([], this.usage)
+    this.materials = Object.assign([], this.materials)
 
   },
   components: {
@@ -62,11 +68,11 @@ export default {
   },
   methods: {
     addStep () {
-      this.$set(this.usage,this.usage.length,{'usage':'','usage2':''})
+      this.$set(this.materials,this.materials.length,{'materials_used':'','dosage':''})
     },
     remove: function(item, index) {
-      if(this.usage.length >=2){
-        this.usage.splice(index, 1);
+      if(this.materials.length >=2){
+        this.materials.splice(index, 1);
       } else {
         this.isShowInfo = true
       }
@@ -75,14 +81,14 @@ export default {
       this.isChangeIndex = true
     },
     changeOver(){
-      localStorage.setItem('usage',JSON.stringify(this.usage));
+      localStorage.setItem('materials',JSON.stringify(this.materials));
       this.isChangeIndex = false
     },
     dayin(){
     },
-    pushlicUsage() {
-      localStorage.setItem('usage',JSON.stringify(this.usage));
-    }
+    temporaryStorage() {
+      localStorage.setItem('materials',JSON.stringify(this.materials));
+    },
   },
 };
 </script>

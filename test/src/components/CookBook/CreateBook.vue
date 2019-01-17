@@ -4,7 +4,7 @@
     <mt-button class="canclecolor"  @click.native="openConfirm" slot="left">取消</mt-button>
   </mt-header> 
   <Cropper></Cropper>
-  <i-input class="menuName" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderMenuName" v-model='menu_name'></i-input>
+  <i-input class="menuName" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderMenuName" v-model='menu_name' @on-blur='testMenuName(menu_name)'></i-input>
   <div class="hr"></div>
   <i-input class="story" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderStory" v-model='story'></i-input>
   <Usage></Usage>
@@ -59,7 +59,7 @@ export default {
       this.classifyList = this.$route.params.new
     }
     if(this.$route.params.cookName  != ''){
-      this.innerText = this.$route.params.cookName
+      this.menu_name = this.$route.params.menu_name
     }
     localStorage.clear();
   },
@@ -85,10 +85,17 @@ export default {
       'this.menu_name', this.menu_name,
       'story',this.story,
       'usage',JSON.parse(localStorage.getItem('usage')),
-      'step',JSON.parse(localStorage.getItem('step')),
+      'materials',JSON.parse(localStorage.getItem('materials')),
       'cover',localStorage.getItem('cover'),
+      'step',localStorage.getItem('step'),
       )
     },
+    // 输入菜谱名是否为空的验证
+    testMenuName(menu_name) {
+      if(menu_name == ''){
+        console.log('menu_name不能为空哦')
+      }
+    }
   }
 }
 </script>

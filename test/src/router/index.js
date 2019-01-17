@@ -6,6 +6,8 @@ import Home from '@/components/Home/Home'
 
 // 创建菜谱 
 import CreateBook from '@/components/CookBook/CreateBook'
+import CookBook1 from '@/components/CookBook/CookBook1'
+import cookBook2 from '@/components/CookBook/cookBook2'
 
 // 厨房故事
 import KitchenStory from '@/components/KitchenStory/KitchenStory'
@@ -24,7 +26,6 @@ import Login from '@/components/My/Login'
 import Search from '@/components/Search/Search'
 import SearchHome from '@/components/Search/SearchHome'
 import Result from '@/components/Search/Result'
-import CookBook1 from '@/components/CookBook/CookBook1'
 
 import CookBookDetail from '@/components/CookBookDetail/CookBookDetail'
 
@@ -126,6 +127,12 @@ export default new Router({
       path: '/CookBookDetail',
       name: 'CookBookDetail',
       component: CookBookDetail,
+      meta: { navShow: false}
+    },
+    {
+      path: '/cookBook2',
+      name: 'cookBook2',
+      component: cookBook2,
       meta: { navShow: false}
     }
   ]
