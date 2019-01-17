@@ -5,6 +5,9 @@
             <!-- <router-link to="/CreateBook" slot="right" :class="{ colorStyle: isActive }"> -->
             <mt-button slot="right" class='disabledA' :class="{ colorStyle: isActive }" @click.native="toNext">继续</mt-button>
         </mt-header>
+        <div class='MyClass'>
+ <i-input type="textarea" :autosize="true" placeholder="请输入..."></i-input>
+        </div>
         <section class="inputspe1">
             <p class="tip">提示</p>
             <p class='specialLineHeight'>

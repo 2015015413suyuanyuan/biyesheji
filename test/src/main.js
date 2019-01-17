@@ -9,12 +9,15 @@ import 'mint-ui/lib/style.css'
 import 'lib-flexible/flexible.js'
 import axios from 'axios'
 import Qs from 'qs'
+import iView from 'iview'
+import 'iview/dist/styles/iview.css';
 
 Vue.config.productionTip = false
 Vue.use(mintui)
 Vue.prototype.axios = axios;
 Vue.prototype.qs = Qs;
 Vue.prototype.HOST='/api'
+Vue.use(iView)
 
 /* eslint-disable no-new */
 new Vue({
