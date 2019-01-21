@@ -100,11 +100,13 @@ export default {
         'step': JSON.parse(localStorage.getItem('step'))
       }
       const data1 = this.qs.parse(data)
+      console.log('data1',data1)
       this.axios.post('http://140.143.75.82:81/index.php/create', data1,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
        if(res.data.message == '添加成功') {
         this.$Message.success('创建成功');
+        console.log('ddddd')
         this.$router.push({
           name: "CookBookDetail"
         });

@@ -31,6 +31,7 @@
 				}).then((res) => {
 					if(res.data != ''){
             this.touImage = res.data.image
+            localStorage.setItem('touImage',this.touImage)
 					}
 				}).catch((err) => {
 					console.log(err)
@@ -50,6 +51,7 @@
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
           this.touImage = res.data[0].image
+          localStorage.setItem('touImage',this.touImage)
         }).catch((err) => {
           console.log(err)
         })
@@ -61,8 +63,8 @@
 <style lang="scss" scoped>
 .upload{
   position: relative;
-  width: 20vw;
-  height: 20vw;
+  width: 10vw;
+  height: 10vw;
   background-color: #efefed;
   color: #b3b3b3;
   border-radius: 50%;
@@ -80,13 +82,13 @@
 
   }
   .img-container{
-      width: 20vw;
-      height: 20vw;
+      width: 10vw;
+      height: 10vw;
       border-radius: 50%;
 
       .special{
-          width: 20vw;
-          height:20vw;
+          width: 10vw;
+          height:10vw;
           border-radius: 50%;
       }
   }
@@ -94,8 +96,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 20vw;
-      height: 20vw;
+      width: 10vw;
+      height: 10vw;
       opacity: 0;
       font-size: 18px;
       border-radius: 50%;

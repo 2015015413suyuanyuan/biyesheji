@@ -57,6 +57,11 @@ export default {
     };
   },
   created() {
+    if(localStorage.getItem('username')) {
+      this.footerList[2].link = '/Logged';
+    } else {
+      this.footerList[2].link = '/NoLogged';
+    }
     var url = this.$route.path;
     var url1 = url.slice(1);
    

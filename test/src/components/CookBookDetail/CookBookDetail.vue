@@ -43,8 +43,8 @@
         </div>
       </div>
       <div class='commentInput'>
-        <input type="text" placeholder=" 我也来说两句……">
-        <div>发送</div>
+        <i-input class="textInput" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderComment" v-model='commentInput'></i-input>
+        <div class="btn" @click="comment111(commentInput)">发送</div>
       </div>
   </div>
 </template>
@@ -52,6 +52,8 @@
 <script>
 import Usage from './Usage'
 import Step from './Step'
+import { MessageBox } from 'mint-ui';
+
 export default {
   name: 'footer-view',
   data() {
@@ -66,6 +68,8 @@ export default {
       imgHeart: '/static/img/likes.png',
       isHeart: false,
       comment:[],
+      commentInput: '',
+      placeholderComment: '我也来说两句……'
     };
   },
 components: {
@@ -99,6 +103,21 @@ components: {
       }
       else {
         this.imgHeart = '/static/img/likes.png'
+        const data = {
+          "main_menu_id": localStorage.getItem('main_menu_id'),
+          "user_id": localStorage.getItem('id')
+        }
+        const data1 = this.qs.parse(data)
+        this.axios.post('http://140.143.75.82:81/index.php/myLikeDelete', data1,{
+          headers: {'Content-Type': 'application/json'}
+        }).then((res) => {
+          if(res.data.message == "取消点赞成功") {
+            console.log('取消点赞成功')
+          }
+        }).catch((err) => {
+          console.log(err)
+          console.log('err')
+        })
       }
     },
     getData() {
@@ -125,6 +144,45 @@ components: {
         console.log(err)
         console.log('err')
       })
+    },
+    comment111(commentInput){
+      if(localStorage.getItem('username')){
+        const data = {
+          "main_menu_id": localStorage.getItem('main_menu_id'),
+          "content": commentInput,
+          "user_id":localStorage.getItem('id'),
+        }
+        const data1 = this.qs.parse(data)
+        this.axios.post('http://140.143.75.82:81/index.php/comment', data1,{
+          headers: {'Content-Type': 'application/json'}
+        }).then((res) => {
+          if(res.data.status_code == '200') {
+            console.log(res)    
+          }else {
+            console.log('1111')
+          }
+        }).catch((err) => {
+          console.log(err)
+          console.log('err')
+        })
+      }else{
+        MessageBox.confirm('',{
+          message: '您还没有登录哦~',
+          title: '',
+          confirmButtonText: '去登录',
+          cancelButtonText: '取消'
+        }).then(action => {
+          if(action == 'confirm'){
+            this.$router.push({
+              name: "Login"
+            });
+          }
+        }).catch(err => {
+          if(err == 'cancel') {
+            console.log('222')
+          }
+        })
+      }
     }
   },
   mounted() {
@@ -243,7 +301,7 @@ components: {
   }
   .commentInput {
     margin-top: 59px;
-    input {
+    .textInput {
       outline: none;
       margin: 0 auto;
       display: block;
@@ -258,16 +316,20 @@ components: {
       font-family: Roboto;
       border: 1px solid rgba(255, 255, 255, 0);
     }
-    div {
+    .btn {
       margin-left: 18px;
       width: 56px;
-      height: 21px;
       color: rgba(255, 152, 0, 1);
       font-size: 14px;
       text-align: left;
       font-family: SourceHanSansSC-regular;
       padding: 4px 0;
     }
+  }
+  commentInput::after {
+    display: block;
+    content: '';
+    clear: both;
   }
   .littleTip {
     font-size: 18px;

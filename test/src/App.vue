@@ -76,6 +76,21 @@ $color-primary: white;
 textarea.ivu-input {
   resize: none !important;
 }
+.textInput textarea.ivu-input{
+    outline: none;
+    margin: 0 auto;
+    display: block;
+    clear: both;
+    width: 340px;
+    // height: 32px;
+    border-radius: 10px;
+    background-color: rgba(244, 243, 243, 1);
+    color: rgba(136, 136, 136, 1);
+    font-size: 14px;
+    text-align: left;
+    font-family: Roboto;
+    border: 1px solid rgba(255, 255, 255, 0);
+}
 .ivu-input {
   outline: 0;
   border: 0;
@@ -126,5 +141,19 @@ color: white;
 }
 .mint-msgbox-content {
   border-bottom: 1px solid rgb(243, 238, 238);
+}
+.ivu-radio-group {
+  float: right;
+  height: 50px;
+  line-height: 50px;
+}
+.ivu-radio-checked .ivu-radio-inner {
+  border-color: #ffba00;
+}
+.ivu-radio-checked:hover .ivu-radio-inner{
+    border-color: #ffba00;
+}
+.ivu-radio-inner:after{
+  background-color: #ffba00;
 }
 </style>

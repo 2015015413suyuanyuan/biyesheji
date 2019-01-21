@@ -57,7 +57,6 @@ export default {
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.data.status_code == '200') {
-          console.log('dafd',res)
           localStorage.setItem('username', res.data.username);
           localStorage.setItem('id', JSON.stringify(res.data.id));
           console.log(localStorage.getItem('id'))

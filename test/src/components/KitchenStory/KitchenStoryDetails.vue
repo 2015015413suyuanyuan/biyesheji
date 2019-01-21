@@ -71,8 +71,8 @@
    width: 18px;
    height: 18px;
    position: absolute;
-   top: 7px;
-   left: 46px;
+   top: 5px;
+   left: 33px;
   }
 }
 }

@@ -145,6 +145,8 @@ export default {
       }).catch((err) => {
         console.log(err)
       })
+
+      this.getData();
   },
   methods: {
     changeInfo() {
@@ -180,7 +182,6 @@ export default {
       }
     },
     NoLogin() {
-      console.log('退出登录',this.$route.params.username)
       const data = {
         "username": localStorage.getItem('username')
       }
@@ -199,6 +200,18 @@ export default {
       }).catch((err) => {
         console.log(err)
       })      
+    },
+    getData(){
+      const data = {
+        "user_id": localStorage.getItem('id')
+      }
+      this.axios.post('http://140.143.75.82:81/index.php/myLikeSelect', this.qs.parse(data),{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })  
     }
   }
 };
