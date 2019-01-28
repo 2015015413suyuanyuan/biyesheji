@@ -1,5 +1,5 @@
 <template>
-  <div class="page-tabbar">
+  <div class="page-classify">
     <div class="search-box">
       <div class="search">
         <i class="searchicon">
@@ -13,9 +13,12 @@
 </template>
 
 <style lang="scss" scoped>
+.page-classify {
+  padding-top: 10px;
+  background-color: #FFF9EF;
+}
   .search-box {
     margin: 0 auto;
-    margin-top: 10px;
     margin-bottom: 10px;
     .search {
       margin: 0 auto;
