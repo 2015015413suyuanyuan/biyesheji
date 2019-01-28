@@ -35,6 +35,15 @@ export default {
           activeImg: '/static/img/footter1.png',
           link: '/',
         },
+        {		
+           name: 'Classify',		
+           isShow: true,		
+           isActive: false,		
+           title: '菜谱分类',		
+           defaultImg: '/static/img/footer3.png',		
+           activeImg: '/static/img/footter3.png',		
+           link: '/Classify',		
+         },
         {
           name: 'KitchenStory',
           isShow: true,
@@ -58,9 +67,9 @@ export default {
   },
   created() {
     if(localStorage.getItem('username')) {
-      this.footerList[2].link = '/Logged';
+      this.footerList[3].link = '/Logged';
     } else {
-      this.footerList[2].link = '/NoLogged';
+      this.footerList[3].link = '/NoLogged';
     }
     var url = this.$route.path;
     var url1 = url.slice(1);

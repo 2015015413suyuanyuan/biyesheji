@@ -8,6 +8,13 @@ import Home from '@/components/Home/Home'
 import CreateBook from '@/components/CookBook/CreateBook'
 import CookBook1 from '@/components/CookBook/CookBook1'
 import cookBook2 from '@/components/CookBook/cookBook2'
+import CookClassify from '@/components/CookBook/CookClassify'
+
+// 菜谱分类		
+import Classify from '@/components/Classify/Classify'		
+import ClassifyList from '@/components/Classify/ClassifyList'		
+import ClassifyListDetail from '@/components/Classify/ClassifyListDetail'
+
 
 // 厨房故事
 import KitchenStory from '@/components/KitchenStory/KitchenStory'
@@ -104,6 +111,30 @@ export default new Router({
       name: 'SearchHome',
       component: SearchHome,
       meta: { navShow: false}
+    },
+    {		
+      path: '/CookClassify',		
+      name: 'CookClassify',		
+      component: CookClassify,		
+      meta: { navShow: false}		
+    },
+    {		
+      path: '/ClassifyListDetail',		
+      name: 'ClassifyListDetail',		
+      component: ClassifyListDetail,		
+      meta: { navShow: false}		
+    },
+    {		
+      path: '/Classify',		
+      name: 'Classify',		
+      component: Classify,		
+      meta: { navShow: true}		
+    },		
+    {		
+      path: '/ClassifyList',		
+      name: 'ClassifyList',		
+      component: ClassifyList,		
+      meta: { navShow: false}		
     },
     {
       path: '/Result',

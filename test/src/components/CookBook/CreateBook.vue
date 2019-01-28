@@ -13,6 +13,15 @@
   <p class="tip">小贴士</p>
   <i-input class='tipInput' type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderTips" v-model='tips' ></i-input>
   </section>
+  <router-link to="/CookClassify" class="linktoclassify">
+    <div class="box">
+      <span>推荐至分类</span>
+      <i class="right"></i>
+    </div>
+  </router-link>
+  <ul class='classifyList'>
+    <li v-for="(item, index) in classifyList" :key="index">{{item}}</li>
+  </ul>
   <div class='myBtn' @click="publicTheCook">
     发布这个菜谱
   </div>

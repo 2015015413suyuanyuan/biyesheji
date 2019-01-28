@@ -1,9 +1,7 @@
 <template>
   <div class="CookBookDetail">
       <mt-header title="菜谱详情" class='headertitle' fixed>
-        <router-link to="/" slot="left">
-          <mt-button  icon='back'></mt-button>
-        </router-link>
+          <mt-button  icon='back' slot="left" @click="toBack"></mt-button>
         <img :src="imgHeart" alt="" slot='right' @click="like" class='like'>
       </mt-header>
       <div class='headerimg'>
@@ -183,6 +181,9 @@ components: {
           }
         })
       }
+    },
+    toBack() {
+      this.$router.back(-1);
     }
   },
   mounted() {
