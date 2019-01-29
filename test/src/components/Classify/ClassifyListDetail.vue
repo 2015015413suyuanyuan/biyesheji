@@ -99,11 +99,13 @@ export default {
     toCookBookDetail(menu){
       this.$router.push({
         name: "CookBookDetail",
-        params: { menu: menu}
+        params: { menu: menu,sort:this.$route.params.sort}
       });
     },
     toBack() {
-      this.$router.back(-1);
+      this.$router.push({
+        name: "Classify",
+      });
     },
     //获取小分类的菜谱列表
     getSmallClassifyList(name) {

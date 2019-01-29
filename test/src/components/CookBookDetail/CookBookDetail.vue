@@ -80,13 +80,7 @@ components: {
   if(JSON.stringify(this.$route.params) !== '{}'){
     console.log(this.$route.params.menu);
     const menu = this.$route.params.menu;
-    this.story = menu.story
-    this.tips = menu.tips
-    this.materials = menu.materials
-    this.step = menu.step
-    this.menu_name = menu.menu_name
-    this.cover = menu.cover
-    this.comment = menu.comment
+    this.getCookBookDetail(this.$route.params.menu.menu_name)
     localStorage.setItem('main_menu_id',menu.id)
   }else {
   }
@@ -231,9 +225,18 @@ components: {
       this.axios.post('http://140.143.75.82:81/index.php/select', data1,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        this.classifyList = Object.assign([],res.data.menu);
-        this.title = res.data.sort
-        console.log('res',res)
+        if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {
+          const returnData = res.data[0];
+          this.classifyList = Object.assign([],res.data.menu);
+          this.story = returnData.story
+          this.tips = returnData.tips
+          this.materials = returnData.materials
+          this.step = returnData.step
+          this.menu_name = returnData.menu_name
+          this.cover = returnData.cover
+          this.comment = returnData.comment
+          localStorage.setItem('main_menu_id',returnData.id)
+        }
       }).catch((err) => {
         console.log(err)
       })
