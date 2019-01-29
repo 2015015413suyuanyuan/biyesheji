@@ -190,7 +190,8 @@ components: {
           if(res.data.status_code == '200') {
            this.$Message.success('评论成功'); 
            this.commentInput = ''
-           this.getCookBookDetail(this.$route.params.menu_name);
+           console.log(this.$route.params)
+           this.getCookBookDetail(this.$route.params.menu.menu_name);
           }
         }).catch((err) => {
           console.log(err)
@@ -223,13 +224,15 @@ components: {
     getCookBookDetail(name) {
       const data = {
         "menu_name": name,
+        'id':  this.$route.params.menu.id
       }
+      console.log('data',data)
       const data1 = this.qs.parse(data)
       this.axios.post('http://140.143.75.82:81/index.php/select', data1,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        // this.classifyList = Object.assign([],res.data.menu);
-        // this.title = res.data.sort
+        this.classifyList = Object.assign([],res.data.menu);
+        this.title = res.data.sort
         console.log('res',res)
       }).catch((err) => {
         console.log(err)
