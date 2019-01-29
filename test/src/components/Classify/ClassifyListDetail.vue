@@ -1,44 +1,18 @@
 <template>
   <div class="page-tabbar">
-    <mt-header title="午餐" fixed class="abouttitle">
+    <mt-header :title="title" fixed class="abouttitle">
         <mt-button icon='back' class="back" slot="left"  @click="toBack"></mt-button>
     </mt-header>
-      <div class="content contentone" @click="toCookBookDetail">
-        <img src="/static/img/2.jpg" alt="" class="img1">
+      <div class="content contentone" @click="toCookBookDetail(item)" v-for="(item,index) in classifyList" :key="index">
+        <img :src="item.cover" alt="" class="img1">
         <div class="content-detail">
           <div class="text-left">
-            <p class="sp1">香酥黑芝麻卷</p>
-            <p class="sp2">小时候每当加工蛋卷的人在街上摆上家伙，立马就能吸引拿上鸡蛋……</p>
+            <p class="sp1">{{item.menu_name}}</p>
+            <p class="sp2">{{item.story}}</p>
           </div>
           <div class="img-right">
-            <img src="/static/img/MyLogo.png" alt="" class="img2">
-            <p class="sp3">李莉莉的……</p>
-          </div>
-        </div>
-      </div>
-      <div class="content" @click="toCookBookDetail">
-        <img src="/static/img/2.jpg" alt="" class="img1">
-        <div class="content-detail">
-          <div class="text-left">
-            <p class="sp1">香酥黑芝麻卷</p>
-            <p class="sp2">小时候每当加工蛋卷的人在街上摆上家伙，立马就能吸引拿上鸡蛋……</p>
-          </div>
-          <div class="img-right">
-            <img src="/static/img/MyLogo.png" alt="" class="img2">
-            <p class="sp3">李莉莉的……</p>
-          </div>
-        </div>
-      </div>
-      <div class="content" @click="toCookBookDetail">
-        <img src="/static/img/2.jpg" alt="" class="img1">
-        <div class="content-detail">
-          <div class="text-left">
-            <p class="sp1">香酥黑芝麻卷</p>
-            <p class="sp2">小时候每当加工蛋卷的人在街上摆上家伙，立马就能吸引拿上鸡蛋……</p>
-          </div>
-          <div class="img-right">
-            <img src="/static/img/MyLogo.png" alt="" class="img2">
-            <p class="sp3">李莉莉的……</p>
+            <img :src="item.user.image" alt="" class="img2">
+            <p class="sp3">{{item.user.name}}</p>
           </div>
         </div>
       </div>
@@ -109,17 +83,42 @@ export default {
   name: "page-tabbar",
   data() {
     return {
-      selected: "外卖"
+      selected: "外卖",
+      title: '',
+      classifyList: []
     };
   },
+  created(){
+    if(JSON.stringify(this.$route.params) !== '{}'){
+      this.getSmallClassifyList(this.$route.params.sort);
+    }else {
+      console.log('2')
+    }
+  },
   methods: {
-    toCookBookDetail(){
+    toCookBookDetail(menu){
       this.$router.push({
-        name: "CookBookDetail"
+        name: "CookBookDetail",
+        params: { menu: menu}
       });
     },
     toBack() {
       this.$router.back(-1);
+    },
+    //获取小分类的菜谱列表
+    getSmallClassifyList(name) {
+      const data = {
+        "sort": name,
+      }
+      const data1 = this.qs.parse(data)
+      this.axios.post('http://140.143.75.82:81/index.php/classSelect', data1,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        this.classifyList = Object.assign([],res.data.menu);
+        this.title = res.data.sort
+      }).catch((err) => {
+        console.log(err)
+      })
     }
   }
 };

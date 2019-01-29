@@ -1,8 +1,8 @@
 <template>
   <div class="page-classifylist">
-      <div class="classify-list" v-for="(item,index) in classifyList" :key="index" @click='toClassifyListDetail'>
+      <div class="classify-list" v-for="(item,index) in classifyList" :key="index">
           <div class="classify-title">{{item.title}}</div>
-          <div v-for="(item1,index1) in item.list" :key="index1" class="item"  :class="{marginStyle : index1 % 3 === 1}">
+          <div v-for="(item1,index1) in item.list" :key="index1" class="item"  :class="{marginStyle : index1 % 3 === 1}" @click='toClassifyListDetail(item1)'>
               {{item1}}
           </div>
       </div>
@@ -98,11 +98,12 @@ export default {
     };
   },
   methods: {
-    toClassifyListDetail(){
+    toClassifyListDetail(name){
       this.$router.push({
-              name: "ClassifyListDetail"
+        name: "ClassifyListDetail",
+        params: { sort: name }
       });
-    }
+    },
   }
 };
 </script>

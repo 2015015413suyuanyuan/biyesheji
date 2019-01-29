@@ -33,9 +33,9 @@
             <div class="textTop">
               {{item.username}}
             </div>
-            <!-- <div class="textBottom">
+            <div class="textBottom">
               {{item.time}}
-            </div> -->
+            </div>
           </div>
           <p>{{item.content}}</p>
         </div>
@@ -75,7 +75,21 @@ components: {
     Step
 },
   created() {
-  this.getData();
+  // this.getData();
+  this.isMyLike();
+  if(JSON.stringify(this.$route.params) !== '{}'){
+    console.log(this.$route.params.menu);
+    const menu = this.$route.params.menu;
+    this.story = menu.story
+    this.tips = menu.tips
+    this.materials = menu.materials
+    this.step = menu.step
+    this.menu_name = menu.menu_name
+    this.cover = menu.cover
+    this.comment = menu.comment
+    localStorage.setItem('main_menu_id',menu.id)
+  }else {
+  }
   },
   methods: {
     like () {
@@ -143,25 +157,43 @@ components: {
         console.log('err')
       })
     },
+    // 判断该菜谱是否是用户喜欢的
+    isMyLike() {
+      if(localStorage.getItem('username')){
+        const data = {
+          "user_id":localStorage.getItem('id')
+        }
+        const data1 = this.qs.parse(data)
+        this.axios.post('http://140.143.75.82:81/index.php/myLikeSelect', data1,{
+          headers: {'Content-Type': 'application/json'}
+        }).then((res) => {
+          if(res.data.status_code == '200') {
+           console.log('res',res);
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+      }else{
+      }
+    },
     comment111(commentInput){
       if(localStorage.getItem('username')){
         const data = {
-          "main_menu_id": localStorage.getItem('main_menu_id'),
+          "main_menu_id": this.$route.params.menu.id,
           "content": commentInput,
-          "user_id":localStorage.getItem('id'),
+          "user_id": localStorage.getItem('id')
         }
         const data1 = this.qs.parse(data)
         this.axios.post('http://140.143.75.82:81/index.php/comment', data1,{
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
           if(res.data.status_code == '200') {
-            console.log(res)    
-          }else {
-            console.log('1111')
+           this.$Message.success('评论成功'); 
+           this.commentInput = ''
+           this.getCookBookDetail(this.$route.params.menu_name);
           }
         }).catch((err) => {
           console.log(err)
-          console.log('err')
         })
       }else{
         MessageBox.confirm('',{
@@ -183,7 +215,25 @@ components: {
       }
     },
     toBack() {
-      this.$router.back(-1);
+      this.$router.push({
+        name: "ClassifyListDetail",
+        params: {sort: this.$route.params.sort }
+      });
+    },
+    getCookBookDetail(name) {
+      const data = {
+        "menu_name": name,
+      }
+      const data1 = this.qs.parse(data)
+      this.axios.post('http://140.143.75.82:81/index.php/select', data1,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        // this.classifyList = Object.assign([],res.data.menu);
+        // this.title = res.data.sort
+        console.log('res',res)
+      }).catch((err) => {
+        console.log(err)
+      })
     }
   },
   mounted() {
@@ -258,22 +308,25 @@ components: {
     .commentItem {
       text-align: left;
       border-bottom: 1px solid #F4F3F3;
-      padding-bottom: 18px;
+      padding-bottom: 8px;
+      padding-top: 10px;
       img {
         width:45px;
         height: 45px;
         border-radius: 50%; 
       }
       .itemLeft {
+        padding-left: 10px;
         float: left;
         img {
-          padding: 18px;
+          width: 45px;
+          height: 45px;
         }
       }
       .itemRight {
         float: left;
         height: 45px;
-        padding-top: 18px;
+        margin-left: 19px;
         .textTop {
           height: 22px;
           line-height: 22px;
@@ -288,6 +341,7 @@ components: {
         }
       }
       p {
+        padding-top: 10px;
         clear: both;
         font-size: 15px;
         color: #101010;
@@ -301,14 +355,13 @@ components: {
     }
   }
   .commentInput {
-    margin-top: 59px;
+    margin-top: 40px;
     .textInput {
       outline: none;
       margin: 0 auto;
       display: block;
       clear: both;
-      width: 340px;
-      height: 32px;
+      width: 360px;
       border-radius: 10px;
       background-color: rgba(244, 243, 243, 1);
       color: rgba(136, 136, 136, 1);
@@ -318,7 +371,7 @@ components: {
       border: 1px solid rgba(255, 255, 255, 0);
     }
     .btn {
-      margin-left: 18px;
+      margin-left: 10px;
       width: 56px;
       color: rgba(255, 152, 0, 1);
       font-size: 14px;

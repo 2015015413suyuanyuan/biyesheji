@@ -125,7 +125,11 @@ export default {
         localStorage.removeItem('step');
         localStorage.removeItem('materials');
         this.$router.push({
-          name: "CookBookDetail"
+          name: "CookBookDetail",
+          params:{
+            menu_name: this.menu_name,
+            
+          }
         });
        }
       }).catch((err) => {
