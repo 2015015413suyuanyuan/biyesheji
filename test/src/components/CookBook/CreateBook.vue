@@ -13,12 +13,12 @@
   <p class="tip">小贴士</p>
   <i-input class='tipInput' type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderTips" v-model='tips' ></i-input>
   </section>
-  <router-link to="/CookClassify" class="linktoclassify">
-    <div class="box" @click="saveInfo">
+  <div class="linktoclassify" @click="saveInfo">
+    <div class="box">
       <span>推荐至分类</span>
       <i class="right"></i>
     </div>
-  </router-link>
+  </div>
   <ul class='classifyList'>
     <li v-for="(item, index) in classifyList" :key="index">{{item}}</li>
   </ul>
@@ -62,13 +62,6 @@ export default {
     };
   },
   created()  {
-    if(JSON.stringify(this.$route.params.new) != '[]'){
-      this.isShowClassifyList = true
-      this.classifyList = this.$route.params.new
-    }
-    if(this.$route.params.cookName  != ''){
-      this.menu_name = this.$route.params.menu_name
-    }
     // 菜谱名
     if(JSON.stringify(localStorage.getItem('menu_name')) == 'null'){
     }else{
@@ -83,6 +76,12 @@ export default {
     if(JSON.stringify(localStorage.getItem('story')) == 'null'){
     }else{
       this.story = localStorage.getItem('story');
+    }
+    // 推荐分类
+    if(JSON.stringify(localStorage.getItem('classifyList')) == '[]'){
+    }else{
+      this.isShowClassifyList = true
+      this.classifyList = JSON.parse(localStorage.getItem('classifyList'));
     }
   },
   components: {
@@ -111,7 +110,8 @@ export default {
         'story': this.story,
         'tips': this.tips,
         'materials': JSON.parse(localStorage.getItem('materials')),
-        'step': JSON.parse(localStorage.getItem('step'))
+        'step': JSON.parse(localStorage.getItem('step')),
+        'class': JSON.parse(localStorage.getItem('list'))
       }
       const data1 = this.qs.parse(data)
       this.axios.post('http://140.143.75.82:81/index.php/create', data1,{
@@ -119,11 +119,11 @@ export default {
       }).then((res) => {
        if(res.data.message == '添加成功') {
         this.$Message.success('创建成功');
-        localstroage.removeItem('tips');
-        localstroage.removeItem('story');
-        localstroage.removeItem('cover');
-        localstroage.removeItem('step');
-        localstroage.removeItem('materials');
+        localStorage.removeItem('tips');
+        localStorage.removeItem('story');
+        localStorage.removeItem('cover');
+        localStorage.removeItem('step');
+        localStorage.removeItem('materials');
         this.$router.push({
           name: "CookBookDetail"
         });
@@ -135,7 +135,7 @@ export default {
     // 输入菜谱名是否为空的验证
     testMenuName(menu_name) {
       if(menu_name == ''){
-        this.$Message.warning('菜谱名不能为空哦');
+        this.$Message.warning('菜谱名不能为空哦'); 
       }else {
         localStorage.setItem('menu_name',menu_name)
       }
@@ -144,6 +144,10 @@ export default {
       localStorage.setItem('menu_name',this.menu_name);
       localStorage.setItem('tips',this.tips);
       localStorage.setItem('story',this.story);
+      this.$router.push({
+        name: "CookClassify",
+        params: { new: this.classifyList }
+      });
     }
   }
 }

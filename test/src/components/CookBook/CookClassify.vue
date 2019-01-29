@@ -6,11 +6,15 @@
     </mt-header>
     <input type="text" v-model="inputval" disabled placeholder="如：快手菜、早餐、汤羹、零食" class="inputbox">
     <p class="all">所有分类</p>
-    <mt-checklist align="right" class="page-part" title="热门分类" v-model="value4" :options="classify1"></mt-checklist>
-    <mt-checklist align="right" class="page-part" title="一日三餐" v-model="value4" :options="classify2"></mt-checklist>
-    <mt-checklist align="right" class="page-part" title="家常菜谱" v-model="value4" :options="classify3"></mt-checklist>
-    <mt-checklist align="right" class="page-part" title="主食小吃" v-model="value4" :options="classify4"></mt-checklist>
-    <mt-checklist align="right" class="page-part" title="时令美食" v-model="value4" :options="classify5"></mt-checklist>
+    <ul v-for="(item,index) in classifyList" :key="index" class='classifyList'>
+      <div class='titleHot'>{{item.titleHot}}</div>
+      <li v-for="(item1,idx) in item.classify" :key="idx" class='listItem' @click="selected(item1.isSelected,index,item1,idx)">
+        <div class='txt'>{{item1.name}}</div>
+        <div v-if="item1.isSelected" class="trueImg">
+          <img src="../../assets/img/true.png" class="move" alt="移动">
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -52,6 +56,37 @@
   .page-part {
     text-align: left;
   }
+  .classifyList {
+    .titleHot {
+      padding-left: 10px;
+      color: #ffba00;
+      font-size: 16px;
+      text-align: left;
+      height: 42px;
+      line-height: 42px;
+      border-bottom: 1px solid #F4F3F3;
+    }
+    .listItem {
+      border-bottom: 1px solid #F4F3F3;
+      height: 36px;
+      line-height: 36px;
+      .txt {
+        padding-left: 10px;
+        text-align: left;
+        font-size: 16px;
+        width: 60vw;
+        float: left;
+      }
+      .trueImg {
+        width: 36vw;
+        float: left;
+        img {
+          float: right;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
 }
 </style>
 
@@ -63,38 +98,167 @@ export default {
   name: "classify",
   data() {
     return {
-      value4: [],
-      classify1: ["热菜", "宝宝辅食", "烘焙", "食疗养生"],
-      classify2: ["早餐", "午餐", "晚餐", "宵夜"],
-      classify3: [
-        "快手菜",
-        "汤羹",
-        "素食",
-        "川菜",
-        "粤菜",
-        "下酒菜",
-        "下饭菜",
-        "家常菜",
-        "凉菜沙拉"
-      ],
-      classify4: ["点心", "粥品", "面食", "米食", "饮品"],
-      classify5: ["春季时令", "夏季时令", "秋季时令", "冬季时令"],
+      classifyList:[
+        { 
+          titleHot: '热门分类',
+          classify:[
+            {
+              name: '热菜',
+              isSelected: false
+            },
+            {
+              name: '宝宝辅食',
+              isSelected: false
+            },
+            {
+              name: '烘焙',
+              isSelected: false
+            },
+            {
+              name: '食疗养生',
+              isSelected: false
+            }
+          ],
+        },
+        {
+          titleHot: '一日三餐',
+          classify:[
+            {
+              name: '早餐',
+              isSelected: false
+            },
+            {
+              name: '午餐',
+              isSelected: false
+            },
+            {
+              name: '晚餐',
+              isSelected: false
+            },
+            {
+              name: '宵夜',
+              isSelected: false
+            }
+          ]
+        },
+        {
+          titleHot: '家常菜谱',
+          classify:[
+            {
+              name: '快手菜',
+              isSelected: false
+            },
+            {
+              name: '汤羹',
+              isSelected: false
+            },
+            {
+              name: '素食',
+              isSelected: false
+            },
+            {
+              name: '川菜',
+              isSelected: false
+            },
+            {
+              name: '粤菜',
+              isSelected: false
+            },
+            {
+              name: '下酒菜',
+              isSelected: false
+            },
+            {
+              name: '下饭菜',
+              isSelected: false
+            },
+            {
+              name: '家常菜',
+              isSelected: false
+            },
+            {
+              name: '凉菜沙拉',
+              isSelected: false
+            }
+          ]
+        },
+        {
+          titleHot: '主食小吃',
+          classify:[
+            {
+              name: '点心',
+              isSelected: false
+            },
+            {
+              name: '粥品',
+              isSelected: false
+            },
+            {
+              name: '面食',
+              isSelected: false
+            },
+            {
+              name: '米食',
+              isSelected: false
+            },
+            {
+              name: '饮食',
+              isSelected: false
+            }
+          ]
+        },
+        {
+          titleHot: '时令美食',
+          classify:[
+            {
+              name: '春季时令',
+              isSelected: false
+            },
+            {
+              name: '夏季时令',
+              isSelected: false
+            },
+            {
+              name: '秋季时令',
+              isSelected: false
+            },
+            {
+              name: '冬季时令',
+              isSelected: false
+            }
+          ]
+        }
+      ], 
       inputval: "",
       inputarr: [],
       newarritem: "",
-      classifyList:[]
+      selectedList:[]
     };
   },
   created() {
-    if (JSON.stringify(this.$route.params) !== "{}") {
-      this.classifyList = this.$route.params;
-      this.inputval = this.classifyList.new;
-      if(this.inputval == ''){
-        
-      }
-      this.value4= '';
-    } else {
+    if(JSON.stringify(localStorage.getItem('classifyList')) == 'null'){
+    }else{
+      var classifyList = JSON.parse(localStorage.getItem('classifyList'));
+    for (var i = 0; i < classifyList.length; i++) {
+      this.inputval += classifyList[i] + "、";
     }
+    this.inputarr = this.inputval.split("、");
+    this.inputarr.length = this.inputarr.length - 1;
+    this.inputval = this.inputval.slice(0, this.inputval.length - 1);
+      for(let i=0;i<this.classifyList.length;i++){
+        for(let j=0;j<this.classifyList[i].classify.length;j++){
+          for(let k=0;k<classifyList.length;k++){
+            if(classifyList[k] == this.classifyList[i].classify[j].name ){
+              this.classifyList[i].classify[j].isSelected = true
+              this.selectedList.push({
+                class_id: i+1,
+                sort: classifyList[k]
+              });
+            }
+          }
+        }
+      }  
+    }    
   },
   methods: {
     openConfirm() {
@@ -104,24 +268,34 @@ export default {
       });
     },
     save() {
-      this.$router.push({ name: "CreateBook", params: { new: this.inputarr } });
-    }
-  },
-  watch: {
-    value4: {
-      handler: function(newVal) {
-        this.inputval = "";
-        this.inputarr = [];
-        if (this.value4.length != 0) {
-          for (var i = 0; i < this.value4.length; i++) {
-            this.inputval += this.value4[i] + "、";
+      localStorage.setItem('list',JSON.stringify(this.selectedList));
+      localStorage.setItem('classifyList',JSON.stringify(this.inputarr));
+      this.$router.push({ name: "CreateBook", params: { new: [this.inputarr,this.selectedList] } });
+    },
+    selected(isSelected,index,item1,idx){
+      this.inputarr = [];
+      this.inputval = ''
+      this.classifyList[index].classify[idx].isSelected = !this.classifyList[index].classify[idx].isSelected
+      if(this.classifyList[index].classify[idx].isSelected){
+        this.selectedList.push({
+          class_id: index+1,
+          sort: item1.name
+        });
+      } else {
+        for(let i=0;i<this.selectedList.length;i++){
+          if(this.selectedList[i].sort == item1.name){
+            this.selectedList.splice(i,1);
           }
-          this.inputarr = this.inputval.split("、");
-          this.inputarr.length = this.inputarr.length - 1;
-          this.inputval = this.inputval.slice(0, this.inputval.length - 1);
         }
-      },
-      deep: true
+      }
+      if (this.selectedList.length != 0) {
+        for (var i = 0; i < this.selectedList.length; i++) {
+          this.inputval += this.selectedList[i].sort + "、";
+        }
+        this.inputarr = this.inputval.split("、");
+        this.inputarr.length = this.inputarr.length - 1;
+        this.inputval = this.inputval.slice(0, this.inputval.length - 1);
+      }
     }
   }
 };
