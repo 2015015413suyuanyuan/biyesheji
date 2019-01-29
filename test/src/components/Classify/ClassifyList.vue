@@ -66,7 +66,7 @@ export default {
       classifyList:[
           {
               title:'热门分类',
-              list:["早餐", "宝宝辅食", "烘焙", "食疗养生"]
+              list:["热菜", "宝宝辅食", "烘焙", "食疗养生"]
           },
           {
               title:'一日三餐',

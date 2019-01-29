@@ -70,11 +70,39 @@
     components: {
       ClassifyList
     },
+  created()  {
+    this.getBigClass();
+    this.getClassList();
+  },
   methods: {
     toSearch() {
       this.$router.push({
         name: "Search"
       });
+    },
+    // 大分类列表
+    getBigClass() {
+      const data = {}
+      const data1 = this.qs.parse(data)
+      this.axios.post('http://140.143.75.82:81/index.php/list', data1,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        console.log('res',res)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    // 菜谱分类展示列表
+    getClassList() {
+      const data = {}
+      const data1 = this.qs.parse(data)
+      this.axios.post('http://140.143.75.82:81/index.php/classSelect', data1,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        console.log('res',res)
+      }).catch((err) => {
+        console.log(err)
+      })
     },
   }
   };

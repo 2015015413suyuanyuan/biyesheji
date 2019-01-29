@@ -156,4 +156,8 @@ color: white;
 .ivu-radio-inner:after{
   background-color: #ffba00;
 }
+.mint-checklist-title {
+  color: #FF9800;
+  font-size: 16px;
+}
 </style>

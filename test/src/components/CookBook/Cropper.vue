@@ -27,34 +27,40 @@
 				file: '',
       };
     },
-    methods: {
-			getFile (img) {
-				const that = this;
-				var step = this.step;
-				const e = window.event;
-				let _this = this
-				var files = e.target.files[0]
-				this.file = files
-				const params = new FormData();
-				params.append('file',this.file,this.file.name);
-				that.axios.post('http://140.143.75.82:81/index.php/upload', params,{
-					headers: {'Content-Type': 'multipart/form-data'}
-				}).then((res) => {
-					if(res.data != ''){
-            localStorage.setItem('cover', res.data.image);
-            this.step.img = res.data.image
-					}
-				}).catch((err) => {
-					console.log(err)
-				})
-				if (!e || !window.FileReader) return  // 看支持不支持FileReader
-				let reader = new FileReader()
-				reader.readAsDataURL(files) // 这里是最关键的一步，转换就在这里
-				reader.onloadend = function () {
-						img = this.result;
-				}
-			},
+  created() {
+    if(JSON.stringify(localStorage.getItem('cover')) == 'null'){
+    }else{
+      this.step.img = localStorage.getItem('cover');
+    }
+  },
+  methods: {
+    getFile (img) {
+      const that = this;
+      var step = this.step;
+      const e = window.event;
+      let _this = this
+      var files = e.target.files[0]
+      this.file = files
+      const params = new FormData();
+      params.append('file',this.file,this.file.name);
+      that.axios.post('http://140.143.75.82:81/index.php/upload', params,{
+        headers: {'Content-Type': 'multipart/form-data'}
+      }).then((res) => {
+        if(res.data != ''){
+          localStorage.setItem('cover', res.data.image);
+          this.step.img = res.data.image
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+      if (!e || !window.FileReader) return  // 看支持不支持FileReader
+      let reader = new FileReader()
+      reader.readAsDataURL(files) // 这里是最关键的一步，转换就在这里
+      reader.onloadend = function () {
+          img = this.result;
+      }
     },
+  },
     watch: {
 			step: {
 			handler: function (newVal) {
@@ -63,7 +69,7 @@
 					}
 			},
 			deep: true
-		}
+    },
 },
   };
 </script>

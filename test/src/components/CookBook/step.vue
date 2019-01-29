@@ -92,17 +92,11 @@ export default {
   components: {
     draggable
   },
-  watch: {
-    // step: {
-    //   handler: function (newVal) {
-    //     for(var i=0;i<newVal.length;i++){
-    //         if(newVal[i].img !== ''){
-    //         newVal[i].displayImg = false;
-    //         }
-    //     }
-    //   },
-    //   deep: true
-    // }
+  created() {
+    if(JSON.stringify(localStorage.getItem('step')) == 'null'){
+    }else{
+      this.step = JSON.parse(localStorage.getItem('step'));
+    }
   },
   methods: {
     getFile (idx,img) {
@@ -118,7 +112,6 @@ export default {
         headers: {'Content-Type': 'multipart/form-data'}
       }).then((res) => {
         if(res.data != ''){ 
-          console.log(res.data.image)
           this.step[idx].image= res.data.image
           localStorage.setItem('step',JSON.stringify(this.step));
         }

@@ -14,7 +14,7 @@
   <i-input class='tipInput' type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeholderTips" v-model='tips' ></i-input>
   </section>
   <router-link to="/CookClassify" class="linktoclassify">
-    <div class="box">
+    <div class="box" @click="saveInfo">
       <span>推荐至分类</span>
       <i class="right"></i>
     </div>
@@ -69,7 +69,21 @@ export default {
     if(this.$route.params.cookName  != ''){
       this.menu_name = this.$route.params.menu_name
     }
-    // localStorage.clear();
+    // 菜谱名
+    if(JSON.stringify(localStorage.getItem('menu_name')) == 'null'){
+    }else{
+      this.menu_name = localStorage.getItem('menu_name');
+    }
+    // 小窍门
+    if(JSON.stringify(localStorage.getItem('tips')) == 'null'){
+    }else{
+      this.tips = localStorage.getItem('tips');
+    }
+    // 厨房故事
+    if(JSON.stringify(localStorage.getItem('story')) == 'null'){
+    }else{
+      this.story = localStorage.getItem('story');
+    }
   },
   components: {
     Step,
@@ -90,15 +104,6 @@ export default {
     },
     publicTheCook() {
       localStorage.setItem('menu_name',this.menu_name)
-      console.log('this.tips', this.tips,
-      'this.menu_name', this.menu_name,
-      'story',this.story,
-      'usage',JSON.parse(localStorage.getItem('usage')),
-      'materials',JSON.parse(localStorage.getItem('materials')),
-      'cover',localStorage.getItem('cover'),
-      'step',localStorage.getItem('step'),
-      localStorage.getItem('id')
-      )
       const data = {
         "user_id": localStorage.getItem('id'),
         "cover": localStorage.getItem('cover'),
@@ -109,13 +114,16 @@ export default {
         'step': JSON.parse(localStorage.getItem('step'))
       }
       const data1 = this.qs.parse(data)
-      console.log('data1',data1)
       this.axios.post('http://140.143.75.82:81/index.php/create', data1,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
        if(res.data.message == '添加成功') {
         this.$Message.success('创建成功');
-        console.log('ddddd')
+        localstroage.removeItem('tips');
+        localstroage.removeItem('story');
+        localstroage.removeItem('cover');
+        localstroage.removeItem('step');
+        localstroage.removeItem('materials');
         this.$router.push({
           name: "CookBookDetail"
         });
@@ -131,6 +139,11 @@ export default {
       }else {
         localStorage.setItem('menu_name',menu_name)
       }
+    },
+    saveInfo(){
+      localStorage.setItem('menu_name',this.menu_name);
+      localStorage.setItem('tips',this.tips);
+      localStorage.setItem('story',this.story);
     }
   }
 }

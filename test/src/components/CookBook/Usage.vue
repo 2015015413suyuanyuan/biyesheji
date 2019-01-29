@@ -61,7 +61,10 @@ export default {
   },
   created() {
     this.materials = Object.assign([], this.materials)
-
+    if(JSON.stringify(localStorage.getItem('materials')) == 'null'){
+    }else{
+      this.materials = JSON.parse(localStorage.getItem('materials'));
+    }
   },
   components: {
       draggable,

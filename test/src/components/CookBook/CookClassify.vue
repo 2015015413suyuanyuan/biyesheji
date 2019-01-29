@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       value4: [],
-      classify1: ["早餐", "宝宝辅食", "烘焙", "食疗养生"],
+      classify1: ["热菜", "宝宝辅食", "烘焙", "食疗养生"],
       classify2: ["早餐", "午餐", "晚餐", "宵夜"],
       classify3: [
         "快手菜",
