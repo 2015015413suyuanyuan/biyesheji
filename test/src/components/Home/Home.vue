@@ -152,7 +152,7 @@ export default {
           }
         }).catch(err => {
           if(err == 'cancel') {
-            console.log('222')
+
           }
         })
       }

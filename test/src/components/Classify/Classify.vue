@@ -87,7 +87,6 @@
       this.axios.post('http://140.143.75.82:81/index.php/list', data1,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        console.log('res',res)
       }).catch((err) => {
         console.log(err)
       })
@@ -99,7 +98,6 @@
       this.axios.post('http://140.143.75.82:81/index.php/classSelect', data1,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        console.log('res',res)
       }).catch((err) => {
         console.log(err)
       })

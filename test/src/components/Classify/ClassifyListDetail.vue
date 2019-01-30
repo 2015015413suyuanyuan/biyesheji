@@ -92,7 +92,6 @@ export default {
     if(JSON.stringify(this.$route.params) !== '{}'){
       this.getSmallClassifyList(this.$route.params.sort);
     }else {
-      console.log('2')
     }
   },
   methods: {

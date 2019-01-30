@@ -140,7 +140,6 @@ export default {
       this.axios.post('http://140.143.75.82:81/index.php/basicInfo', data1,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        console.log(res.data[0].image)
         this.userImage = res.data[0].image
       }).catch((err) => {
         console.log(err)
@@ -196,7 +195,6 @@ export default {
             name: "NoLogged"
           });       
         }
-        console.log(res)
       }).catch((err) => {
         console.log(err)
       })      
@@ -208,7 +206,6 @@ export default {
       this.axios.post('http://140.143.75.82:81/index.php/myLikeSelect', this.qs.parse(data),{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        console.log(res)
       }).catch((err) => {
         console.log(err)
       })  

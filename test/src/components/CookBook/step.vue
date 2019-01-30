@@ -145,7 +145,6 @@ export default {
     changeOver() {
       localStorage.setItem('step',JSON.stringify(this.step));
       this.isShowChange = false
-      console.log(this.step)
     },
     temporaryStorage(){
       localStorage.setItem('step',JSON.stringify(this.step));

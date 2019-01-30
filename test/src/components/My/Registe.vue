@@ -44,9 +44,9 @@ export default {
       const reg =  /^[0-9a-zA-Z]*$/g
 
       if(reg.test(this.tel) && this.tel.length <= 11) {
-        console.log('tre')
+
       } else {
-        console.log('false')
+
       }
       const data = {
         "username": this.tel,
@@ -59,19 +59,15 @@ export default {
         if(res.data.status_code == '200') {
           localStorage.setItem('username', res.data.username);
           localStorage.setItem('id', JSON.stringify(res.data.id));
-          console.log(localStorage.getItem('id'))
           localStorage.setItem('state', JSON.stringify(res.data.state));
-          console.log(JSON.stringify(res.data.id))
           this.$router.push({
             name: "Logged",
             params: { username: res.data.username }            
           });         
         }else {
-          console.log('1111')
         }
       }).catch((err) => {
         console.log(err)
-        console.log('err')
       })
       // this.$router.push({
       //   name: "Logged"

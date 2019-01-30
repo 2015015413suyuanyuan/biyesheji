@@ -148,7 +148,6 @@ Cropper
       this.axios.post('http://140.143.75.82:81/index.php/basicInfo', this.qs.parse(data),{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        console.log('查看个人信息',res.data[0])
         this.list = res.data[0]
       }).catch((err) => {
         console.log(err)
@@ -158,7 +157,6 @@ Cropper
       this.$router.back(-1);
     },
     save() {
-      console.log(localStorage.getItem('touImage'),this.userSex,this.petName,this.tel)
       const data = {
         "id": localStorage.getItem('id'),
         "name": this.petName,
@@ -178,11 +176,9 @@ Cropper
         }
       }).catch((err) => {
         console.log(err)
-        console.log('err')
       })
     },
     change() {
-      console.log(this.userSex,'sex');
     }
   },
 };
