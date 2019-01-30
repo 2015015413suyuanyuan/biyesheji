@@ -264,7 +264,9 @@ export default {
     openConfirm() {
       this.$router.push({
         name: "CreateBook",
-        params: { new: this.inputarr }
+        params: { new: this.inputarr ,menu:{
+          new: false
+        }}
       });
     },
     save() {

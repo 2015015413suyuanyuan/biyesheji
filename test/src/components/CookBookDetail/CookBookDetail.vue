@@ -75,11 +75,11 @@ components: {
     Step
 },
   created() {
-  // this.getData();
     this.isMyLike();
     if(JSON.stringify(this.$route.params) !== '{}'){
-      console.log(this.$route.params)
+      console.log(this.$route.params,'dddddddddddddd')
       if(JSON.stringify(this.$route.params.menu) !== '{}'){
+        console.log(this.$route.params.menu.id)
         this.getCookBookDetail(this.$route.params.menu.id)
         localStorage.setItem('main_menu_id',this.$route.params.menu.id)
       }
@@ -92,7 +92,7 @@ components: {
         this.imgHeart = '/static/img/like.png'
         const data = {
           "main_menu_id": localStorage.getItem('main_menu_id'),
-          "user_id": localStorage.getItem('id')
+          "user_id": localStorage.getItem('user_id')
         }
         const data1 = this.qs.parse(data)
         this.axios.post('http://140.143.75.82:81/index.php/myLikeCreate', data1,{
@@ -108,7 +108,7 @@ components: {
         this.imgHeart = '/static/img/likes.png'
         const data = {
           "main_menu_id": localStorage.getItem('main_menu_id'),
-          "user_id": localStorage.getItem('id')
+          "user_id": localStorage.getItem('user_id')
         }
         const data1 = this.qs.parse(data)
         this.axios.post('http://140.143.75.82:81/index.php/myLikeDelete', data1,{
@@ -127,8 +127,9 @@ components: {
     isMyLike() {
       if(localStorage.getItem('username')){
         const data = {
-          "user_id":localStorage.getItem('id')
+          "user_id":localStorage.getItem('user_id')
         }
+        console.log(data)
         const data1 = this.qs.parse(data)
         this.axios.post('http://140.143.75.82:81/index.php/myLikeSelect', data1,{
           headers: {'Content-Type': 'application/json'}
@@ -147,7 +148,7 @@ components: {
         const data = {
           "main_menu_id": localStorage.getItem('main_menu_id'),
           "content": commentInput,
-          "user_id": localStorage.getItem('id')
+          "user_id": localStorage.getItem('user_id')
         }
         const data1 = this.qs.parse(data)
         this.axios.post('http://140.143.75.82:81/index.php/comment', data1,{
@@ -183,16 +184,12 @@ components: {
     },
     toBack() {
       if(this.$route.params.menu.new){
-        console.log('true')
         this.$router.push({
-          name: "Home",
-          params: {sort: this.$route.params.sort }
+          name: "Home"
         });
       }else {
-        console.log('false')
         this.$router.push({
-          name: "ClassifyListDetail",
-          params: {sort: this.$route.params.sort }
+          name: "Logged"
         });
       }
     },

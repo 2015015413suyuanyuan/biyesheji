@@ -63,9 +63,11 @@ export default {
       this.$router.push({
         name: "CreateBook",
         params: { menu: {
+            menu: menu,
             menu_name: menu.menu_name,
             id: menu.id,
-            new : false            
+            new : false,
+            title: '编辑菜谱'     
         } }
       });
     }

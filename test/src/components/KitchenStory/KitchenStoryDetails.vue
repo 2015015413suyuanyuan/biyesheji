@@ -6,12 +6,13 @@
       </router-link>
     </mt-header>
     <div class='detail'>
-      <img src="../../assets/img/MyLogo.png" alt="">
+      <img :src="cover" alt="">
           <article>
-            <h2>外国留学生第一次吃中国面食, 吃了3个小时, 服务员买单笑晕了!</h2>
-            <p>
-              我曾偶尔听到一些老外评论中国的面食，超级好吃！怎么吃都不够！越吃越上瘾！谈到面食，我想网友们第一个就会想到我们北方人，比如：炸酱面，油泼面，韭菜盒子，水饺，发面饼等，中国的美食现在已经风靡全球，我们北方的面食也不例外，小伙伴们应该都看到美国人吃我们中国的方便面的视频了吧？吃上一口，简直高兴的要飞起来的感觉，前几天，我听说有的老外以为我们中国的方便面只有上级人士才能吃到，所以攒钱要来中国吃方便面，到了中国才知道，方便面原来是这么普通的一件东西，甚至有的国家把我们中国的方便面当成奢饰品，只有重要的宴会才可以吃到，可想而知，我们中国的面食魅力有多么伟大了吧！
-            </p>
+            <h2>{{title}}</h2>
+            <div v-for="(item1,index1) in item" :key="index1">
+              <p>{{item1.content}}</p>
+              <img :src="item1.image" alt="">
+            </div>
           </article>
     </div>
     <div class="like" @click="good">
@@ -89,8 +90,19 @@ export default {
       Good: '/static/img/good.png',
       // 是否点赞
       isGood: false,
-      num: 88
+      num: 88,
+      cover: '',
+      title:'',
+      item: []
     };
+  },
+  created(){
+    if(JSON.stringify(this.$route.params) !== '{}'){
+      const data = this.$route.params.story;
+      this.cover = data.cover
+      this.title = data.title
+      this.item =data.story
+    }
   },
   methods: {
     good () {

@@ -1,18 +1,8 @@
 <template>
   <div class="page-tabbar">
-    <div class="img-right" @click="toStoryDetail">
-        <p class="p1">把大海装进盒子里送给你吃</p>
-        <img src="/static/img/4.jpg" alt="" class="img2">
-        <p class="p2"><span>来自</span><span>饮品记</span></p>
-    </div>
-    <div class="img-right" @click="toStoryDetail">
-        <p class="p1">把大海装进盒子里送给你吃</p>
-        <img src="/static/img/2.jpg" alt="" class="img2">
-        <p class="p2"><span>来自</span><span>饮品记</span></p>
-    </div>
-    <div class="img-right" @click="toStoryDetail">
-        <p class="p1">把大海装进盒子里送给你吃</p>
-        <img src="/static/img/3.jpg" alt="" class="img2">
+    <div class="img-right" @click="toStoryDetail(item)" v-for="(item,index) in storyList" :key="index">
+        <p class="p1">{{item.title}}</p>
+        <img :src="item.cover" alt="" class="img2">
         <p class="p2"><span>来自</span><span>饮品记</span></p>
     </div>
   </div>
@@ -66,14 +56,35 @@ export default {
   name: "page-tabbar",
   data() {
     return {
-      selected: "外卖"
+      selected: "外卖",
+      // 厨房故事数据列表
+      storyList: []
     };
   },
+  created(){
+    this.getDataList();
+  },
   methods: {
-    toStoryDetail(){
+    toStoryDetail(item){
       this.$router.push({
-              name: "KitchenStoryDetails"
+        name: "KitchenStoryDetails",
+        params: {story: item}
       });
+    },
+    // 获取厨房故事列表
+    getDataList(){
+    const data = {}
+    const data1 = this.qs.parse(data)
+    this.axios.post('http://140.143.75.82:81/index.php/storySelect', data1,{
+      headers: {'Content-Type': 'application/json'}
+    }).then((res) => {
+      if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {
+        this.storyList = res.data
+        console.log(this.storyList)
+      }
+    }).catch((err) => {
+      console.log(err)
+    })      
     }
   }
 };

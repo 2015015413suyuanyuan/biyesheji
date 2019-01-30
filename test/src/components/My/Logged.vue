@@ -202,7 +202,7 @@ export default {
     // 获取我喜欢的菜单的列表
     getData(){
       const data = {
-        "user_id": localStorage.getItem('id')
+        "user_id": localStorage.getItem('user_id')
       }
       this.axios.post('http://140.143.75.82:81/index.php/myLikeSelect', this.qs.parse(data),{
         headers: {'Content-Type': 'application/json'}

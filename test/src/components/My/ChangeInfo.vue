@@ -10,7 +10,7 @@
       </div>
       <div class="petName">
         <label for="petName">昵称（2-10个字符）</label>
-        <i-input :value.sync="petName" right  placeholder="请输入..." style="width: 25vw" class="inp2"></i-input>
+        <i-input v-model="petName" right  placeholder="请输入..." style="width: 25vw" class="inp2"></i-input>
       </div>
       <div class="sex">
         <label for="sex" class="sexxx">性别</label>
@@ -21,7 +21,7 @@
       </div>
       <div class="tel">
         <label for="tel">手机号码</label>
-        <i-input :value.sync="tel" right  placeholder="请输入..." style="width: 25vw" class="inp1"></i-input>
+        <i-input v-model="tel" right  placeholder="请输入..." style="width: 25vw" class="inp1"></i-input>
       </div>
   </div>
 </template>
@@ -149,6 +149,9 @@ Cropper
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         this.list = res.data[0]
+        this.userSex = res.data[0].sex
+        this.petName = res.data[0].name
+        this.tel = res.data[0].phone
       }).catch((err) => {
         console.log(err)
       })      
@@ -157,8 +160,9 @@ Cropper
       this.$router.back(-1);
     },
     save() {
+      console.log(this.petName)
       const data = {
-        "id": localStorage.getItem('id'),
+        "id": localStorage.getItem('user_id'),
         "name": this.petName,
         "phone": this.tel,
         "sex": this.userSex,
@@ -169,7 +173,7 @@ Cropper
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.data.status_code == '200') {
-          this.$Message.success('创建成功');
+          this.$Message.success('编辑成功');
           this.$router.push({
             name: "Logged"
           });    

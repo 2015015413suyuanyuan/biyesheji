@@ -1,6 +1,6 @@
 <template>
 <div>
-  <mt-header fixed title="创建菜谱">
+  <mt-header fixed :title="title">
     <mt-button class="canclecolor"  @click.native="openConfirm" slot="left">取消</mt-button>
   </mt-header> 
   <Cropper></Cropper>
@@ -60,6 +60,9 @@ export default {
       placeholderStory: '输入这道美食背后的故事',
       placeholderMenuName: '写下你的菜谱名吧',
       placeholderTips: '这道菜还有哪些需要注意的细节和小技巧？',
+      new : true,
+      bookID: '',
+      title:'创建菜谱'
     };
   },
   created()  {
@@ -87,15 +90,18 @@ export default {
 
    const data =  this.$route.params;
    if(JSON.stringify(data) == 'undefined' || JSON.stringify(data) == '{}'){
-     console.log(data);
+     this.title = '创建菜谱'
    }else {
-     console.log('有数据',data)
-     this.tips = data.menu.tips;
-      localStorage.setItem('cover',data.menu.cover)
-     this.menu_name = data.menu.menu_name
-     this.story = data.menu.story
-     localStorage.setItem('materials',JSON.stringify(data.menu.materials));
-     localStorage.setItem('step',JSON.stringify(data.menu.step));
+     console.log(data)
+     this.tips = data.menu.menu.tips;
+     localStorage.setItem('cover',data.menu.menu.cover)
+     this.menu_name = data.menu.menu.menu_name
+     this.story = data.menu.menu.story
+     localStorage.setItem('materials',JSON.stringify(data.menu.menu.materials));
+     localStorage.setItem('step',JSON.stringify(data.menu.menu.step));
+     this.new = data.menu.new
+     this.bookID = data.menu.id
+     this.title = data.menu.title
    }
    
   },
@@ -117,43 +123,88 @@ export default {
       this.$router.push('/')
     },
     publicTheCook() {
-      localStorage.setItem('menu_name',this.menu_name)
-      const data = {
-        "user_id": localStorage.getItem('user_id'),
-        "cover": localStorage.getItem('cover'),
-        'menu_name': this.menu_name,
-        'story': this.story,
-        'tips': this.tips,
-        'materials': JSON.parse(localStorage.getItem('materials')),
-        'step': JSON.parse(localStorage.getItem('step')),
-        'class': JSON.parse(localStorage.getItem('list'))
-      }
-      const data1 = this.qs.parse(data)
-      this.axios.post('http://140.143.75.82:81/index.php/create', data1,{
-        headers: {'Content-Type': 'application/json'}
-      }).then((res) => {
-       if(res.data.message == '添加成功') {
-        this.$Message.success('创建成功');
-        localStorage.removeItem('tips');
-        localStorage.removeItem('story');
-        localStorage.removeItem('cover');
-        localStorage.removeItem('step');
-        localStorage.removeItem('materials');
-        localStorage.removeItem('classifyList');
-        this.$router.push({
-          name: "CookBookDetail",
-          params:{
-            menu:{
-            menu_name: this.menu_name,
-            id: res.data.id,
-            new : true
+      // 新增
+      if(this.new){
+        localStorage.setItem('menu_name',this.menu_name)
+        const data = {
+          "user_id": localStorage.getItem('user_id'),
+          "cover": localStorage.getItem('cover'),
+          'menu_name': this.menu_name,
+          'story': this.story,
+          'tips': this.tips,
+          'materials': JSON.parse(localStorage.getItem('materials')),
+          'step': JSON.parse(localStorage.getItem('step')),
+          'class': JSON.parse(localStorage.getItem('list'))
+        }
+        const data1 = this.qs.parse(data)
+        this.axios.post('http://140.143.75.82:81/index.php/create', data1,{
+          headers: {'Content-Type': 'application/json'}
+        }).then((res) => {
+        if(res.data.message == '添加成功') {
+          this.$Message.success('创建成功');
+          localStorage.removeItem('tips');
+          localStorage.removeItem('story');
+          localStorage.removeItem('cover');
+          localStorage.removeItem('step');
+          localStorage.removeItem('materials');
+          localStorage.removeItem('classifyList');
+          this.$router.push({
+            name: "CookBookDetail",
+            params:{
+              menu:{
+              menu_name: this.menu_name,
+              id: res.data.id,
+              new : true
+              }
             }
-          }
-        });
-       }
-      }).catch((err) => {
-        console.log(err)
-      })
+          });
+        }
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
+      // 编辑
+      else {
+        console.log('编辑')
+        localStorage.setItem('menu_name',this.menu_name)
+        const data = {
+          "user_id": localStorage.getItem('user_id'),
+          "cover": localStorage.getItem('cover'),
+          'menu_name': this.menu_name,
+          'story': this.story,
+          'tips': this.tips,
+          'materials': JSON.parse(localStorage.getItem('materials')),
+          'step': JSON.parse(localStorage.getItem('step')),
+          'class': JSON.parse(localStorage.getItem('list')),
+          "id":this.bookID
+        }
+        const data1 = this.qs.parse(data)
+        this.axios.post('http://140.143.75.82:81/index.php/update', data1,{
+          headers: {'Content-Type': 'application/json'}
+        }).then((res) => {
+        if(res.data.message == '编辑成功') {
+          this.$Message.success('编辑成功');
+          localStorage.removeItem('tips');
+          localStorage.removeItem('story');
+          localStorage.removeItem('cover');
+          localStorage.removeItem('step');
+          localStorage.removeItem('materials');
+          localStorage.removeItem('classifyList');
+          this.$router.push({
+            name: "CookBookDetail",
+            params:{
+              menu:{
+              menu_name: this.menu_name,
+              id: this.bookID,
+              new : false
+              }
+            }
+          });
+        }
+        }).catch((err) => {
+          console.log(err)
+        })        
+      }
     },
     // 输入菜谱名是否为空的验证
     testMenuName(menu_name) {
