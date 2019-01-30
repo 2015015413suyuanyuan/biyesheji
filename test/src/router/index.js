@@ -47,6 +47,12 @@ export default new Router({
       meta: { navShow: true}
     },
     {
+      path: '/Home',
+      name: 'Home',
+      component: Home,
+      meta: { navShow: true}
+    },
+    {
       path: '/My',
       name: 'My',
       component: My,

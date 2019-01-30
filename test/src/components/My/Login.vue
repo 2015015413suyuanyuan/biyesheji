@@ -43,7 +43,7 @@ export default {
       }).then((res) => {
         if(res.data.message == '登录成功') {
           localStorage.setItem('username', JSON.stringify(res.data.username));
-          localStorage.setItem('id', JSON.stringify(res.data.id));
+          localStorage.setItem('user_id', JSON.stringify(res.data.id));
           localStorage.setItem('state', JSON.stringify(res.data.state));
           this.errorInfo = false
           this.$router.push({

@@ -58,7 +58,7 @@ export default {
       }).then((res) => {
         if(res.data.status_code == '200') {
           localStorage.setItem('username', res.data.username);
-          localStorage.setItem('id', JSON.stringify(res.data.id));
+          localStorage.setItem('user_id', JSON.stringify(res.data.id));
           localStorage.setItem('state', JSON.stringify(res.data.state));
           this.$router.push({
             name: "Logged",

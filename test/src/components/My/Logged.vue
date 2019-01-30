@@ -3,16 +3,12 @@
     <div class='header'>
       <div class='header-left' @click="changeInfo">
         <img :src="userImage" alt="">
-        <p>厨友154331094</p>
+        <p>{{userName}}</p>
       </div>
       <div class='header-right'>
         <button @click="NoLogin">退出按钮</button>
       </div>
     </div>
-    <div @click="change">
-      切换是否有菜谱
-    </div>
-
     <!-- 确认删除的弹出框 -->
     <div class='msgbox' style="position:absolute;z-index: 2007;display:none;" ref="msgbox">
       <div class='mint-msgbox'>
@@ -30,32 +26,36 @@
     <div class='v-modal' style='z-index: 2006;display:none;' ref='modal'></div>
       
 
-
+    <!-- 我喜欢的菜谱 我的作品 tab切换 -->
     <div class="nav">
       <mt-button size="small" @click.native.prevent="active = 'tab-container1'" @click.native='changeStyle("tab-container1")' :class="{active: classObject1}">我喜欢的菜谱</mt-button>
       <mt-button size="small" @click.native.prevent="active = 'tab-container2'" @click.native='changeStyle("tab-container2")' :class="{active: classObject2}">我的作品</mt-button>
     </div>
     <div class="page-tab-container">
       <mt-tab-container class="page-tabbar-tab-container" v-model="active">
+        <!-- 我喜欢的菜谱 -->
         <mt-tab-container-item id="tab-container1">
           <div class="content">
+            <!-- 我喜欢的菜谱为空 -->
             <div class='list' v-if="isHasBookList">
               <img src="../../assets/img/like.png" alt="" class='nothingimg'>
               <p class='nothingtxt'>目前没有内容</p>
             </div>
+            <!-- 我喜欢的菜谱不为空 -->
             <div class='list' v-else>
               <div class="foodItem" v-for="(item,index) in myFavoriteBookList" :key="index">
                 <div class='foodItemlfet'>
-                  <img :src="item.img" alt="">
+                  <img :src="item.cover" alt="">
                 </div>
                 <div class='foodItemright'>
-                  <p>{{item.name}}</p>
-                  <button @click="del(index)">删除</button>
+                  <p>{{item.menu_name}}</p>
+                  <button @click="del(index,item.id)">删除</button>
                 </div>
               </div>
             </div>
           </div>         
         </mt-tab-container-item>
+        <!-- 我的作品 -->
         <mt-tab-container-item id="tab-container2">
           <MyDiyBook></MyDiyBook>
         </mt-tab-container-item>
@@ -70,6 +70,7 @@
 import { Tabbar } from 'mint-ui';
 import Vue from 'vue'
 import Router from 'vue-router'
+// 我的作品
 import MyDiyBook from './MyDiyBook.vue'
 import { TabContainer, TabContainerItem } from 'mint-ui';
 
@@ -81,71 +82,26 @@ export default {
       classObject2: false,
       active: 'tab-container1',
       deleteIndex: '',
+      // 判断 我喜欢的菜谱是否有数据
       isHasBookList: false,
-      myFavoriteBookList: [
-        {
-          img: '/static/img/food2.jpg',
-          name: '锅包肉'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '糖醋排骨'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '酱香猪蹄'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '酱香猪蹄'
-        }
-      ],
-      myDiyBookList: [
-        {
-          img: '/static/img/food2.jpg',
-          name: '锅包肉',
-          userImg: '/static/img/food2.jpg',
-          userName: '手机用户1111'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '糖醋排骨',
-          userImg: '/static/img/food2.jpg',
-          userName: '手机用户1111'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '酱香猪蹄',
-          userImg: '/static/img/food2.jpg',
-          userName: '手机用户1111'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '酱香猪蹄',
-          userImg: '/static/img/food2.jpg',
-          userName: '手机用户1111'
-        }        
-      ],
+      myFavoriteBookList: [],
+      myDiyBookList: [],
       userImage: '',
+      userName: '',
+      menu_id: '',
     };
   },
   components: {
     MyDiyBook
   },
   created() {
-      const data = {
-        "username": localStorage.getItem('username')
-      }
-      const data1 = this.qs.parse(data)
-      this.axios.post('http://140.143.75.82:81/index.php/basicInfo', data1,{
-        headers: {'Content-Type': 'application/json'}
-      }).then((res) => {
-        this.userImage = res.data[0].image
-      }).catch((err) => {
-        console.log(err)
-      })
-
+      this.getBasicInfo();
       this.getData();
+      if(this.myFavoriteBookList.length == 0){
+        this.isHasBookList = true;
+      } else {
+        this.isHasBookList =false;
+      }
   },
   methods: {
     changeInfo() {
@@ -156,8 +112,9 @@ export default {
     change(){
       this.isHasBookList = !this.isHasBookList
     },
-    del(index){
+    del(index,id){
       this.deleteIndex = index
+      this.menu_id = id
       this.$refs.modal.style.display = 'block'
       this.$refs.msgbox.style.display = 'block'  
     },
@@ -165,6 +122,24 @@ export default {
       this.myFavoriteBookList.splice(this.deleteIndex,1)
       this.$refs.modal.style.display = 'none'
       this.$refs.msgbox.style.display = 'none'
+      const data = {
+        "user_id": localStorage.getItem('user_id'),
+        "main_menu_id": this.menu_id
+      }
+      this.axios.post('http://140.143.75.82:81/index.php/myLikeDelete', this.qs.parse(data),{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        if(res.data.message == '取消点赞成功'){
+          this.$Message.success('取消点赞成功');
+          this.menu_id = '';
+          console.log(this.myFavoriteBookList.length)
+          if(this.myFavoriteBookList.length == 0){
+            this.isHasBookList = true;
+          }
+        }
+      }).catch((err) => {
+        console.log(err)
+      })   
     },
     cancel(){
       this.$refs.modal.style.display = 'none'
@@ -190,6 +165,8 @@ export default {
         if(res.data.message == '退出成功') {
           localStorage.removeItem('username')
           localStorage.removeItem('id')
+          localStorage.removeItem('user_id')
+          localStorage.removeItem('touImage')
           localStorage.setItem('state', '0');
           this.$router.push({
             name: "NoLogged"
@@ -199,6 +176,30 @@ export default {
         console.log(err)
       })      
     },
+    // 获取用户的基本信息接口
+    getBasicInfo(){
+      const data = {
+        "username": localStorage.getItem('username')
+      }
+      const data1 = this.qs.parse(data)
+      this.axios.post('http://140.143.75.82:81/index.php/basicInfo', data1,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {
+          this.userImage = res.data[0].image
+          if(res.data[0].name !== ''){
+            this.userName = res.data[0].name
+          }
+          else {
+            this.userName = res.data[0].username
+          }
+          localStorage.setItem('user_id',res.data[0].id)
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    // 获取我喜欢的菜单的列表
     getData(){
       const data = {
         "user_id": localStorage.getItem('id')
@@ -206,6 +207,12 @@ export default {
       this.axios.post('http://140.143.75.82:81/index.php/myLikeSelect', this.qs.parse(data),{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
+        if(res.status =='200' && res.data.length == 0){
+          this.isHasBookList = true;
+        }else {
+          this.myFavoriteBookList = res.data;
+          this.isHasBookList = false;
+        }
       }).catch((err) => {
         console.log(err)
       })  

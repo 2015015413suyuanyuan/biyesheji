@@ -3,9 +3,9 @@
   <div class="MyDiyBookItem" v-for='(item,index) in myDiyBookList' :key="index">
     <div class='bookImg'>
         <div class='Img'>
-            <img :src="item.img" alt="">
+            <img :src="item.cover" alt="">
         </div>
-        <div class='edit'>
+        <div class='edit' @click="editBook(item)">
             <img src="../../assets/img/edit.png" alt="" class='editPencil'>
         </div>
     </div>
@@ -13,10 +13,10 @@
 
     </div>
     <div class='bookItemBottom'>
-        <p class='title'>锅包肉</p>
+        <p class='title'>{{item.menu_name}}</p>
         <div class='useritem'>
-            <img :src="item.userImg" alt="">
-            <p>手机用户1111</p>
+            <img :src="item.user.image" alt="">
+            <p>{{item.user.name}}</p>
         </div>
     </div>
   </div>
@@ -33,36 +33,42 @@ export default {
   name: 'page-tabbar',
   data() {
     return {
-      myDiyBookList: [
-        {
-          img: '/static/img/food2.jpg',
-          name: '锅包肉',
-          userImg: '/static/img/food2.jpg',
-          userName: '手机用户1111'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '糖醋排骨',
-          userImg: '/static/img/food2.jpg',
-          userName: '手机用户1111'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '酱香猪蹄',
-          userImg: '/static/img/food2.jpg',
-          userName: '手机用户1111'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '酱香猪蹄',
-          userImg: '/static/img/food2.jpg',
-          userName: '手机用户1111'
-        }        
-      ]
+      myDiyBookList: []
     };
   },
+  created() {
+      this.getMyBook();
+  },
   methods: {
+    // 获取我的作品的列表
+    getMyBook(){
+      const data = {
+        "user_id": localStorage.getItem('user_id')
+      }
+      this.axios.post('http://140.143.75.82:81/index.php/select', this.qs.parse(data),{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        if(res.status == 200 && res.status && res.data && res.data.lenght != 0){
+          this.myDiyBookList = res.data;
+        }else {
 
+        }
+      }).catch((err) => {
+        console.log(err)
+      })      
+    },
+    // 点击小笔 编辑菜谱
+    editBook(menu){
+        console.log(menu)
+      this.$router.push({
+        name: "CreateBook",
+        params: { menu: {
+            menu_name: menu.menu_name,
+            id: menu.id,
+            new : false            
+        } }
+      });
+    }
   }
 };
 </script>

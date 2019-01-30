@@ -76,18 +76,17 @@ components: {
 },
   created() {
   // this.getData();
-  this.isMyLike();
-  if(JSON.stringify(this.$route.params) !== '{}'){
-    console.log(this.$route.params.menu);
-    const menu = this.$route.params.menu;
-    this.getCookBookDetail(this.$route.params.menu.menu_name)
-    localStorage.setItem('main_menu_id',menu.id)
-  }else {
-  }
+    this.isMyLike();
+    if(JSON.stringify(this.$route.params) !== '{}'){
+      console.log(this.$route.params)
+      if(JSON.stringify(this.$route.params.menu) !== '{}'){
+        this.getCookBookDetail(this.$route.params.menu.id)
+        localStorage.setItem('main_menu_id',this.$route.params.menu.id)
+      }
+    }
   },
   methods: {
     like () {
-      console.log('点赞')
       this.isHeart = !this.isHeart
       if( this.isHeart ) {
         this.imgHeart = '/static/img/like.png'
@@ -100,11 +99,9 @@ components: {
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
           if(res.message == '点赞成功') {
-            console.log('dddd')
           }
         }).catch((err) => {
           console.log(err)
-          console.log('err')
         })
       }
       else {
@@ -125,31 +122,6 @@ components: {
           console.log('err')
         })
       }
-    },
-    getData() {
-      const data = {
-        "menu_name": localStorage.getItem('menu_name'),
-        "user_id": localStorage.getItem('id')
-      }
-      const data1 = this.qs.parse(data)
-      this.axios.post('http://140.143.75.82:81/index.php/select', data1,{
-        headers: {'Content-Type': 'application/json'}
-      }).then((res) => {
-        if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {
-          const returnData = res.data[0];
-          this.story = returnData.story
-          this.tips = returnData.tips
-          this.materials = returnData.materials
-          this.step = returnData.step
-          this.menu_name = returnData.menu_name
-          this.cover = returnData.cover
-          this.comment = returnData.comment
-          localStorage.setItem('main_menu_id',returnData.id)
-        }
-      }).catch((err) => {
-        console.log(err)
-        console.log('err')
-      })
     },
     // 判断该菜谱是否是用户喜欢的
     isMyLike() {
@@ -173,7 +145,7 @@ components: {
     comment111(commentInput){
       if(localStorage.getItem('username')){
         const data = {
-          "main_menu_id": this.$route.params.menu.id,
+          "main_menu_id": localStorage.getItem('main_menu_id'),
           "content": commentInput,
           "user_id": localStorage.getItem('id')
         }
@@ -185,7 +157,7 @@ components: {
            this.$Message.success('评论成功'); 
            this.commentInput = ''
            console.log(this.$route.params)
-           this.getCookBookDetail(this.$route.params.menu.menu_name);
+           this.getCookBookDetail(localStorage.getItem('main_menu_id'));
           }
         }).catch((err) => {
           console.log(err)
@@ -210,17 +182,24 @@ components: {
       }
     },
     toBack() {
-      this.$router.push({
-        name: "ClassifyListDetail",
-        params: {sort: this.$route.params.sort }
-      });
-    },
-    getCookBookDetail(name) {
-      const data = {
-        "menu_name": name,
-        'id':  this.$route.params.menu.id
+      if(this.$route.params.menu.new){
+        console.log('true')
+        this.$router.push({
+          name: "Home",
+          params: {sort: this.$route.params.sort }
+        });
+      }else {
+        console.log('false')
+        this.$router.push({
+          name: "ClassifyListDetail",
+          params: {sort: this.$route.params.sort }
+        });
       }
-      console.log('data',data)
+    },
+    getCookBookDetail(id) {
+      const data = {
+        'id':  id
+      }
       const data1 = this.qs.parse(data)
       this.axios.post('http://140.143.75.82:81/index.php/select', data1,{
         headers: {'Content-Type': 'application/json'}

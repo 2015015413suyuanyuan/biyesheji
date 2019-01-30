@@ -47,6 +47,7 @@ import Step from './Step'
 import { Header } from 'mint-ui';
 import Usage from './Usage'
 import Cropper from './Cropper.vue';
+// import { constants } from 'http2';
 
 export default {
   data() {
@@ -83,6 +84,20 @@ export default {
       this.isShowClassifyList = true
       this.classifyList = JSON.parse(localStorage.getItem('classifyList'));
     }
+
+   const data =  this.$route.params;
+   if(JSON.stringify(data) == 'undefined' || JSON.stringify(data) == '{}'){
+     console.log(data);
+   }else {
+     console.log('有数据',data)
+     this.tips = data.menu.tips;
+      localStorage.setItem('cover',data.menu.cover)
+     this.menu_name = data.menu.menu_name
+     this.story = data.menu.story
+     localStorage.setItem('materials',JSON.stringify(data.menu.materials));
+     localStorage.setItem('step',JSON.stringify(data.menu.step));
+   }
+   
   },
   components: {
     Step,
@@ -104,7 +119,7 @@ export default {
     publicTheCook() {
       localStorage.setItem('menu_name',this.menu_name)
       const data = {
-        "user_id": localStorage.getItem('id'),
+        "user_id": localStorage.getItem('user_id'),
         "cover": localStorage.getItem('cover'),
         'menu_name': this.menu_name,
         'story': this.story,
@@ -124,11 +139,15 @@ export default {
         localStorage.removeItem('cover');
         localStorage.removeItem('step');
         localStorage.removeItem('materials');
+        localStorage.removeItem('classifyList');
         this.$router.push({
           name: "CookBookDetail",
           params:{
+            menu:{
             menu_name: this.menu_name,
-            
+            id: res.data.id,
+            new : true
+            }
           }
         });
        }

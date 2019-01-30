@@ -270,7 +270,7 @@ export default {
     save() {
       localStorage.setItem('list',JSON.stringify(this.selectedList));
       localStorage.setItem('classifyList',JSON.stringify(this.inputarr));
-      this.$router.push({ name: "CreateBook", params: { new: [this.inputarr,this.selectedList] } });
+      this.$router.push({ name: "CreateBook"  });
     },
     selected(isSelected,index,item1,idx){
       this.inputarr = [];
