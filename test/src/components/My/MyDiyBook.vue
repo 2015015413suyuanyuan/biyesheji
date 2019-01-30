@@ -42,6 +42,7 @@ export default {
   methods: {
     // 获取我的作品的列表
     getMyBook(){
+        console.log('ddd',localStorage.getItem('user_id'))
       const data = {
         "user_id": localStorage.getItem('user_id')
       }

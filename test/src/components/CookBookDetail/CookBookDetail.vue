@@ -86,39 +86,58 @@ components: {
   },
   methods: {
     like () {
-      this.isHeart = !this.isHeart
-      if( this.isHeart ) {
-        this.imgHeart = '/static/img/like.png'
-        const data = {
-          "main_menu_id": localStorage.getItem('main_menu_id'),
-          "user_id": localStorage.getItem('user_id')
-        }
-        const data1 = this.qs.parse(data)
-        this.axios.post('http://140.143.75.82:81/index.php/myLikeCreate', data1,{
-          headers: {'Content-Type': 'application/json'}
-        }).then((res) => {
-          if(res.message == '点赞成功') {
+      if(localStorage.getItem('username')){
+        this.isHeart = !this.isHeart
+        if( this.isHeart ) {
+          this.imgHeart = '/static/img/like.png'
+          const data = {
+            "main_menu_id": localStorage.getItem('main_menu_id'),
+            "user_id": localStorage.getItem('user_id')
           }
-        }).catch((err) => {
-          console.log(err)
-        })
-      }
-      else {
-        this.imgHeart = '/static/img/likes.png'
-        const data = {
-          "main_menu_id": localStorage.getItem('main_menu_id'),
-          "user_id": localStorage.getItem('user_id')
+          const data1 = this.qs.parse(data)
+          this.axios.post('http://140.143.75.82:81/index.php/myLikeCreate', data1,{
+            headers: {'Content-Type': 'application/json'}
+          }).then((res) => {
+            if(res.message == '点赞成功') {
+            }
+          }).catch((err) => {
+            console.log(err)
+          })
         }
-        const data1 = this.qs.parse(data)
-        this.axios.post('http://140.143.75.82:81/index.php/myLikeDelete', data1,{
-          headers: {'Content-Type': 'application/json'}
-        }).then((res) => {
-          if(res.data.message == "取消点赞成功") {
-            console.log('取消点赞成功')
+        else {
+          this.imgHeart = '/static/img/likes.png'
+          const data = {
+            "main_menu_id": localStorage.getItem('main_menu_id'),
+            "user_id": localStorage.getItem('user_id')
           }
-        }).catch((err) => {
-          console.log(err)
-          console.log('err')
+          const data1 = this.qs.parse(data)
+          this.axios.post('http://140.143.75.82:81/index.php/myLikeDelete', data1,{
+            headers: {'Content-Type': 'application/json'}
+          }).then((res) => {
+            if(res.data.message == "取消点赞成功") {
+              console.log('取消点赞成功')
+            }
+          }).catch((err) => {
+            console.log(err)
+            console.log('err')
+          })
+        }
+      }else{
+        MessageBox.confirm('',{
+          message: '您还没有登录哦~',
+          title: '',
+          confirmButtonText: '去登录',
+          cancelButtonText: '取消'
+        }).then(action => {
+          if(action == 'confirm'){
+            this.$router.push({
+              name: "Login"
+            });
+          }
+        }).catch(err => {
+          if(err == 'cancel') {
+
+          }
         })
       }
     },
@@ -188,6 +207,13 @@ components: {
       }
     },
     toBack() {
+     if(this.$route.params.class){
+        this.$router.push({
+          name: "ClassifyListDetail",
+          params:{sort:this.$route.params.sort}
+        });
+        
+      } else {
       if(this.$route.params.menu.new){
         this.$router.push({
           name: "Home"
@@ -197,6 +223,9 @@ components: {
           name: "Logged"
         });
       }
+      }
+
+ 
     },
     getCookBookDetail(id) {
       const data = {

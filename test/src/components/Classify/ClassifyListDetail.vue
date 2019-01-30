@@ -98,7 +98,7 @@ export default {
     toCookBookDetail(menu){
       this.$router.push({
         name: "CookBookDetail",
-        params: { menu: menu,sort:this.$route.params.sort}
+        params: { menu: menu,sort:this.$route.params.sort,class:true}
       });
     },
     toBack() {

@@ -223,6 +223,8 @@ export default {
         name: "CookBookDetail",
         params: { menu: {
             id: item.id,
+            new: false,
+            class: false
         } }
       });
     }
