@@ -70,6 +70,7 @@
       border-bottom: 1px solid #F4F3F3;
       height: 36px;
       line-height: 36px;
+      list-style: none;
       .txt {
         padding-left: 10px;
         text-align: left;
@@ -81,6 +82,7 @@
         width: 36vw;
         float: left;
         img {
+          width: 17px;
           float: right;
           margin-top: 10px;
         }
