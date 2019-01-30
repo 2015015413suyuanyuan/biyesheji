@@ -75,15 +75,14 @@ components: {
     Step
 },
   created() {
-    this.isMyLike();
+    
     if(JSON.stringify(this.$route.params) !== '{}'){
-      console.log(this.$route.params,'dddddddddddddd')
       if(JSON.stringify(this.$route.params.menu) !== '{}'){
-        console.log(this.$route.params.menu.id)
         this.getCookBookDetail(this.$route.params.menu.id)
         localStorage.setItem('main_menu_id',this.$route.params.menu.id)
       }
     }
+    this.isLike();
   },
   methods: {
     like () {
@@ -129,13 +128,19 @@ components: {
         const data = {
           "user_id":localStorage.getItem('user_id')
         }
-        console.log(data)
         const data1 = this.qs.parse(data)
         this.axios.post('http://140.143.75.82:81/index.php/myLikeSelect', data1,{
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
-          if(res.data.status_code == '200') {
-           console.log('res',res);
+          if(res.status == '200') {
+           console.log('res',res.data);
+           const list = res.data
+           for(var i=0;i<list.length;i++){
+             if(list[i].id == this.$route.params.menu.id){
+               this.imgHeart = '/static/img/like.png'
+               this.isHeart = true
+             }
+           }
           }
         }).catch((err) => {
           console.log(err)
@@ -216,6 +221,15 @@ components: {
       }).catch((err) => {
         console.log(err)
       })
+    },
+    // 判断用户是否登录 进一步判断该菜谱用户是否喜欢
+    isLike() {
+      if(localStorage.getItem('username')){
+        console.log("已经登录")
+        this.isMyLike();
+      }else{
+        console.log('没登录')
+      }
     }
   },
   mounted() {

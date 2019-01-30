@@ -44,7 +44,7 @@
             <!-- 我喜欢的菜谱不为空 -->
             <div class='list' v-else>
               <div class="foodItem" v-for="(item,index) in myFavoriteBookList" :key="index">
-                <div class='foodItemlfet'>
+                <div class='foodItemlfet' @click="detailBook(item)">
                   <img :src="item.cover" alt="">
                 </div>
                 <div class='foodItemright'>
@@ -216,6 +216,15 @@ export default {
       }).catch((err) => {
         console.log(err)
       })  
+    },
+    // 进入我喜欢的菜谱的详情页面
+    detailBook(item){
+      this.$router.push({
+        name: "CookBookDetail",
+        params: { menu: {
+            id: item.id,
+        } }
+      });
     }
   }
 };
