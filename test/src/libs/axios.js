@@ -10,12 +10,7 @@ let instance = axios.create({
 
 // 添加请求拦截
 instance.interceptors.request.use(req => {
-  
-  // 在发送请求之前做什么
-  // 如果是post请求，需要设置请求头和转换参数的数据格式
-
   if (Object.prototype.toString.call(req.data) === '[object FormData]') { // 区分是否是图片上传
-    
   } else {
     if (req.method === 'post') {
       if (!req.headers['Content-type']) {
@@ -26,11 +21,10 @@ instance.interceptors.request.use(req => {
   }
   return req 
 }, () => {
-    // 对请求错误做些什么
     const returnData ={
-        returnData: {
-            status: 'error'
-        }
+      returnData: {
+          status: 'error'
+      }
     }
     return Promise.resolve(returnData)
 })
