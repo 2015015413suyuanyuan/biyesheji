@@ -33,9 +33,12 @@
         padding-bottom: 8px;
       }
     .step-image {
-      img {
         width: 95vw;
         height: 170px;
+        margin: 0 auto;
+        overflow: hidden;
+      img {
+        width: 100%;
       }
     }
   }

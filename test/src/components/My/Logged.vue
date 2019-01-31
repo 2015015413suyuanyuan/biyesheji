@@ -321,14 +321,16 @@ export default {
         background-color: white;
         margin-bottom: 19px;
         .foodItemlfet {
+          overflow:hidden;
+          width: 200px;
+          height: 120px;
           float: left;
           vertical-align: middle;
-          padding-top: 12px;
-          padding-left: 10px;
+          margin-top: 10px;
+          margin-left: 10px;
+          border-radius: 16px;
           img {
-            width: 200px;
-            height: 120px;
-            border-radius: 18px;
+            width: 100%;
           }
         }
         .foodItemright {

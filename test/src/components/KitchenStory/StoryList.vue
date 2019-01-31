@@ -2,7 +2,9 @@
   <div class="page-tabbar">
     <div class="img-right" @click="toStoryDetail(item)" v-for="(item,index) in storyList" :key="index">
         <p class="p1">{{item.title}}</p>
-        <img :src="item.cover" alt="" class="img2">
+        <div class='imgContain'>
+          <img :src="item.cover" alt="" class="img2">
+        </div>
         <p class="p2"><span>来自</span><span>饮品记</span></p>
     </div>
   </div>
@@ -11,6 +13,17 @@
 <style lang="scss" scoped>
 .page-tabbar {
   overflow: hidden;
+
+  .imgContain {
+      width: 310px;
+      height: 140px;
+      margin: 10px 0;
+      overflow: hidden;
+      .img2 {
+        width: 100%;
+      }  
+  }
+
   .img-right {
     margin: 0 auto;
     text-align: center;
@@ -19,7 +32,9 @@
     background-color: white;
     padding: 3px 21px;
     .p1{
-        font-size: 14px;
+        font-size: 16px;
+        color: #101010;
+        text-align:center;
     }
     .p2{
         font-size: 12px;

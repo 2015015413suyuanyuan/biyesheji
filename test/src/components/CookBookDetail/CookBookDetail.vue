@@ -286,10 +286,12 @@ components: {
     }
   }
   .headerimg {
+    margin-top: 55px;
+    width: 100vw;
+    height: 220px;
+    overflow: hidden;
     img {
-      width: 100vw;
-      height: 220px;
-      margin-top: 55px;
+      width: 100%;
     }
   }
   article {

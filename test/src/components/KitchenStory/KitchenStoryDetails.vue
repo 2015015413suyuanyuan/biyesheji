@@ -6,12 +6,17 @@
       </router-link>
     </mt-header>
     <div class='detail'>
-      <img :src="cover" alt="">
+      <div class='headerImg'>
+        <img :src="cover" alt="">
+      </div>
           <article>
-            <h2>{{title}}</h2>
+            <h2 style="text-align: center;">{{title}}</h2>
             <div v-for="(item1,index1) in item" :key="index1">
               <p>{{item1.content}}</p>
-              <img :src="item1.image" alt="">
+              <div class='headerImg'>
+                  <img :src="item1.image" alt="">
+              </div>
+              
             </div>
           </article>
     </div>
@@ -27,12 +32,17 @@
   .abouttitle {
     font-size: 20px;
   }
-
   .detail {
     text-align: left;
-    img {
+    margin-top: 50px;
+    .headerImg {
+      margin: 0 auto;
+      overflow: hidden;
       width: 360px;
       height: 220px;
+      img {
+        width: 100%;
+      }
     }
     article {
     h2 {
@@ -45,6 +55,7 @@
       font-weight: normal;
     }
     p {
+      text-indent: 25px;
       padding: 0 15px;
       color: rgba(16, 16, 16, 1);
       font-size: 16px;
@@ -67,7 +78,7 @@
   position: relative;
   padding-left: 22px;
   margin-bottom: 55px;
-  margin-top: 9px;
+  margin-top: 20px;
   .good {
    width: 18px;
    height: 18px;

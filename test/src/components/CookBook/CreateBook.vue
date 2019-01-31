@@ -120,6 +120,12 @@ export default {
       this.$refs.msgbox.style.display = 'none'
     },
     dele(){
+      localStorage.removeItem('tips');
+      localStorage.removeItem('story');
+      localStorage.removeItem('cover');
+      localStorage.removeItem('step');
+      localStorage.removeItem('materials');
+      localStorage.removeItem('classifyList');
       this.$router.push('/')
     },
     publicTheCook() {

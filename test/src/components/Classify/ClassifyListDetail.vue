@@ -4,7 +4,9 @@
         <mt-button icon='back' class="back" slot="left"  @click="toBack"></mt-button>
     </mt-header>
       <div class="content contentone" @click="toCookBookDetail(item)" v-for="(item,index) in classifyList" :key="index">
-        <img :src="item.cover" alt="" class="img1">
+        <div class='imgContent'>
+          <img :src="item.cover" alt="" class="img1">
+        </div>
         <div class="content-detail">
           <div class="text-left">
             <p class="sp1">{{item.menu_name}}</p>
@@ -33,9 +35,14 @@
     background-color: white;
     text-align: center;
     margin: 0 auto;
-    .img1 {
-      width: 340px;
-      height: 140px;
+    .imgContent{
+        width: 340px;
+        height: 140px;
+        overflow: hidden;
+        margin: 0 auto;
+      .img1 {
+        width: 100%;
+      }
     }
     .content-detail {
       margin-bottom: 50px;
