@@ -25,8 +25,8 @@
 				var files = e.target.files[0]
 				this.file = files
 				const params = new FormData();
-				params.append('file',this.file,this.file.name);
-				that.axios.post('http://140.143.75.82:81/index.php/upload', params,{
+        params.append('file',this.file,this.file.name);
+				that.$ajax.post('upload', params,{
 					headers: {'Content-Type': 'multipart/form-data'}
 				}).then((res) => {
 					if(res.data != ''){
@@ -47,7 +47,7 @@
         const data = {
           "username": localStorage.getItem('username'),
         }
-        this.axios.post('http://140.143.75.82:81/index.php/basicInfo', this.qs.parse(data),{
+        this.$ajax.post('basicInfo', data,{
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
           this.touImage = res.data[0].image

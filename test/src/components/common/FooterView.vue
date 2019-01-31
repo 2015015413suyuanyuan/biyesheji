@@ -67,10 +67,8 @@ export default {
   },
   created() {
     if(localStorage.getItem('username')) {
-      console.log('已经登录')
       this.footerList[3].link = '/Logged';
     } else {
-      console.log('没有登录')
       this.footerList[3].link = '/NoLogged';
     }
     var url = this.$route.path;

@@ -94,8 +94,7 @@ components: {
             "main_menu_id": localStorage.getItem('main_menu_id'),
             "user_id": localStorage.getItem('user_id')
           }
-          const data1 = this.qs.parse(data)
-          this.axios.post('http://140.143.75.82:81/index.php/myLikeCreate', data1,{
+          this.$ajax.post('myLikeCreate', data,{
             headers: {'Content-Type': 'application/json'}
           }).then((res) => {
             if(res.message == '点赞成功') {
@@ -110,8 +109,7 @@ components: {
             "main_menu_id": localStorage.getItem('main_menu_id'),
             "user_id": localStorage.getItem('user_id')
           }
-          const data1 = this.qs.parse(data)
-          this.axios.post('http://140.143.75.82:81/index.php/myLikeDelete', data1,{
+          this.$ajax.post('myLikeDelete', data,{
             headers: {'Content-Type': 'application/json'}
           }).then((res) => {
             if(res.data.message == "取消点赞成功") {
@@ -147,8 +145,7 @@ components: {
         const data = {
           "user_id":localStorage.getItem('user_id')
         }
-        const data1 = this.qs.parse(data)
-        this.axios.post('http://140.143.75.82:81/index.php/myLikeSelect', data1,{
+        this.$ajax.post('myLikeSelect', data,{
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
           if(res.status == '200') {
@@ -174,10 +171,7 @@ components: {
           "content": commentInput,
           "user_id": localStorage.getItem('user_id')
         }
-        const data1 = this.qs.parse(data)
-        this.axios.post('http://140.143.75.82:81/index.php/comment', data1,{
-          headers: {'Content-Type': 'application/json'}
-        }).then((res) => {
+        this.$ajax.post('comment', data).then((res) => {
           if(res.data.status_code == '200') {
            this.$Message.success('评论成功'); 
            this.commentInput = ''
@@ -231,8 +225,7 @@ components: {
       const data = {
         'id':  id
       }
-      const data1 = this.qs.parse(data)
-      this.axios.post('http://140.143.75.82:81/index.php/select', data1,{
+      this.$ajax.post('select', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {

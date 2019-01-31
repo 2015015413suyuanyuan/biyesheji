@@ -92,7 +92,6 @@ export default {
    if(JSON.stringify(data) == 'undefined' || JSON.stringify(data) == '{}'){
      this.title = '创建菜谱'
    }else {
-     console.log(data)
      this.tips = data.menu.menu.tips;
      localStorage.setItem('cover',data.menu.menu.cover)
      this.menu_name = data.menu.menu.menu_name
@@ -142,10 +141,7 @@ export default {
           'step': JSON.parse(localStorage.getItem('step')),
           'class': JSON.parse(localStorage.getItem('list'))
         }
-        const data1 = this.qs.parse(data)
-        this.axios.post('http://140.143.75.82:81/index.php/create', data1,{
-          headers: {'Content-Type': 'application/json'}
-        }).then((res) => {
+        this.$ajax.post('/create', data).then((res) => {
         if(res.data.message == '添加成功') {
           this.$Message.success('创建成功');
           localStorage.removeItem('tips');
@@ -172,7 +168,6 @@ export default {
       }
       // 编辑
       else {
-        console.log('编辑')
         localStorage.setItem('menu_name',this.menu_name)
         const data = {
           "user_id": localStorage.getItem('user_id'),
@@ -185,8 +180,7 @@ export default {
           'class': JSON.parse(localStorage.getItem('list')),
           "id":this.bookID
         }
-        const data1 = this.qs.parse(data)
-        this.axios.post('http://140.143.75.82:81/index.php/update', data1,{
+        this.$ajax.post('update', data,{
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
         if(res.data.message == '编辑成功') {

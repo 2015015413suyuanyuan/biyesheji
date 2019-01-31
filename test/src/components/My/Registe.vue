@@ -52,8 +52,7 @@ export default {
         "username": this.tel,
         "password": this.password
       }
-      const data1 = this.qs.parse(data)
-      this.axios.post('http://140.143.75.82:81/index.php/register', data1,{
+      this.$ajax.post('register', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.data.status_code == '200') {

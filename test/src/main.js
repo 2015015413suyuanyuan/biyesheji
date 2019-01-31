@@ -2,22 +2,20 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
-import store from './store'
 import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import 'lib-flexible/flexible.js'
-import axios from 'axios'
-import Qs from 'qs'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css';
+import router from './router'
+import store from './store'
+import axios from './libs/axios'
 
 Vue.config.productionTip = false
 Vue.use(mintui)
-Vue.prototype.axios = axios;
-Vue.prototype.qs = Qs;
 Vue.prototype.HOST='/api'
 Vue.use(iView)
+Vue.prototype.$ajax = axios
 
 /* eslint-disable no-new */
 new Vue({

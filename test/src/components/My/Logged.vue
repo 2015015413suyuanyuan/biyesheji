@@ -126,13 +126,12 @@ export default {
         "user_id": localStorage.getItem('user_id'),
         "main_menu_id": this.menu_id
       }
-      this.axios.post('http://140.143.75.82:81/index.php/myLikeDelete', this.qs.parse(data),{
+      this.$ajax.post('myLikeDelete', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.data.message == '取消点赞成功'){
           this.$Message.success('取消点赞成功');
           this.menu_id = '';
-          console.log(this.myFavoriteBookList.length)
           if(this.myFavoriteBookList.length == 0){
             this.isHasBookList = true;
           }
@@ -159,7 +158,7 @@ export default {
       const data = {
         "username": localStorage.getItem('username')
       }
-      this.axios.post('http://140.143.75.82:81/index.php/logout', this.qs.parse(data),{
+      this.$ajax.post('logout', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.data.message == '退出成功') {
@@ -181,8 +180,7 @@ export default {
       const data = {
         "username": localStorage.getItem('username')
       }
-      const data1 = this.qs.parse(data)
-      this.axios.post('http://140.143.75.82:81/index.php/basicInfo', data1,{
+      this.$ajax.post('basicInfo', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {
@@ -204,7 +202,7 @@ export default {
       const data = {
         "user_id": localStorage.getItem('user_id')
       }
-      this.axios.post('http://140.143.75.82:81/index.php/myLikeSelect', this.qs.parse(data),{
+      this.$ajax.post('myLikeSelect', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.status =='200' && res.data.length == 0){

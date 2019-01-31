@@ -108,7 +108,7 @@ export default {
       this.file = files
       const params = new FormData();
       params.append('file',this.file,this.file.name);
-      that.axios.post('http://140.143.75.82:81/index.php/upload', params,{
+      that.$ajax.post('upload', params,{
         headers: {'Content-Type': 'multipart/form-data'}
       }).then((res) => {
         if(res.data != ''){ 

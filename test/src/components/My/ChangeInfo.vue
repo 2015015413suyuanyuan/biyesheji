@@ -145,7 +145,7 @@ Cropper
       const data = {
         "username": localStorage.getItem('username'),
       }
-      this.axios.post('http://140.143.75.82:81/index.php/basicInfo', this.qs.parse(data),{
+      this.$ajax.post('basicInfo', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         this.list = res.data[0]
@@ -160,7 +160,6 @@ Cropper
       this.$router.back(-1);
     },
     save() {
-      console.log(this.petName)
       const data = {
         "id": localStorage.getItem('user_id'),
         "name": this.petName,
@@ -168,8 +167,7 @@ Cropper
         "sex": this.userSex,
         "image": localStorage.getItem('touImage'),
       }
-      const data1 = this.qs.parse(data)
-      this.axios.post('http://140.143.75.82:81/index.php/updateInfo', data1,{
+      this.$ajax.post('updateInfo', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.data.status_code == '200') {

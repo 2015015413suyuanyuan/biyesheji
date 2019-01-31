@@ -118,10 +118,7 @@ export default {
       const data = {
         "sort": name,
       }
-      const data1 = this.qs.parse(data)
-      this.axios.post('http://140.143.75.82:81/index.php/classSelect', data1,{
-        headers: {'Content-Type': 'application/json'}
-      }).then((res) => {
+      this.$ajax.post('classSelect', data).then((res) => {
         this.classifyList = Object.assign([],res.data.menu);
         this.title = res.data.sort
       }).catch((err) => {

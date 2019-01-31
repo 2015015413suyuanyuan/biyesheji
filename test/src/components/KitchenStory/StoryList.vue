@@ -89,13 +89,11 @@ export default {
     // 获取厨房故事列表
     getDataList(){
     const data = {}
-    const data1 = this.qs.parse(data)
-    this.axios.post('http://140.143.75.82:81/index.php/storySelect', data1,{
+    this.$ajax.post('storySelect', data,{
       headers: {'Content-Type': 'application/json'}
     }).then((res) => {
       if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {
         this.storyList = res.data
-        console.log(this.storyList)
       }
     }).catch((err) => {
       console.log(err)

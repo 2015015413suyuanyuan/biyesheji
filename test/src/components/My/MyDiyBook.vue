@@ -42,11 +42,10 @@ export default {
   methods: {
     // 获取我的作品的列表
     getMyBook(){
-        console.log('ddd',localStorage.getItem('user_id'))
       const data = {
         "user_id": localStorage.getItem('user_id')
       }
-      this.axios.post('http://140.143.75.82:81/index.php/select', this.qs.parse(data),{
+      this.$ajax.post('select', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.status == 200 && res.status && res.data && res.data.lenght != 0){
@@ -60,7 +59,6 @@ export default {
     },
     // 点击小笔 编辑菜谱
     editBook(menu){
-        console.log(menu)
       this.$router.push({
         name: "CreateBook",
         params: { menu: {

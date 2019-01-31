@@ -37,8 +37,7 @@ export default {
         "username": this.tel,
         "password": this.password
       }
-      const data1 = this.qs.parse(data)
-      this.axios.post('http://140.143.75.82:81/index.php/login', data1,{
+      this.$ajax.post('login', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         if(res.data.message == '登录成功') {
