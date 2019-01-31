@@ -14,7 +14,7 @@
                   清晰的步骤图会让菜谱更瘦欢迎
               </p>
             </article>
-            <img :src="item.image" alt="user image" class="special" v-if="item.image"> 
+            <img :src="item.image" class="special" v-if="item.image"> 
           </div>
             <input type="file" @change="getFile(index,item.image)" ref="file" id="file">
         </div>
@@ -31,7 +31,7 @@
         <transition-group name="list-complete">
           <div v-for="(item, index) in step" :key="index" class="list-complete-item">
               <div class='imgLeft'>
-                <img src="../../assets/img/del.png" class="delete" alt="删除" v-on:click="remove(item, index)">
+                <img src="../../assets/img/del.png" class="delete"  v-on:click="remove(item, index)">
               </div>
               <div class='content'>
                 <div class="upload">
@@ -44,14 +44,14 @@
                           清晰的步骤图会让菜谱更瘦欢迎
                       </p>
                     </article>
-                    <img :src="item.image" alt="user image" class="special"  v-if="item.image"> 
+                    <img :src="item.image" class="special"  v-if="item.image"> 
                   </div>
                   <input type="file" @change="getFile(index,item.image)" ref="file" class="file">
                 </div>
                 <i-input class="story" type="textarea" :autosize="{minRows: 1,maxRows: 5}" :placeholder="placeStep" v-model='item.step' @on-change='temporaryStorage'></i-input>
               </div>
               <div class='imgRight'>
-                <img src="../../assets/img/more11.png" class="move" alt="移动">
+                <img src="../../assets/img/more11.png" class="move">
               </div>              
           </div>
         </transition-group>

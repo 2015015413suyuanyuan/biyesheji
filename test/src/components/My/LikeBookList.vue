@@ -2,7 +2,7 @@
 <div class='list'>
   <div class="foodItem">
     <div class='foodItemlfet'>
-        <img :src="myFavoriteBookList[0].img" alt="">
+        <img :src="myFavoriteBookList[0].img">
     </div>
     <div class='foodItemright'>
         <p>{{myFavoriteBookList[0].name}}</p>

@@ -11,7 +11,7 @@
       <li v-for="(item1,idx) in item.classify" :key="idx" class='listItem' @click="selected(item1.isSelected,index,item1,idx)">
         <div class='txt'>{{item1.name}}</div>
         <div v-if="item1.isSelected" class="trueImg">
-          <img src="../../assets/img/true.png" class="move" alt="移动">
+          <img src="../../assets/img/true.png" class="move">
         </div>
       </li>
     </ul>

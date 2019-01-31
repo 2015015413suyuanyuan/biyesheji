@@ -4,7 +4,7 @@
     <div class="step" v-for="(item, index) in step" :key="index">
       <p class='num'>步骤 {{index+1}}</p>
       <div class="step-image">
-        <img :src="item.image" alt="">
+        <img :src="item.image">
       </div>
       <p class='detal'>
         {{item.step}}

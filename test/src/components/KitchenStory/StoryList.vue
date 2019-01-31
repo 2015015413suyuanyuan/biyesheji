@@ -3,7 +3,7 @@
     <div class="img-right" @click="toStoryDetail(item)" v-for="(item,index) in storyList" :key="index">
         <p class="p1">{{item.title}}</p>
         <div class='imgContain'>
-          <img :src="item.cover" alt="" class="img2">
+          <img :src="item.cover" class="img2">
         </div>
         <p class="p2"><span>来自</span><span>饮品记</span></p>
     </div>

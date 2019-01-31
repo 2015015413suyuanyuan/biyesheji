@@ -5,7 +5,7 @@
     </mt-header>
       <div class="content contentone" @click="toCookBookDetail(item)" v-for="(item,index) in classifyList" :key="index">
         <div class='imgContent'>
-          <img :src="item.cover" alt="" class="img1">
+          <img :src="item.cover" class="img1">
         </div>
         <div class="content-detail">
           <div class="text-left">
@@ -13,7 +13,7 @@
             <p class="sp2">{{item.story}}</p>
           </div>
           <div class="img-right">
-            <img :src="item.user.image" alt="" class="img2">
+            <img :src="item.user.image" class="img2">
             <p class="sp3">{{item.user.name}}</p>
           </div>
         </div>

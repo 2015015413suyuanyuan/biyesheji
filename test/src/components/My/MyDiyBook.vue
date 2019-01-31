@@ -3,10 +3,10 @@
   <div class="MyDiyBookItem" v-for='(item,index) in myDiyBookList' :key="index">
     <div class='bookImg'>
         <div class='Img'>
-            <img :src="item.cover" alt="">
+            <img :src="item.cover"=>
         </div>
         <div class='edit' @click="editBook(item)">
-            <img src="../../assets/img/edit.png" alt="" class='editPencil'>
+            <img src="../../assets/img/edit.png" class='editPencil'>
         </div>
     </div>
     <div class='mongolia'>
@@ -15,7 +15,7 @@
     <div class='bookItemBottom'>
         <p class='title'>{{item.menu_name}}</p>
         <div class='useritem'>
-            <img :src="item.user.image" alt="">
+            <img :src="item.user.image">
             <p>{{item.user.name}}</p>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="footer-box suitIphoneX">
     <template v-cloak v-for="(item, index) in footerList">
-      <router-link :to="item.link" v-if="item.isShow" class="footer-list">
+      <router-link :to="item.link" v-if="item.isShow" class="footer-list" :key="index">
         <!-- 主要为了满足“推荐”的图片比其他的图片大的需求 -->
         <div v-if="index === 0" class="item" @click="activeFooter(item.name)">
           <img :src='item.activeImg' v-if="item.isActive"/>
@@ -31,8 +31,8 @@ export default {
           isShow: true,
           isActive: true,
           title: '主页',
-          defaultImg: '/static/img/footer1.png',
-          activeImg: '/static/img/footter1.png',
+          defaultImg: './static/img/footer1.png',
+          activeImg: './static/img/footter1.png',
           link: '/',
         },
         {		
@@ -40,8 +40,8 @@ export default {
            isShow: true,		
            isActive: false,		
            title: '菜谱分类',		
-           defaultImg: '/static/img/footer3.png',		
-           activeImg: '/static/img/footter3.png',		
+           defaultImg: './static/img/footer3.png',		
+           activeImg: './static/img/footter3.png',		
            link: '/Classify',		
          },
         {
@@ -49,8 +49,8 @@ export default {
           isShow: true,
           isActive: false,
           title: '厨房故事',
-          defaultImg: '/static/img/footer2.png',
-          activeImg: '/static/img/footter2.png',
+          defaultImg: './static/img/footer2.png',
+          activeImg: './static/img/footter2.png',
           link: '/KitchenStory',
         },
         {
@@ -58,8 +58,8 @@ export default {
           isShow: true,
           isActive: false,
           title: '我的',
-          defaultImg: '/static/img/footer4.png',
-          activeImg: '/static/img/footter4.png',
+          defaultImg: './static/img/footer4.png',
+          activeImg: './static/img/footter4.png',
           link: '/NoLogged',
         },
       ]

@@ -1,7 +1,7 @@
 <template>
 <div class="noLogin">
     <router-link to="/NoLogged" slot="left" icon='back'>
-        <img src="../../assets/img/close.png" alt="" class='close'>
+        <img src="../../assets/img/close.png" class='close'>
     </router-link>
     <p class='p1'>开始准备好好吃饭</p>
     <p class='p2'>
@@ -14,7 +14,7 @@
         <mt-field placeholder="密码(不少于6位的数字+字母组合)" type="password" class='password' v-model="password"></mt-field>
     </div>
     <div>
-        <img src="../../assets/img/rightarrow.png" alt="" class='toLogin' @click ="toRegiste">
+        <img src="../../assets/img/rightarrow.png" class='toLogin' @click ="toRegiste">
     </div>
     <div class="hasUserName" @click="toLogin">
       已有账号？去<span>登陆</span>吧~

@@ -2,10 +2,10 @@
   <div class="CookBookDetail">
       <mt-header title="菜谱详情" class='headertitle' fixed>
           <mt-button  icon='back' slot="left" @click="toBack"></mt-button>
-        <img :src="imgHeart" alt="" slot='right' @click="like" class='like'>
+        <img :src="imgHeart" slot='right' @click="like" class='like'>
       </mt-header>
       <div class='headerimg'>
-          <img :src="cover" alt="">
+          <img :src="cover">
       </div>
       <article>
           <h1>{{menu_name}}</h1>
@@ -27,7 +27,7 @@
         <h1>评论</h1>
         <div class="commentItem" v-for="(item,index) in comment" :key="index">
           <div class="itemLeft">
-            <img :src="item.image" alt="">
+            <img :src="item.image">
           </div>
           <div class="itemRight">
             <div class="textTop">
@@ -63,7 +63,7 @@ export default {
       materials: [],
       step: [],
       img :'/static/img/food2.jpg',
-      imgHeart: '/static/img/likes.png',
+      imgHeart: './static/img/likes.png',
       isHeart: false,
       comment:[],
       commentInput: '',
@@ -89,7 +89,7 @@ components: {
       if(localStorage.getItem('username')){
         this.isHeart = !this.isHeart
         if( this.isHeart ) {
-          this.imgHeart = '/static/img/like.png'
+          this.imgHeart = './static/img/like.png'
           const data = {
             "main_menu_id": localStorage.getItem('main_menu_id'),
             "user_id": localStorage.getItem('user_id')
@@ -104,7 +104,7 @@ components: {
           })
         }
         else {
-          this.imgHeart = '/static/img/likes.png'
+          this.imgHeart = './static/img/likes.png'
           const data = {
             "main_menu_id": localStorage.getItem('main_menu_id'),
             "user_id": localStorage.getItem('user_id')
@@ -153,7 +153,7 @@ components: {
            const list = res.data
            for(var i=0;i<list.length;i++){
              if(list[i].id == this.$route.params.menu.id){
-               this.imgHeart = '/static/img/like.png'
+               this.imgHeart = './static/img/like.png'
                this.isHeart = true
              }
            }

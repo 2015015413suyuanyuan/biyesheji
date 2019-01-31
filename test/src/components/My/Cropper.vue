@@ -1,7 +1,7 @@
 <template>
   <div class="upload" >
     <div class="img-container">
-        <img :src="touImage" alt="user image" class="special" :class="touImage"> 
+        <img :src="touImage"  class="special" :class="touImage"> 
     </div>
     <input type="file" @change="getFile(touImage)" ref="file" id="file" accept="image/*">
   </div>

@@ -18,7 +18,7 @@
         <transition-group name="list-complete">
           <div v-for="(item, index) in materials" :key="index" class="list-complete-item">
               <div class='imgLeft'>
-                <img src="../../assets/img/del.png" class="delete" alt="删除" v-on:click="remove(item, index)">
+                <img src="../../assets/img/del.png" class="delete" v-on:click="remove(item, index)">
               </div>
               <div class='editBox1'>
                 <div class="usage-li" :key="index">
@@ -27,7 +27,7 @@
                 </div>
               </div>
               <div class='imgRight'>
-                <img src="../../assets/img/more11.png" class="move" alt="移动">
+                <img src="../../assets/img/more11.png" class="move">
               </div>              
           </div>
         </transition-group>

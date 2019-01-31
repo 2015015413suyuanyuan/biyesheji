@@ -9,7 +9,7 @@
 						诱人的封面图是吸引厨友的关键
 				</p>
 			</article>
-        <img :src="step.img" alt="user image" class="special" :class="{displayImg:step.displayImg}"> 
+        <img :src="step.img" class="special" :class="{displayImg:step.displayImg}"> 
     </div>
     <input type="file" @change="getFile(step.img)" ref="file" id="file" accept="image/*">
   </div>

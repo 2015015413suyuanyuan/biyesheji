@@ -4,7 +4,7 @@
       <span class="mint-button-icon" @click="backPage">
         <i class="mintui mintui-back"></i>
       </span>
-      <span class='searchimg'><img src="../../assets/img/search.png" alt="search"></span>
+      <span class='searchimg'><img src="../../assets/img/search.png"></span>
       <input type="search" list='name' result placeholder="搜索菜谱" class='searchinput' v-model="value" @input="changeIsShow()"/>
       <span class='searchtext'>搜索</span>
     </div>

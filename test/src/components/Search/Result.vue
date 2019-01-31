@@ -4,7 +4,7 @@
     <div class='readHistory'>
       <ul class='readHistoryList'>
         <li v-for="(item,index) in readList" :key="index">
-          <img :src="item.img" alt="">
+          <img :src="item.img">
           <p class="txt">
             <span class="name">{{item.name}}</span>
             <span class="userName">{{item.userName}}</span>

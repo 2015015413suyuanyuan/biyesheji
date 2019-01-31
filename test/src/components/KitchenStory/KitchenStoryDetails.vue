@@ -7,21 +7,21 @@
     </mt-header>
     <div class='detail'>
       <div class='headerImg'>
-        <img :src="cover" alt="">
+        <img :src="cover">
       </div>
           <article>
             <h2 style="text-align: center;">{{title}}</h2>
             <div v-for="(item1,index1) in item" :key="index1">
               <p>{{item1.content}}</p>
               <div class='headerImg'>
-                  <img :src="item1.image" alt="">
+                  <img :src="item1.image">
               </div>
               
             </div>
           </article>
     </div>
     <div class="like" @click="good">
-      <img :src="Good" alt="" class="good">
+      <img :src="Good" class="good">
       <span>{{num}}</span>
     </div>
   </div>

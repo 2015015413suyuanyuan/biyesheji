@@ -4,13 +4,13 @@
       <div class="search-box">
         <div class="search">
         <i class="searchicon">
-            <img src="/static/img/search.png" alt>
+            <img :src="'./static/img/search.png'" >
         </i>
         <input type="search" placeholder="搜索菜谱" class="searchbar" @click="toSearch">
       </div>
     </div>
     <div class="add-box">
-      <img src="/static/img/plus.png" alt class="add" @click="toCreateCook" slot="right">
+      <img :src="'./static/img/plus.png'"  class="add" @click="toCreateCook" slot="right">
     </div>
   </div>
   <div class="page-swipe">

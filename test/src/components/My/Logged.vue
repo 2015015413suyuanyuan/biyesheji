@@ -2,7 +2,7 @@
   <div class="page-tabbar">
     <div class='header'>
       <div class='header-left' @click="changeInfo">
-        <img :src="userImage" alt="">
+        <img :src="userImage">
         <p>{{userName}}</p>
       </div>
       <div class='header-right'>
@@ -38,14 +38,14 @@
           <div class="content">
             <!-- 我喜欢的菜谱为空 -->
             <div class='list' v-if="isHasBookList">
-              <img src="../../assets/img/like.png" alt="" class='nothingimg'>
+              <img src="../../assets/img/like.png" class='nothingimg'>
               <p class='nothingtxt'>目前没有内容</p>
             </div>
             <!-- 我喜欢的菜谱不为空 -->
             <div class='list' v-else>
               <div class="foodItem" v-for="(item,index) in myFavoriteBookList" :key="index">
                 <div class='foodItemlfet' @click="detailBook(item)">
-                  <img :src="item.cover" alt="">
+                  <img :src="item.cover">
                 </div>
                 <div class='foodItemright'>
                   <p>{{item.menu_name}}</p>

@@ -6,10 +6,10 @@
         </router-link>
     </mt-header>
     <main>
-        <img src="../../assets/img/logo.jpg" class="head" alt="用户头像">
+        <img src="../../assets/img/logo.jpg" class="head">
         <p>分享的人是厨房里的天使</p>
         <router-link  to="/cookBook2" class="cancleunderline">
-            <img src="../../assets/img/create.jpg" class="create" alt="创建菜单进入图片">
+            <img src="../../assets/img/create.jpg" class="create">
             <p>创建菜单</p>        
         </router-link>
     </main>

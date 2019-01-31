@@ -3,7 +3,7 @@
     <div class="search-box">
       <div class="search">
         <i class="searchicon">
-            <img src="/static/img/search.png" alt>
+            <img :src="'/static/img/search.png'" >
         </i>
         <input type="search" placeholder="搜索菜谱" class="searchbar" @click="toSearch">
       </div>
