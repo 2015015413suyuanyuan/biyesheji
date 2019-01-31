@@ -9,7 +9,7 @@
             <p class="sp2">小时候每当加工蛋卷的人在街上摆上家伙，立马就能吸引拿上鸡蛋……</p>
           </div>
           <div class="img-right">
-            <img src="'./static/img/MyLogo.png'" class="img2">
+            <img :src="'./static/img/MyLogo.png'" class="img2">
             <p class="sp3">李莉莉的……</p>
           </div>
         </div>
