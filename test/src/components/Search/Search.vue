@@ -6,7 +6,7 @@
       </span>
       <span class='searchimg'><img src="../../assets/img/search.png"></span>
       <input type="search" list='name' result placeholder="搜索菜谱" class='searchinput' v-model="value" @input="changeIsShow()"/>
-      <span class='searchtext'>搜索</span>
+      <span class='searchtext' @click="toResult">搜索</span>
     </div>
     <ul class='searchlist' v-if="isShowList">
       <li v-for="(item,index) in optionList" :key="index" class='searchItem' @click="handleValue(item,index)">
@@ -122,25 +122,57 @@ export default {
     return {
       value: '',
       isShowList: false,
-      optionList:['锅包肉','红烧肉','糖醋里脊','宫保鸡丁','蒜薹炒肉','红烧鱼','清蒸鲈鱼','爆炒鱿鱼',
-      '红烧狮子头','土豆炖排骨','爆炒土豆丝'
-      ]
+      optionList:[]
     };
   },
   methods: {
     handleValue(value,index) {
       this.value = value
       this.isShowList = false
+      this.$router.push({
+        name: "Result",
+        params: { menu_name:  this.value}
+      });  
     },
     changeIsShow(){
       if(this.value != ''){
+        this.getSearchData();
         this.isShowList = true
       }else {
         this.isShowList = false
       }
+      
     },
     backPage () {
       this.$router.back(-1);
+    },
+    getSearchData() {
+      const data = {
+        'menu_name':  this.value
+      }
+      this.$ajax.post('select', data,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        if(res.length != 0) {
+          const menuName = [];
+          for(var i =0;i<res.length;i++){
+            menuName.push(res[i].menu_name)
+          }
+        let arr3 = Array.from(new Set(menuName))//let arr3 = [...new Set(arr1)]
+        console.log(arr3) 
+        this.optionList = arr3;
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    toResult(){
+      if(this.value != ''){
+        this.$router.push({
+          name: "Result",
+          params: { menu_name:  this.value}            
+        });  
+      }
     }
   }
 };

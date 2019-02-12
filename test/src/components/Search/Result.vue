@@ -131,6 +131,9 @@ export default {
   components: {
     Search
   },
+  created() {
+    console.log(this.$route.params.menu_name)
+  }
 };
 </script>
 
