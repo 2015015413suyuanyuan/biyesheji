@@ -157,7 +157,8 @@ export default {
               menu_name: this.menu_name,
               id: res.data.id,
               new : true,
-              class: false
+              class: false,
+              result: false
               }
             }
           });
@@ -198,7 +199,8 @@ export default {
               menu_name: this.menu_name,
               id: this.bookID,
               new : false,
-              class: false
+              class: false,
+              result: false
               }
             }
           });

@@ -222,7 +222,8 @@ export default {
         params: { menu: {
             id: item.id,
             new: false,
-            class: false
+            class: false,
+            result: false
         } }
       });
     }

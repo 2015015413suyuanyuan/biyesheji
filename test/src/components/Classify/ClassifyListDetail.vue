@@ -105,7 +105,17 @@ export default {
     toCookBookDetail(menu){
       this.$router.push({
         name: "CookBookDetail",
-        params: { menu: menu,sort:this.$route.params.sort,class:true}
+        params: { 
+              menu:{
+              menu_name: menu.menu_name,
+              sort: this.$route.params.sort,
+              id: menu.id,
+              new : false,
+              class: true,
+              result: false
+              },
+          class:true,
+        }
       });
     },
     toBack() {
@@ -119,8 +129,9 @@ export default {
         "sort": name,
       }
       this.$ajax.post('classSelect', data).then((res) => {
-        this.classifyList = Object.assign([],res.data.menu);
-        this.title = res.data.sort
+        console.log('res classify',res);
+        this.classifyList = Object.assign([],res.menu);
+        this.title = res.sort
       }).catch((err) => {
         console.log(err)
       })

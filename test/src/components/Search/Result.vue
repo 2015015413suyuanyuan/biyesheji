@@ -3,11 +3,11 @@
     <Search></Search>
     <div class='readHistory'>
       <ul class='readHistoryList'>
-        <li v-for="(item,index) in readList" :key="index">
-          <img :src="item.img">
+        <li v-for="(item,index) in readList" :key="index" @click="getDetail(item.menu_name,item.id)">
+          <img :src="item.cover">
           <p class="txt">
-            <span class="name">{{item.name}}</span>
-            <span class="userName">{{item.userName}}</span>
+            <span class="name">{{item.menu_name}}</span>
+            <span class="userName">{{item.user.name}}</span>
             <span class="like">点赞{{item.like}}</span>
           </p>
         </li>
@@ -106,33 +106,42 @@ export default {
   name: 'page-tabbar',
   data() {
     return {
-      readList: [
-        {
-          img: '/static/img/food2.jpg',
-          name: '红烧肉',
-          userName: '手机用户1111',
-          like: '123333'
-        },
-        {
-          img: '/static/img/food1.jpg',
-          name: '红烧肉',
-          userName: '手机用户1111',
-          like: '123'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '红烧肉',
-          userName: '手机用户1111',
-          like: '123'
-        }
-      ]
+      readList: []
     };
   },
   components: {
     Search
   },
   created() {
-    console.log(this.$route.params.menu_name)
+  this.getSearchData();
+  },
+  methods: {
+    getSearchData() {
+      const data = {
+        'menu_name':  this.$route.params.menu_name
+      }
+      this.$ajax.post('select', data,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        this.readList = res;
+        console.log('result',res);
+      })
+    },
+    // 进入搜索列表的菜谱详情页
+    getDetail(menu_name, id) {
+      this.$router.push({
+        name: "CookBookDetail",
+        params:{
+          menu:{
+          menu_name: menu_name,
+          id: id,
+          new : false,
+          class: false,
+          result: true
+          }
+        }
+      });
+    }
   }
 };
 </script>

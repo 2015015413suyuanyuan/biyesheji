@@ -75,13 +75,14 @@ components: {
     Step
 },
   created() {
-    
     if(JSON.stringify(this.$route.params) !== '{}'){
       if(JSON.stringify(this.$route.params.menu) !== '{}'){
         this.getCookBookDetail(this.$route.params.menu.id)
         localStorage.setItem('main_menu_id',this.$route.params.menu.id)
+        console.log(this.$route.params.menu)
       }
     }
+    
     this.isLike();
   },
   methods: {
@@ -204,19 +205,24 @@ components: {
      if(this.$route.params.class){
         this.$router.push({
           name: "ClassifyListDetail",
-          params:{sort:this.$route.params.sort}
+          params:{sort:this.$route.params.menu.sort}
         });
         
       } else {
-      if(this.$route.params.menu.new){
-        this.$router.push({
-          name: "Home"
-        });
-      }else {
-        this.$router.push({
-          name: "Logged"
-        });
-      }
+        if(this.$route.params.menu.new){
+          this.$router.push({
+            name: "Home"
+          });
+        }else if(this.$route.params.menu.result){
+          this.$router.push({
+            name: "Result",
+            params:{menu_name:this.$route.params.menu.menu_name}
+          });
+        } else {
+          this.$router.push({
+            name: "Logged"
+          });        
+        }
       }
 
  
@@ -228,9 +234,9 @@ components: {
       this.$ajax.post('select', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {
-          const returnData = res.data[0];
-          this.classifyList = Object.assign([],res.data.menu);
+        console.log(res[0])
+          const returnData = res[0];
+          this.classifyList = Object.assign([],returnData);
           this.story = returnData.story
           this.tips = returnData.tips
           this.materials = returnData.materials
@@ -239,7 +245,6 @@ components: {
           this.cover = returnData.cover
           this.comment = returnData.comment
           localStorage.setItem('main_menu_id',returnData.id)
-        }
       }).catch((err) => {
         console.log(err)
       })
