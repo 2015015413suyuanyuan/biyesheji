@@ -33,9 +33,7 @@ instance.interceptors.request.use(req => {
 instance.interceptors.response.use((res) => {
   // 登录失效的number=10008返回一个特殊的值
   // 登录失效时跳转至登录页面
-  console.log(res.status)
   if (res.status === 500) {
-    console.log('res.status',500);
   } else {
     return Promise.resolve(res.data)
   }

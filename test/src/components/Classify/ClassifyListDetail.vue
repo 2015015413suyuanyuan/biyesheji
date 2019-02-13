@@ -129,7 +129,6 @@ export default {
         "sort": name,
       }
       this.$ajax.post('classSelect', data).then((res) => {
-        console.log('res classify',res);
         this.classifyList = Object.assign([],res.menu);
         this.title = res.sort
       }).catch((err) => {

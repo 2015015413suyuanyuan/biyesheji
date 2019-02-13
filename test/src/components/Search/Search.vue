@@ -16,6 +16,87 @@
   </div>
 </template>
 
+<script>
+import Vue from 'vue'
+import Router from 'vue-router'
+
+export default {
+  name: 'page-tabbar',
+  data() {
+    return {
+      value: '',
+      isShowList: false,
+      optionList:[]
+    };
+  },
+  created() {
+    if(JSON.stringify(this.$route.params) !== '{}'){
+      this.isShowList = true
+      this.value = this.$route.params.menu_name;
+      this.getSearchData(this.value);
+    }
+  },
+  methods: {
+    handleValue(value,index) {
+      this.value = value
+      this.isShowList = false
+      this.$router.push({
+        name: "Result",
+        params: { menu_name: value}
+      });  
+    },
+    changeIsShow(){
+      if(this.value != ''){
+        this.getSearchData();
+        this.isShowList = true
+      }else {
+        this.isShowList = false
+      }
+      
+    },
+    backPage () {
+      if(this.$route.params.isJustSearch){
+        this.$router.push({
+          name: "Home"      
+        });         
+      }else {
+         this.$router.push({
+          name: "Home"      
+        });         
+      }
+    },
+    getSearchData() {
+      const data = {
+        'menu_name':  this.value
+      }
+      this.$ajax.post('select', data,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        if(res.length != 0) {
+          const menuName = [];
+          for(var i =0;i<res.length;i++){
+            menuName.push(res[i].menu_name)
+          }
+        let arr3 = Array.from(new Set(menuName))//let arr3 = [...new Set(arr1)]
+        this.optionList = arr3;
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    toResult(){
+      if(this.value != ''){
+        this.$router.push({
+          name: "Result",
+          params: { menu_name:  this.value}            
+        });  
+      }
+    }
+  }
+};
+</script>
+
+
 <style lang="scss" scoped>
 .page-tabbar {
   .header{
@@ -110,72 +191,3 @@
   }
 }
 </style>
-
-
-<script>
-import Vue from 'vue'
-import Router from 'vue-router'
-
-export default {
-  name: 'page-tabbar',
-  data() {
-    return {
-      value: '',
-      isShowList: false,
-      optionList:[]
-    };
-  },
-  methods: {
-    handleValue(value,index) {
-      this.value = value
-      this.isShowList = false
-      this.$router.push({
-        name: "Result",
-        params: { menu_name:  this.value}
-      });  
-    },
-    changeIsShow(){
-      if(this.value != ''){
-        this.getSearchData();
-        this.isShowList = true
-      }else {
-        this.isShowList = false
-      }
-      
-    },
-    backPage () {
-      this.$router.back(-1);
-    },
-    getSearchData() {
-      const data = {
-        'menu_name':  this.value
-      }
-      this.$ajax.post('select', data,{
-        headers: {'Content-Type': 'application/json'}
-      }).then((res) => {
-        if(res.length != 0) {
-          const menuName = [];
-          for(var i =0;i<res.length;i++){
-            menuName.push(res[i].menu_name)
-          }
-        let arr3 = Array.from(new Set(menuName))//let arr3 = [...new Set(arr1)]
-        console.log(arr3) 
-        this.optionList = arr3;
-        }
-      }).catch((err) => {
-        console.log(err)
-      })
-    },
-    toResult(){
-      if(this.value != ''){
-        this.$router.push({
-          name: "Result",
-          params: { menu_name:  this.value}            
-        });  
-      }
-    }
-  }
-};
-</script>
-
-

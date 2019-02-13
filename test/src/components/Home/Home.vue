@@ -129,7 +129,7 @@ export default {
   methods: {
     toSearch() {
       this.$router.push({
-        name: "Search"
+        name: "SearchHome"
       });
     },
     // 判断是否登录 如果登录 去创建菜谱
