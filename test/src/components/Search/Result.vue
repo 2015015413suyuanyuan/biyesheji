@@ -87,7 +87,8 @@ export default {
         name: "Search",
         params:{
          menu_name: this.$route.params.menu_name,
-         isJustSearch: false
+         isJustSearch: false,
+         isClassify: false
         }
       });           
     }

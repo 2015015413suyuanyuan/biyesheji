@@ -76,7 +76,12 @@
   methods: {
     toSearch() {
       this.$router.push({
-        name: "Search"
+        name: "Search",
+        params:{
+          menu_name: '',
+         isJustSearch: false,
+         isClassify: true
+        }
       });
     },
     // 菜谱分类展示列表

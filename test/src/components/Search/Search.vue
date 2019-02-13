@@ -59,10 +59,15 @@ export default {
         this.$router.push({
           name: "Home"      
         });         
-      }else {
+      }else if(this.$route.params.isClassify){
+        console.log('isClassyif')
          this.$router.push({
-          name: "Home"      
+          name: "Classify"      
         });         
+      } else {
+        this.$router.push({
+          name: "Home"      
+        });      
       }
     },
     getSearchData() {

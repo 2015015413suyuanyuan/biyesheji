@@ -80,13 +80,24 @@ export default {
     toSearch() {
       this.$router.push({
         name: "Search",
-        params: { menu_name:  this.value,isJustSearch: true}            
+        params: { menu_name:  this.value,isJustSearch: true,isClassify:false}            
       });  
     },
     backPage() {
-      this.$router.push({
-        name: "Home"         
-      });  
+    if(this.$route.params.isJustSearch){
+        this.$router.push({
+          name: "Home"      
+        });         
+      }else if(this.$route.params.isClassify){
+        console.log('isClassyif')
+         this.$router.push({
+          name: "Classify"      
+        });         
+      } else {
+        this.$router.push({
+          name: "Home"      
+        });      
+      }
     }
   }
 };
