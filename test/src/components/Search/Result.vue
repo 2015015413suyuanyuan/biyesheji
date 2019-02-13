@@ -137,23 +137,26 @@ export default {
           float: left;
         }
         .name {
-          width: 55px;
-          height: 20px;
+          width: 220px;
+          // height: 30px;
           color: #101010;
           font-size: 16px;
           text-align: left;
           font-family: 方正楷体-标准;
-          padding-top: 8px;
+          padding-top: 4px;
+          overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
         }
         .userName {
           color: #101010;
           font-size: 14px;
           text-align: left;
-          padding-top: 8px;
+          padding-top: 4px;
           font-family: SourceHanSansSC-regular;
         }
         .like {
-          padding-top: 4px;
+          padding-top: 2px;
           color: #101010;
           font-size: 14px;
           text-align: left;
