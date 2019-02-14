@@ -184,19 +184,21 @@ export default {
       }
       .txt {
         width: 220px;
+        
         span {
           width: 100%;
           display: block;
           float: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
         .name {
-          width: 55px;
-          height: 20px;
           color: rgba(0, 0, 0, 1);
           font-size: 18px;
           text-align: left;
           font-family: 方正楷体-标准;
-          margin-bottom: 30px;
+          margin-bottom: 20px;
         }
         .userName {
           color: rgba(0, 0, 0, 0.76);
