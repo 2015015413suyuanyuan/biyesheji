@@ -55,13 +55,14 @@ export default {
       this.$ajax.post('register', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        if(res.data.status_code == '200') {
-          localStorage.setItem('username', res.data.username);
-          localStorage.setItem('user_id', JSON.stringify(res.data.id));
-          localStorage.setItem('state', JSON.stringify(res.data.state));
+        console.log(res)
+        if(res.status_code == '200') {
+          localStorage.setItem('username', res.username);
+          localStorage.setItem('user_id', JSON.stringify(res.id));
+          localStorage.setItem('state', JSON.stringify(res.state));
           this.$router.push({
             name: "Logged",
-            params: { username: res.data.username }            
+            params: { username: res.username }            
           });         
         }else {
         }

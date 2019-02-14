@@ -129,7 +129,7 @@ export default {
       this.$ajax.post('myLikeDelete', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        if(res.data.message == '取消点赞成功'){
+        if(res.message == '取消点赞成功'){
           this.$Message.success('取消点赞成功');
           this.menu_id = '';
           if(this.myFavoriteBookList.length == 0){
@@ -161,7 +161,7 @@ export default {
       this.$ajax.post('logout', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        if(res.data.message == '退出成功') {
+        if(res.message == '退出成功') {
           localStorage.removeItem('username')
           localStorage.removeItem('id')
           localStorage.removeItem('user_id')
@@ -183,15 +183,16 @@ export default {
       this.$ajax.post('basicInfo', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {
-          this.userImage = res.data[0].image
-          if(res.data[0].name !== ''){
-            this.userName = res.data[0].name
+        console.log(res[0])
+        if(res[0] && res[0].lenght != 0) {
+          this.userImage = res[0].image
+          if(res[0].name !== ''){
+            this.userName = res[0].name
           }
           else {
-            this.userName = res.data[0].username
+            this.userName = res[0].username
           }
-          localStorage.setItem('user_id',res.data[0].id)
+          localStorage.setItem('user_id',res[0].id)
         }
       }).catch((err) => {
         console.log(err)
@@ -205,10 +206,10 @@ export default {
       this.$ajax.post('myLikeSelect', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        if(res.status =='200' && res.data.length == 0){
+        if(res.status =='200' && res.length == 0){
           this.isHasBookList = true;
         }else {
-          this.myFavoriteBookList = res.data;
+          this.myFavoriteBookList = res;
           this.isHasBookList = false;
         }
       }).catch((err) => {

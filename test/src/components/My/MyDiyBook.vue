@@ -3,7 +3,7 @@
   <div class="MyDiyBookItem" v-for='(item,index) in myDiyBookList' :key="index">
     <div class='bookImg'>
         <div class='Img'>
-            <img :src="item.cover"=>
+            <img :src="item.cover">
         </div>
         <div class='edit' @click="editBook(item)">
             <img src="../../assets/img/edit.png" class='editPencil'>
@@ -48,8 +48,9 @@ export default {
       this.$ajax.post('select', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        if(res.status == 200 && res.status && res.data && res.data.lenght != 0){
-          this.myDiyBookList = res.data;
+        console.log(res)
+        if(res && res.lenght != 0){
+          this.myDiyBookList = res;
         }else {
 
         }

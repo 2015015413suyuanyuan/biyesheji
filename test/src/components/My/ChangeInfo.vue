@@ -148,10 +148,10 @@ Cropper
       this.$ajax.post('basicInfo', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        this.list = res.data[0]
-        this.userSex = res.data[0].sex
-        this.petName = res.data[0].name
-        this.tel = res.data[0].phone
+        this.list = res[0]
+        this.userSex = res[0].sex
+        this.petName = res[0].name
+        this.tel = res[0].phone
       }).catch((err) => {
         console.log(err)
       })      
@@ -170,7 +170,7 @@ Cropper
       this.$ajax.post('updateInfo', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        if(res.data.status_code == '200') {
+        if(res.status_code == '200') {
           this.$Message.success('编辑成功');
           this.$router.push({
             name: "Logged"

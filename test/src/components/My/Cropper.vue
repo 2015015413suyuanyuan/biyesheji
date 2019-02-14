@@ -30,7 +30,7 @@
 					headers: {'Content-Type': 'multipart/form-data'}
 				}).then((res) => {
 					if(res.data != ''){
-            this.touImage = res.data.image
+            this.touImage = res.image
             localStorage.setItem('touImage',this.touImage)
 					}
 				}).catch((err) => {
@@ -50,7 +50,8 @@
         this.$ajax.post('basicInfo', data,{
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
-          this.touImage = res.data[0].image
+          console.log(res)
+          this.touImage = res[0].image
           localStorage.setItem('touImage',this.touImage)
         }).catch((err) => {
           console.log(err)

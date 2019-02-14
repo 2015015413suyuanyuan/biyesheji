@@ -40,14 +40,14 @@ export default {
       this.$ajax.post('login', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        if(res.data.message == '登录成功') {
-          localStorage.setItem('username', JSON.stringify(res.data.username));
-          localStorage.setItem('user_id', JSON.stringify(res.data.id));
-          localStorage.setItem('state', JSON.stringify(res.data.state));
+        if(res.message == '登录成功') {
+          localStorage.setItem('username', JSON.stringify(res.username));
+          localStorage.setItem('user_id', JSON.stringify(res.id));
+          localStorage.setItem('state', JSON.stringify(res.state));
           this.errorInfo = false
           this.$router.push({
             name: "Logged",
-            params: { username: res.data.username }
+            params: { username: res.username }
           });
         }
         else {

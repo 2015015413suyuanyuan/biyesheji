@@ -142,7 +142,7 @@ export default {
           'class': JSON.parse(localStorage.getItem('list'))
         }
         this.$ajax.post('/create', data).then((res) => {
-        if(res.data.message == '添加成功') {
+        if(res.message == '添加成功') {
           this.$Message.success('创建成功');
           localStorage.removeItem('tips');
           localStorage.removeItem('story');
@@ -155,7 +155,7 @@ export default {
             params:{
               menu:{
               menu_name: this.menu_name,
-              id: res.data.id,
+              id: res.id,
               new : true,
               class: false,
               result: false
@@ -184,7 +184,7 @@ export default {
         this.$ajax.post('update', data,{
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
-        if(res.data.message == '编辑成功') {
+        if(res.message == '编辑成功') {
           this.$Message.success('编辑成功');
           localStorage.removeItem('tips');
           localStorage.removeItem('story');

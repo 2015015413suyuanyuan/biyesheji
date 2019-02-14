@@ -66,8 +66,12 @@ export default {
       arr1.push(item)
       if(localStorage.getItem('hositoryRead')){
         let arr2 = [];
-        arr2 = JSON.parse(localStorage.getItem('hositoryRead'))
-        arr2.push(item)
+        arr2 = JSON.parse(localStorage.getItem('hositoryRead'));
+        for(let i =0;i<arr2.length;i++) {
+          if(arr2[i].id != item.id){
+            arr2.push(item)
+          }
+        }
         let arr3 = Array.from(new Set(arr2))
         arr2 = arr3;
         localStorage.setItem('hositoryRead',JSON.stringify(arr2))
@@ -82,20 +86,28 @@ export default {
           id: id,
           new : false,
           class: false,
-          result: true
+          result: true,
+          backSearchHome: this.$route.params.backSearchHome
           }
         }
       });
     },
     // 从result点击返回到search
     backPage() {
-      this.$router.push({
-        name: "Search",
-        params:{
-         menu_name: this.$route.params.menu_name,
-         isJustSearch: false
-        }
-      });      
+      console.log(this.$route.params)
+     if(this.$route.params.backSearchHome){
+        this.$router.push({
+          name: "SearchHome"
+        });
+      }else {
+        this.$router.push({
+          name: "Search",
+          params:{
+          menu_name: this.$route.params.menu_name,
+          isJustSearch: false
+          }
+        });
+      }
     },
     toSearch() {
       this.$router.push({

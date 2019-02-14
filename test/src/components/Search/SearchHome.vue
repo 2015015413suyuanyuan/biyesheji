@@ -8,22 +8,22 @@
       <input type="search" list='name' result placeholder="搜索菜谱" class='searchinput' v-model="value" @input="toSearch()" autofocus="autofocus"/>
       <span class='searchtext'>搜索</span>
     </div>
-    <div class='searchHistory'>
+    <div class='searchHistory' v-if="isSearch">
       <div class='searchheader'>
         <span>历史搜索</span>
-        <img src="../../assets/img/delete.png">
+        <img src="../../assets/img/delete.png" @click="deleteSearch">
       </div>
       <ul class='searchHistoryList'>
-        <li v-for="(item,index) in optionList" :key="index">{{item}}</li>
+        <li v-for="(item,index) in optionList" :key="index" @click="toResult(item)">{{item}}</li>
       </ul>
     </div>
-    <div class='readHistory'>
+    <div class='readHistory' v-if="isRead">
       <div class='readheader'>
         <span>阅读历史</span>
-        <img src="../../assets/img/delete.png">
+        <img src="../../assets/img/delete.png" @click="deleteRead">
       </div>
       <ul class='readHistoryList'>
-        <li v-for="(item,index) in readList" :key="index">
+        <li v-for="(item,index) in readList" :key="index" @click="toDetail(item)">
           <img :src="item.cover">
           <p class="txt">
             <span class="name">{{item.menu_name}}</span>
@@ -48,10 +48,11 @@ export default {
     return {
       value: '',
       isShowList: false,
-      optionList: ['锅包肉','红烧肉','糖醋里脊','宫保鸡丁','蒜薹炒肉','红烧鱼','清蒸鲈鱼','爆炒鱿鱼',
-      '红烧狮子头','土豆炖排骨','爆炒土豆丝'
-      ],
-      readList: []
+      optionList: [],
+      readList: [],
+      // 是否显示历史搜索
+      isSearch: false,
+      isRead: false
     };
   },
   components: {
@@ -64,6 +65,12 @@ export default {
     if(localStorage.getItem('hositoryRead')) {
       this.readList = JSON.parse(localStorage.getItem('hositoryRead'))
     }
+    if(this.optionList.length != 0){
+      this.isSearch = true
+    }
+    if(this.readList.length != 0){
+      this.isRead = true
+    }
   },
   methods: {
     toSearch() {
@@ -75,7 +82,7 @@ export default {
       }
     },
     backPage() {
-    if(this.$route.params.isJustSearch){
+      if(this.$route.params.isJustSearch){
         this.$router.push({
           name: "Home"      
         });         
@@ -89,6 +96,39 @@ export default {
           name: "Home"      
         });      
       }
+    },
+    toResult(value) {
+      this.$router.push({
+        name: "Result",
+        params: { menu_name: value,backSearchHome: true}
+      });
+    },
+    toDetail(item) {
+      this.$router.push({
+        name: "CookBookDetail",
+        params:{
+          menu:{
+          menu_name: item.menu_name,
+          id: item.id,
+          new : false,
+          class: false,
+          result: false,
+          backSearchHome: true
+          }
+        }
+      });
+    },
+    // 删除历史搜索
+    deleteSearch() {
+      localStorage.removeItem('hository');
+      this.optionList = [];
+      this.isSearch = false
+    },
+    // 删除阅读历史
+    deleteRead() {
+      localStorage.removeItem('hositoryRead');
+      this.readList = [];
+       this.isRead = false
     }
   }
 };
@@ -100,13 +140,13 @@ export default {
   height: 100vh;
   .searchHistory{
     .searchheader {
-      margin-top: 50px;
       margin-right: 27px;
       margin-left: 27px;
-      padding-top: 15px;
+      padding-top: 6 5px;
       span {
         font-size: 16px;
         float: left;
+        color: #000;
       }
       img {
         height: 20px;
@@ -138,6 +178,10 @@ export default {
           margin-left: 12px;
           margin-bottom: 8px;
           border-radius: 3px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          padding: 0 4px;
       }
     }
   }
@@ -148,12 +192,14 @@ export default {
   }
   .readHistory {
     .readheader {
-      margin-top: 50px;
+      padding-top: 60px;
       margin-right: 27px;
       margin-left: 27px;
+      margin-bottom: 17px;
       span {
         font-size: 16px;
         float: left;
+        color: #000;
       }
       img {
         height: 20px;

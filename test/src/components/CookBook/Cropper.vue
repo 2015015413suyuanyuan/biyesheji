@@ -46,9 +46,9 @@
       that.$ajax.post('upload', params,{
         headers:{'Content-Type': 'multipart/form-data'}
       }).then((res) => {
-        if(res.data != ''){
-          localStorage.setItem('cover', res.data.image);
-          this.step.img = res.data.image
+        if(res != ''){
+          localStorage.setItem('cover', res.image);
+          this.step.img = res.image
         }
       }).catch((err) => {
         console.log(err)

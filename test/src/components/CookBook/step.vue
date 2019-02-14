@@ -111,8 +111,8 @@ export default {
       that.$ajax.post('upload', params,{
         headers: {'Content-Type': 'multipart/form-data'}
       }).then((res) => {
-        if(res.data != ''){ 
-          this.step[idx].image= res.data.image
+        if(res != ''){ 
+          this.step[idx].image= res.image
           localStorage.setItem('step',JSON.stringify(this.step));
         }
       }).catch((err) => {

@@ -113,7 +113,7 @@ components: {
           this.$ajax.post('myLikeDelete', data,{
             headers: {'Content-Type': 'application/json'}
           }).then((res) => {
-            if(res.data.message == "取消点赞成功") {
+            if(res.message == "取消点赞成功") {
               console.log('取消点赞成功')
             }
           }).catch((err) => {
@@ -150,8 +150,8 @@ components: {
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
           if(res.status == '200') {
-           console.log('res',res.data);
-           const list = res.data
+           console.log('res',res);
+           const list = res
            for(var i=0;i<list.length;i++){
              if(list[i].id == this.$route.params.menu.id){
                this.imgHeart = './static/img/like.png'
@@ -173,7 +173,7 @@ components: {
           "user_id": localStorage.getItem('user_id')
         }
         this.$ajax.post('comment', data).then((res) => {
-          if(res.data.status_code == '200') {
+          if(res.status_code == '200') {
            this.$Message.success('评论成功'); 
            this.commentInput = ''
            console.log(this.$route.params)
@@ -202,17 +202,21 @@ components: {
       }
     },
     toBack() {
+      console.log(this.$route.params)
      if(this.$route.params.class){
         this.$router.push({
           name: "ClassifyListDetail",
           params:{sort:this.$route.params.menu.sort}
         });
-        
       } else {
         if(this.$route.params.menu.new){
           this.$router.push({
             name: "Home"
           });
+        }else if(this.$route.params.menu.backSearchHome){
+          this.$router.push({
+            name: "SearchHome"
+          });        
         }else if(this.$route.params.menu.result){
           this.$router.push({
             name: "Result",
@@ -221,7 +225,7 @@ components: {
         } else {
           this.$router.push({
             name: "Logged"
-          });        
+          });            
         }
       }
 
@@ -234,7 +238,6 @@ components: {
       this.$ajax.post('select', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        console.log(res[0])
           const returnData = res[0];
           this.classifyList = Object.assign([],returnData);
           this.story = returnData.story

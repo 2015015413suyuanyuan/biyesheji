@@ -32,6 +32,7 @@
     font-size: 20px;
     height: 40px;
     line-height: 40px;
+    margin-bottom: 16px;
   }
   .content {
     background-color: white;
