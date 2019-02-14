@@ -132,7 +132,7 @@ export default {
     publicTheCook() { 
       let step = JSON.parse(localStorage.getItem('step'));
       let materials = JSON.parse(localStorage.getItem('materials'));
-      let class1 = JSON.parse(localStorage.getItem('class'));
+      let class1 = JSON.parse(localStorage.getItem('list'));
       console.log(materials,class1)
       // if(!localStorage.getItem('cover')){
       //   this.$Message.warning('请上传菜谱封面');
@@ -142,7 +142,10 @@ export default {
       //   this.$Message.warning('请填写厨房故事'); // 可以为空
       // } else if(this.tips == ''){
       //   this.$Message.warning('请填写小贴士'); //可以为空
-      // }
+      // } else 
+      if(class1.length == 0) {
+           this.$Message.warning('推荐分类不能为空'); //可以为空
+      }
       for(let i =0; i<materials.length;i++){
         if(!materials[i].materials_used){
           this.$Message.warning('食材不能为空'); //可以为空
