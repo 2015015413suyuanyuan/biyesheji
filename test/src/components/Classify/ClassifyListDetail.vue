@@ -21,6 +21,63 @@
   </div>
 </template>
 
+<script>
+import { Tabbar } from "mint-ui";
+import Vue from "vue";
+import Router from "vue-router";
+export default {
+  name: "page-tabbar",
+  data() {
+    return {
+      selected: "外卖",
+      title: '',
+      classifyList: []
+    };
+  },
+  created(){
+    if(JSON.stringify(this.$route.params) !== '{}'){
+      this.getSmallClassifyList(this.$route.params.sort);
+    }else {
+    }
+  },
+  methods: {
+    toCookBookDetail(menu){
+      this.$router.push({
+        name: "CookBookDetail",
+        params: { 
+              menu:{
+              menu_name: menu.menu_name,
+              sort: this.$route.params.sort,
+              id: menu.id,
+              new : false,
+              class: true,
+              result: false
+              },
+          class:true,
+        }
+      });
+    },
+    toBack() {
+      this.$router.push({
+        name: "Classify",
+      });
+    },
+    //获取小分类的菜谱列表
+    getSmallClassifyList(name) {
+      const data = {
+        "sort": name,
+      }
+      this.$ajax.post('classSelect', data).then((res) => {
+        this.classifyList = Object.assign([],res.menu);
+        this.title = res.sort
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+  }
+};
+</script>
+
 <style lang="scss" scoped>
 .page-tabbar {
   overflow: hidden;
@@ -81,60 +138,3 @@
   }
 }
 </style>
-
-<script>
-import { Tabbar } from "mint-ui";
-import Vue from "vue";
-import Router from "vue-router";
-export default {
-  name: "page-tabbar",
-  data() {
-    return {
-      selected: "外卖",
-      title: '',
-      classifyList: []
-    };
-  },
-  created(){
-    if(JSON.stringify(this.$route.params) !== '{}'){
-      this.getSmallClassifyList(this.$route.params.sort);
-    }else {
-    }
-  },
-  methods: {
-    toCookBookDetail(menu){
-      this.$router.push({
-        name: "CookBookDetail",
-        params: { 
-              menu:{
-              menu_name: menu.menu_name,
-              sort: this.$route.params.sort,
-              id: menu.id,
-              new : false,
-              class: true,
-              result: false
-              },
-          class:true,
-        }
-      });
-    },
-    toBack() {
-      this.$router.push({
-        name: "Classify",
-      });
-    },
-    //获取小分类的菜谱列表
-    getSmallClassifyList(name) {
-      const data = {
-        "sort": name,
-      }
-      this.$ajax.post('classSelect', data).then((res) => {
-        this.classifyList = Object.assign([],res.menu);
-        this.title = res.sort
-      }).catch((err) => {
-        console.log(err)
-      })
-    }
-  }
-};
-</script>

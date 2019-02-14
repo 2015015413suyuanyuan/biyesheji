@@ -5,7 +5,7 @@
         <i class="mintui mintui-back"></i>
       </span>
       <span class='searchimg'><img src="../../assets/img/search.png"></span>
-      <input type="search" list='name' result placeholder="搜索菜谱" class='searchinput' v-model="value" @input="toSearch()"/>
+      <input type="search" list='name' result placeholder="搜索菜谱" class='searchinput' v-model="value" @input="toSearch()" autofocus="autofocus"/>
       <span class='searchtext'>搜索</span>
     </div>
     <div class='searchHistory'>
@@ -24,11 +24,11 @@
       </div>
       <ul class='readHistoryList'>
         <li v-for="(item,index) in readList" :key="index">
-          <img :src="item.img">
+          <img :src="item.cover">
           <p class="txt">
-            <span class="name">{{item.name}}</span>
-            <span class="userName">{{item.userName}}</span>
-            <span class="like">点赞{{item.like}}</span>
+            <span class="name">{{item.menu_name}}</span>
+            <span class="userName">{{item.user.name}}</span>
+            <span class="like">点赞{{item.spot}}</span>
           </p>
         </li>
       </ul>
@@ -51,37 +51,28 @@ export default {
       optionList: ['锅包肉','红烧肉','糖醋里脊','宫保鸡丁','蒜薹炒肉','红烧鱼','清蒸鲈鱼','爆炒鱿鱼',
       '红烧狮子头','土豆炖排骨','爆炒土豆丝'
       ],
-      readList: [
-        {
-          img: '/static/img/food2.jpg',
-          name: '红烧肉',
-          userName: '手机用户1111',
-          like: '123333'
-        },
-        {
-          img: '/static/img/food1.jpg',
-          name: '红烧肉',
-          userName: '手机用户1111',
-          like: '123'
-        },
-        {
-          img: '/static/img/food2.jpg',
-          name: '红烧肉',
-          userName: '手机用户1111',
-          like: '123'
-        }
-      ]
+      readList: []
     };
   },
   components: {
     Search
   },
+  created() {
+    if(localStorage.getItem('hository')) {
+      this.optionList = JSON.parse(localStorage.getItem('hository'))
+    }
+    if(localStorage.getItem('hositoryRead')) {
+      this.readList = JSON.parse(localStorage.getItem('hositoryRead'))
+    }
+  },
   methods: {
     toSearch() {
-      this.$router.push({
-        name: "Search",
-        params: { menu_name:  this.value,isJustSearch: true,isClassify:false}            
-      });  
+      if(this.value != '') {
+        this.$router.push({
+          name: "Search",
+          params: { menu_name:  this.value,isJustSearch: true,isClassify:false}            
+        });  
+      }
     },
     backPage() {
     if(this.$route.params.isJustSearch){

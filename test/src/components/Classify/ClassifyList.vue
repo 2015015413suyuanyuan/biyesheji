@@ -9,52 +9,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.page-classifylist{
-    margin: 0 auto;
-    text-align: center;
-    overflow: hidden;
-    margin-bottom: 60px;
-    .classify-list{
-        padding: 7px;
-        .classify-title{
-            width: 171px;
-            height: 35px;
-            line-height: 35px;
-            border: 1px solid #FF9800;
-            color: #FF9800;
-            background-color: white;
-            font-size: 14px; 
-            margin: 0 auto;
-            margin-bottom: 23px;
-        }
-        .item{
-            width: 115px;
-            height: 60px;
-            float: left;
-            padding-top: 7px;
-            padding-left: 6px;
-            background-color: #ccc;
-            background-image: url('../../assets/img/img6.png');
-            margin-bottom: 6px;
-        }
-    }
-    .classify-list::after{
-        display: block;
-        clear: both;
-        content: '';
-    }
-}
-.page-classifylist::after{
-        display: block;
-        clear: both;
-        content: '';
-}
-    .marginStyle {
-        margin: 0px 7px;
-    }
-</style>
-
 <script>
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -107,3 +61,49 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.page-classifylist{
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: 60px;
+    .classify-list{
+        padding: 7px;
+        .classify-title{
+            width: 171px;
+            height: 35px;
+            line-height: 35px;
+            border: 1px solid #FF9800;
+            color: #FF9800;
+            background-color: white;
+            font-size: 14px; 
+            margin: 0 auto;
+            margin-bottom: 23px;
+        }
+        .item{
+            width: 115px;
+            height: 60px;
+            float: left;
+            padding-top: 7px;
+            padding-left: 6px;
+            background-color: #ccc;
+            background-image: url('../../assets/img/img6.png');
+            margin-bottom: 6px;
+        }
+    }
+    .classify-list::after{
+        display: block;
+        clear: both;
+        content: '';
+    }
+}
+.page-classifylist::after{
+        display: block;
+        clear: both;
+        content: '';
+}
+    .marginStyle {
+        margin: 0px 7px;
+    }
+</style>

@@ -12,6 +12,52 @@
   </div>
 </template>
 
+<script>
+  import {
+    Tabbar
+  } from 'mint-ui';
+  import Vue from 'vue';
+  import Router from 'vue-router';
+  import ClassifyList from './ClassifyList'
+  
+  export default {
+    name: 'page-tabbar',
+    data() {
+      return {
+        selected: '外卖'
+      };
+    },
+    components: {
+      ClassifyList
+    },
+  created()  {
+    this.getClassList();
+  },
+  methods: {
+    toSearch() {
+      this.$router.push({
+        name: "SearchHome",
+        params:{
+          menu_name: '',
+         isJustSearch: false,
+         isClassify: true
+        }
+      });
+    },
+    // 菜谱分类展示列表
+    getClassList() {
+      const data = {}
+      this.$ajax.post('classSelect', data,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+  }
+  };
+</script>
+
 <style lang="scss" scoped>
 .page-classify {
   padding-top: 10px;
@@ -52,48 +98,3 @@
     }
   }
 </style>
-<script>
-  import {
-    Tabbar
-  } from 'mint-ui';
-  import Vue from 'vue';
-  import Router from 'vue-router';
-  import ClassifyList from './ClassifyList'
-  
-  export default {
-    name: 'page-tabbar',
-    data() {
-      return {
-        selected: '外卖'
-      };
-    },
-    components: {
-      ClassifyList
-    },
-  created()  {
-    this.getClassList();
-  },
-  methods: {
-    toSearch() {
-      this.$router.push({
-        name: "Search",
-        params:{
-          menu_name: '',
-         isJustSearch: false,
-         isClassify: true
-        }
-      });
-    },
-    // 菜谱分类展示列表
-    getClassList() {
-      const data = {}
-      this.$ajax.post('classSelect', data,{
-        headers: {'Content-Type': 'application/json'}
-      }).then((res) => {
-      }).catch((err) => {
-        console.log(err)
-      })
-    },
-  }
-  };
-</script>

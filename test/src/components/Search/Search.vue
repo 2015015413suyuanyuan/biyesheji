@@ -5,7 +5,7 @@
         <i class="mintui mintui-back"></i>
       </span>
       <span class='searchimg'><img src="../../assets/img/search.png"></span>
-      <input type="search" list='name' result placeholder="搜索菜谱" class='searchinput' v-model="value" @input="changeIsShow()"/>
+      <input type="search" list='name' result placeholder="搜索菜谱" id="input111" class='searchinput' v-model="value" autofocus="autofocus" @input="changeIsShow()" ref="input111"/>
       <span class='searchtext' @click="toResult">搜索</span>
     </div>
     <ul class='searchlist' v-if="isShowList">
@@ -34,16 +34,31 @@ export default {
       this.isShowList = true
       this.value = this.$route.params.menu_name;
       this.getSearchData(this.value);
+      this.$nextTick(() => {
+        this.setCaretPosition(document.getElementById('input111'),this.value.length)
+　　  })  
     }
   },
   methods: {
     handleValue(value,index) {
       this.value = value
       this.isShowList = false
+      const arr1 = []
+      arr1.push(value)
+      if(localStorage.getItem('hository')){
+        let arr2 = [];
+        arr2 = JSON.parse(localStorage.getItem('hository'))
+        arr2.push(value)
+        let arr3 = Array.from(new Set(arr2))
+        arr2 = arr3;
+        localStorage.setItem('hository',JSON.stringify(arr2))
+      } else {
+        localStorage.setItem('hository',JSON.stringify(arr1))
+      }
       this.$router.push({
         name: "Result",
         params: { menu_name: value}
-      });  
+      });
     },
     changeIsShow(){
       if(this.value != ''){
@@ -82,7 +97,7 @@ export default {
           for(var i =0;i<res.length;i++){
             menuName.push(res[i].menu_name)
           }
-        let arr3 = Array.from(new Set(menuName))//let arr3 = [...new Set(arr1)]
+        let arr3 = Array.from(new Set(menuName))
         this.optionList = arr3;
         }
       }).catch((err) => {
@@ -95,6 +110,18 @@ export default {
           name: "Result",
           params: { menu_name:  this.value}            
         });  
+      }
+    },
+    setCaretPosition(tObj, sPos){
+      if(tObj.setSelectionRange){
+        setTimeout(function(){
+          tObj.setSelectionRange(sPos, sPos);
+          tObj.focus();
+        }, 0);
+      }else if(tObj.createTextRange){
+        var rng = tObj.createTextRange();
+        rng.move('character', sPos);
+        rng.select();
       }
     }
   }

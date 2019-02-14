@@ -92,9 +92,7 @@ export default {
     this.$ajax.post('storySelect', data,{
       headers: {'Content-Type': 'application/json'}
     }).then((res) => {
-      if(res.status == 200 && res.status && res.data[0] && res.data[0].lenght != 0) {
-        this.storyList = res.data
-      }
+      this.storyList = res
     }).catch((err) => {
       console.log(err)
     })      

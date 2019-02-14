@@ -5,17 +5,17 @@
         <i class="mintui mintui-back"></i>
       </span>
       <span class='searchimg'><img src="../../assets/img/search.png"></span>
-      <input type="search" list='name' result placeholder="搜索菜谱" class='searchinput' v-model="value" @click="toSearch()"/>
+      <input type="search" list='name' result placeholder="搜索菜谱" id="input1" ref="input1" class='searchinput' v-model="value" @click="toSearch()"/>
       <span class='searchtext'>搜索</span>
     </div>
     <div class='readHistory'>
       <ul class='readHistoryList'>
-        <li v-for="(item,index) in readList" :key="index" @click="getDetail(item.menu_name,item.id)">
+        <li v-for="(item,index) in readList" :key="index" @click="getDetail(item.menu_name,item.id,item)">
           <img :src="item.cover">
           <p class="txt">
             <span class="name">{{item.menu_name}}</span>
             <span class="userName">{{item.user.name}}</span>
-            <span class="like">点赞{{item.like}}</span>
+            <span class="like">点赞{{item.spot}}</span>
           </p>
         </li>
       </ul>
@@ -43,8 +43,11 @@ export default {
     Search
   },
   created() {
-  this.getSearchData();
-  this.value = this.$route.params.menu_name
+    this.getSearchData();
+    this.value = this.$route.params.menu_name;
+    this.$nextTick(() => {
+      this.setCaretPosition(document.getElementById('input1'),this.value.length)
+  　})
   },
   methods: {
     getSearchData() {
@@ -58,7 +61,19 @@ export default {
       })
     },
     // 进入搜索列表的菜谱详情页
-    getDetail(menu_name, id) {
+    getDetail(menu_name, id,item) {
+      const arr1 = []
+      arr1.push(item)
+      if(localStorage.getItem('hositoryRead')){
+        let arr2 = [];
+        arr2 = JSON.parse(localStorage.getItem('hositoryRead'))
+        arr2.push(item)
+        let arr3 = Array.from(new Set(arr2))
+        arr2 = arr3;
+        localStorage.setItem('hositoryRead',JSON.stringify(arr2))
+      } else {
+        localStorage.setItem('hositoryRead',JSON.stringify(arr1))
+      }
       this.$router.push({
         name: "CookBookDetail",
         params:{
@@ -91,6 +106,18 @@ export default {
          isClassify: false
         }
       });           
+    },
+    setCaretPosition(tObj, sPos){
+      if(tObj.setSelectionRange){
+        setTimeout(function(){
+          tObj.setSelectionRange(sPos, sPos);
+          tObj.focus();
+        }, 0);
+      }else if(tObj.createTextRange){
+        var rng = tObj.createTextRange();
+        rng.move('character', sPos);
+        rng.select();
+      }
     }
   }
 };
