@@ -136,7 +136,6 @@ color: white;
 }
 .mint-msgbox-cancel {
   border-right: 0;
-  // 
 }
 .mint-msgbox-content {
   border-bottom: 1px solid rgb(243, 238, 238);
