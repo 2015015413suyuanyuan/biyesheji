@@ -66,7 +66,6 @@ export default {
     };
   },
   created() {
-    console.log(localStorage.getItem('username'))
     if(localStorage.getItem('username')) {
       this.footerList[3].link = '/Logged';
     } else {

@@ -18,80 +18,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.page-classify {
-  input:disabled {
-    color: #2c3e50;
-    background-color: white;
-    padding: 0 5px;
-    font-size: 14px;
-    height: 54px;
-    line-height: 54px;
-  }
-  .txtred {
-    color: red;
-  }
-  .canclecolor {
-    color: #ffba00;
-  }
-  .inputbox {
-    padding: 0;
-    width: 100%;
-    border: 0;
-    margin-top: 40px;
-    overflow: scroll
-  }
-  .inputbox:focus {
-    border: 0;
-    outline: none;
-  }
-  .all {
-    text-align: left;
-    background-color: #F4F3F3;
-    height: 36px;
-    line-height: 36px;
-    font-size: 14px;
-    padding-left: 10px;
-  }
-  .page-part {
-    text-align: left;
-  }
-  .classifyList {
-    .titleHot {
-      padding-left: 10px;
-      color: #ffba00;
-      font-size: 16px;
-      text-align: left;
-      height: 42px;
-      line-height: 42px;
-      border-bottom: 1px solid #F4F3F3;
-    }
-    .listItem {
-      border-bottom: 1px solid #F4F3F3;
-      height: 36px;
-      line-height: 36px;
-      list-style: none;
-      .txt {
-        padding-left: 10px;
-        text-align: left;
-        font-size: 16px;
-        width: 60vw;
-        float: left;
-      }
-      .trueImg {
-        width: 36vw;
-        float: left;
-        img {
-          width: 17px;
-          float: right;
-          margin-top: 10px;
-        }
-      }
-    }
-  }
-}
-</style>
-
 <script>
 import { Checklist } from "mint-ui";
 import { Header } from "mint-ui";
@@ -266,9 +192,13 @@ export default {
     openConfirm() {
       this.$router.push({
         name: "CreateBook",
-        params: { new: this.inputarr ,menu:{
-          new: false
-        }}
+        params: { 
+          new: this.inputarr ,
+          menu:{
+          new: false,
+          fromClassify: true
+          }
+        }
       });
     },
     save() {
@@ -304,3 +234,78 @@ export default {
   }
 };
 </script>
+
+
+<style lang="scss" scoped>
+.page-classify {
+  input:disabled {
+    color: #2c3e50;
+    background-color: white;
+    padding: 0 5px;
+    font-size: 14px;
+    height: 54px;
+    line-height: 54px;
+  }
+  .txtred {
+    color: red;
+  }
+  .canclecolor {
+    color: #ffba00;
+  }
+  .inputbox {
+    padding: 0;
+    width: 100%;
+    border: 0;
+    margin-top: 40px;
+    overflow: scroll
+  }
+  .inputbox:focus {
+    border: 0;
+    outline: none;
+  }
+  .all {
+    text-align: left;
+    background-color: #F4F3F3;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    padding-left: 10px;
+  }
+  .page-part {
+    text-align: left;
+  }
+  .classifyList {
+    .titleHot {
+      padding-left: 10px;
+      color: #ffba00;
+      font-size: 16px;
+      text-align: left;
+      height: 42px;
+      line-height: 42px;
+      border-bottom: 1px solid #F4F3F3;
+    }
+    .listItem {
+      border-bottom: 1px solid #F4F3F3;
+      height: 36px;
+      line-height: 36px;
+      list-style: none;
+      .txt {
+        padding-left: 10px;
+        text-align: left;
+        font-size: 16px;
+        width: 60vw;
+        float: left;
+      }
+      .trueImg {
+        width: 36vw;
+        float: left;
+        img {
+          width: 17px;
+          float: right;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+</style>

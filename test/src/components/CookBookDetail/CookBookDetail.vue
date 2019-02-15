@@ -79,7 +79,6 @@ components: {
       if(JSON.stringify(this.$route.params.menu) !== '{}'){
         this.getCookBookDetail(this.$route.params.menu.id)
         localStorage.setItem('main_menu_id',this.$route.params.menu.id)
-        console.log(this.$route.params.menu)
       }
     }
     
@@ -114,11 +113,9 @@ components: {
             headers: {'Content-Type': 'application/json'}
           }).then((res) => {
             if(res.message == "取消点赞成功") {
-              console.log('取消点赞成功')
             }
           }).catch((err) => {
             console.log(err)
-            console.log('err')
           })
         }
       }else{
@@ -176,11 +173,8 @@ components: {
           if(res.status_code == '200') {
            this.$Message.success('评论成功'); 
            this.commentInput = ''
-           console.log(this.$route.params)
            this.getCookBookDetail(localStorage.getItem('main_menu_id'));
           }
-        }).catch((err) => {
-          console.log(err)
         })
       }else{
         MessageBox.confirm('',{
@@ -202,7 +196,6 @@ components: {
       }
     },
     toBack() {
-      console.log(this.$route.params)
      if(this.$route.params.class){
         this.$router.push({
           name: "ClassifyListDetail",
@@ -255,10 +248,8 @@ components: {
     // 判断用户是否登录 进一步判断该菜谱用户是否喜欢
     isLike() {
       if(localStorage.getItem('username')){
-        console.log("已经登录")
         this.isMyLike();
       }else{
-        console.log('没登录')
       }
     }
   },

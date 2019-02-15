@@ -183,7 +183,6 @@ export default {
       this.$ajax.post('basicInfo', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        console.log(res[0])
         if(res[0] && res[0].lenght != 0) {
           this.userImage = res[0].image
           if(res[0].name !== ''){

@@ -75,7 +75,6 @@ export default {
           name: "Home"      
         });         
       }else if(this.$route.params.isClassify){
-        console.log('isClassyif')
          this.$router.push({
           name: "Classify"      
         });         

@@ -93,7 +93,9 @@ export default {
    const data =  this.$route.params;
    if(JSON.stringify(data) == 'undefined' || JSON.stringify(data) == '{}'){
      this.title = '创建菜谱'
-   }else {
+   }else if(data.menu.fromClassify){
+
+   } else {
      this.tips = data.menu.menu.tips;
      localStorage.setItem('cover',data.menu.menu.cover)
      this.menu_name = data.menu.menu.menu_name
@@ -104,6 +106,7 @@ export default {
      this.bookID = data.menu.id
      this.title = data.menu.title
    }
+
    
   },
   components: {
@@ -133,39 +136,49 @@ export default {
       let step = JSON.parse(localStorage.getItem('step'));
       let materials = JSON.parse(localStorage.getItem('materials'));
       let class1 = JSON.parse(localStorage.getItem('list'));
-      console.log(materials,class1)
-      // if(!localStorage.getItem('cover')){
-      //   this.$Message.warning('请上传菜谱封面');
-      // } else if(this.menu_name == ''){
-      //   this.$Message.warning('请填写菜谱名');
-      // } else if(this.story == ''){
-      //   this.$Message.warning('请填写厨房故事'); // 可以为空
-      // } else if(this.tips == ''){
-      //   this.$Message.warning('请填写小贴士'); //可以为空
-      // } else 
-      if(class1.length == 0) {
+      if(!localStorage.getItem('cover')){
+        this.$Message.warning('请上传菜谱封面');
+      } else if(this.menu_name == ''){
+        this.$Message.warning('请填写菜谱名');
+      } else if(this.story == ''){
+        this.$Message.warning('请填写厨房故事'); // 可以为空
+      } else if(this.tips == ''){
+        this.$Message.warning('请填写小贴士'); //可以为空
+      } else if(class1.length == 0) {
            this.$Message.warning('推荐分类不能为空'); //可以为空
-      }
-      for(let i =0; i<materials.length;i++){
-        if(!materials[i].materials_used){
-          this.$Message.warning('食材不能为空'); //可以为空
-        } else {
-          if(!materials[i].dosage){
-            this.$Message.warning(materials[i].materials_used+'的用量不能为空');
+      }else if(materials) {
+        for(let i =0; i<materials.length;i++){
+          if(!materials[i].materials_used){
+            this.$Message.warning('食材不能为空'); //可以为空
+          } else {
+            if(!materials[i].dosage){
+              this.$Message.warning(materials[i].materials_used+'的用量不能为空');
+              return;
+            } else {
+              if(step) {
+                for(let i =0; i<step.length;i++){
+                  if(!step[i].image){
+                    this.$Message.warning('步骤图'+(i+1)+'不能为空哦'); //可以为空
+                    return;
+                  }
+                  if(!step[i].step){
+                    this.$Message.warning('请填写步骤'+(i+1)+'的说明');
+                    return;
+                  }
+                }
+              } else {
+                this.$Message.warning('步骤不能为空');
+              }
+            }
           }
         }
-
-      }
-      for(let i =0; i<step.length;i++){
-        if(!step[i].image){
-          this.$Message.warning('步骤图不能为空哦'); //可以为空
-        }
-        if(!step[i].step){
-          this.$Message.warning('请填写步骤'+(i+1)+'的说明');
-        }
+        this.isAllFall = true
+      } else {
+        this.$Message.warning('食材不能为空11'); //可以为空
+        this.isAllFall = false
       }
       // 新增
-      if(this.new){
+      if(this.new && this.isAllFall){
         localStorage.setItem('menu_name',this.menu_name)
         const data = {
           "user_id": localStorage.getItem('user_id'),
@@ -177,34 +190,34 @@ export default {
           'step': JSON.parse(localStorage.getItem('step')),
           'class': JSON.parse(localStorage.getItem('list'))
         }
-        // this.$ajax.post('/create', data).then((res) => {
-        // if(res.message == '添加成功') {
-        //   this.$Message.success('创建成功');
-        //   localStorage.removeItem('tips');
-        //   localStorage.removeItem('story');
-        //   localStorage.removeItem('cover');
-        //   localStorage.removeItem('step');
-        //   localStorage.removeItem('materials');
-        //   localStorage.removeItem('classifyList');
-        //   this.$router.push({
-        //     name: "CookBookDetail",
-        //     params:{
-        //       menu:{
-        //       menu_name: this.menu_name,
-        //       id: res.id,
-        //       new : true,
-        //       class: false,
-        //       result: false
-        //       }
-        //     }
-        //   });
-        // }
-        // }).catch((err) => {
-        //   console.log(err)
-        // })
+        this.$ajax.post('/create', data).then((res) => {
+        if(res.message == '添加成功') {
+          this.$Message.success('创建成功');
+          localStorage.removeItem('tips');
+          localStorage.removeItem('story');
+          localStorage.removeItem('cover');
+          localStorage.removeItem('step');
+          localStorage.removeItem('materials');
+          localStorage.removeItem('classifyList');
+          this.$router.push({
+            name: "CookBookDetail",
+            params:{
+              menu:{
+              menu_name: this.menu_name,
+              id: res.id,
+              new : true,
+              class: false,
+              result: false
+              }
+            }
+          });
+        }
+        }).catch((err) => {
+          console.log(err)
+        })
       }
       // 编辑
-      else {
+      else if(this.isAllFall) {
         localStorage.setItem('menu_name',this.menu_name)
         const data = {
           "user_id": localStorage.getItem('user_id'),
@@ -217,33 +230,33 @@ export default {
           'class': JSON.parse(localStorage.getItem('list')),
           "id":this.bookID
         }
-        // this.$ajax.post('update', data,{
-        //   headers: {'Content-Type': 'application/json'}
-        // }).then((res) => {
-        // if(res.message == '编辑成功') {
-        //   this.$Message.success('编辑成功');
-        //   localStorage.removeItem('tips');
-        //   localStorage.removeItem('story');
-        //   localStorage.removeItem('cover');
-        //   localStorage.removeItem('step');
-        //   localStorage.removeItem('materials');
-        //   localStorage.removeItem('classifyList');
-        //   this.$router.push({
-        //     name: "CookBookDetail",
-        //     params:{
-        //       menu:{
-        //       menu_name: this.menu_name,
-        //       id: this.bookID,
-        //       new : false,
-        //       class: false,
-        //       result: false
-        //       }
-        //     }
-        //   });
-        // }
-        // }).catch((err) => {
-        //   console.log(err)
-        // })        
+        this.$ajax.post('update', data,{
+          headers: {'Content-Type': 'application/json'}
+        }).then((res) => {
+        if(res.message == '编辑成功') {
+          this.$Message.success('编辑成功');
+          localStorage.removeItem('tips');
+          localStorage.removeItem('story');
+          localStorage.removeItem('cover');
+          localStorage.removeItem('step');
+          localStorage.removeItem('materials');
+          localStorage.removeItem('classifyList');
+          this.$router.push({
+            name: "CookBookDetail",
+            params:{
+              menu:{
+              menu_name: this.menu_name,
+              id: this.bookID,
+              new : false,
+              class: false,
+              result: false
+              }
+            }
+          });
+        }
+        }).catch((err) => {
+          console.log(err)
+        })        
       }
     },
     // 输入菜谱名是否为空的验证
