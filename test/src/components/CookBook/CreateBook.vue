@@ -139,31 +139,31 @@ export default {
       let class1 = JSON.parse(localStorage.getItem('list'));
       if(!localStorage.getItem('cover')){
         Toast({
-          message: '请上传菜谱封面',
+          message: '请上传菜谱封面~',
           position: 'bottom',
           duration: 3000
         });
       } else if(this.menu_name == ''){
         Toast({
-          message: '请填写菜谱名',
+          message: '请填写菜谱名~',
           position: 'bottom',
           duration: 3000
         });
       } else if(this.story == ''){
         Toast({
-          message: '请填写厨房故事',
+          message: '请填写美食背后的故事~',
           position: 'bottom',
           duration: 3000
         });
       } else if(this.tips == ''){
         Toast({
-          message: '请填写小贴士',
+          message: '请填写小贴士~',
           position: 'bottom',
           duration: 3000
         });
       } else if(class1.length == 0) {
         Toast({
-          message: '推荐分类不能为空',
+          message: '请选择推荐分类~',
           position: 'bottom',
           duration: 3000
         });
@@ -221,6 +221,7 @@ export default {
       }
       // 新增
       if(this.new && this.isAllFall){
+        document.getElementsByClassName
         localStorage.setItem('menu_name',this.menu_name)
         const data = {
           "user_id": localStorage.getItem('user_id'),

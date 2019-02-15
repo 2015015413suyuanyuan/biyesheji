@@ -146,8 +146,7 @@ components: {
         this.$ajax.post('myLikeSelect', data,{
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
-          if(res.status == '200') {
-           console.log('res',res);
+          if(res.length !== 0) {
            const list = res
            for(var i=0;i<list.length;i++){
              if(list[i].id == this.$route.params.menu.id){

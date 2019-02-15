@@ -48,7 +48,6 @@ export default {
       this.$ajax.post('select', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        console.log(res)
         if(res && res.lenght != 0){
           this.myDiyBookList = res;
         }else {
