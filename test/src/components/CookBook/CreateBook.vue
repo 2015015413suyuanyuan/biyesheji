@@ -45,6 +45,7 @@
 <script>
 import Step from './Step'
 import { Header } from 'mint-ui';
+import { Toast  } from 'mint-ui';
 import Usage from './Usage'
 import Cropper from './Cropper.vue';
 // import { constants } from 'http2';
@@ -137,44 +138,85 @@ export default {
       let materials = JSON.parse(localStorage.getItem('materials'));
       let class1 = JSON.parse(localStorage.getItem('list'));
       if(!localStorage.getItem('cover')){
-        this.$Message.warning('请上传菜谱封面');
+        Toast({
+          message: '请上传菜谱封面',
+          position: 'bottom',
+          duration: 3000
+        });
       } else if(this.menu_name == ''){
-        this.$Message.warning('请填写菜谱名');
+        Toast({
+          message: '请填写菜谱名',
+          position: 'bottom',
+          duration: 3000
+        });
       } else if(this.story == ''){
-        this.$Message.warning('请填写厨房故事'); // 可以为空
+        Toast({
+          message: '请填写厨房故事',
+          position: 'bottom',
+          duration: 3000
+        });
       } else if(this.tips == ''){
-        this.$Message.warning('请填写小贴士'); //可以为空
+        Toast({
+          message: '请填写小贴士',
+          position: 'bottom',
+          duration: 3000
+        });
       } else if(class1.length == 0) {
-           this.$Message.warning('推荐分类不能为空'); //可以为空
+        Toast({
+          message: '推荐分类不能为空',
+          position: 'bottom',
+          duration: 3000
+        });
       }else if(materials) {
         for(let i =0; i<materials.length;i++){
           if(!materials[i].materials_used){
-            this.$Message.warning('食材不能为空'); //可以为空
+            Toast({
+              message: '推荐分类不能为空',
+              position: 'bottom',
+              duration: 3000
+            });
+            Toast('食材不能为空');
           } else {
             if(!materials[i].dosage){
-              this.$Message.warning(materials[i].materials_used+'的用量不能为空');
+              Toast({
+                message: `${materials[i].materials_used}的用量不能为空`,
+                position: 'bottom',
+                duration: 3000
+              });
               return;
             } else {
               if(step) {
                 for(let i =0; i<step.length;i++){
                   if(!step[i].image){
-                    this.$Message.warning('步骤图'+(i+1)+'不能为空哦'); //可以为空
+                    Toast({
+                      message: '步骤图'+(i+1)+'不能为空哦',
+                      position: 'bottom',
+                      duration: 3000
+                    });
                     return;
                   }
                   if(!step[i].step){
-                    this.$Message.warning('请填写步骤'+(i+1)+'的说明');
+                    Toast({
+                      message: '请填写步骤'+(i+1)+'的说明',
+                      position: 'bottom',
+                      duration: 3000
+                    });
                     return;
                   }
                 }
               } else {
-                this.$Message.warning('步骤不能为空');
+                Toast({
+                  message: `步骤不能为空`,
+                  position: 'bottom',
+                  duration: 3000
+                });
               }
             }
           }
         }
         this.isAllFall = true
       } else {
-        this.$Message.warning('食材不能为空11'); //可以为空
+        this.$Message.warning('食材不能为空'); //可以为空
         this.isAllFall = false
       }
       // 新增

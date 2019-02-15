@@ -46,7 +46,7 @@ $color-primary: white;
   font-size: 18px;
 }
 .mint-button--small {
-  width: 49.5vw;
+  width: 49%;
   height: 46px;
   border: 0;
   background-color: white;
@@ -157,5 +157,15 @@ color: white;
 .mint-checklist-title {
   color: #FF9800;
   font-size: 16px;
+}
+.mint-toast.is-placebottom {
+    bottom: 80px;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+            transform: translate(-50%, 0)
+}
+.mint-toast {
+  padding: 5px 12px !important;
+  background: rgba(0, 0, 0, 0.7);
 }
 </style>

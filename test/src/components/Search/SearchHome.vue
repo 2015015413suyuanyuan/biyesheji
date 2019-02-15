@@ -138,10 +138,10 @@ export default {
   background-color: #FFF9EF;
   height: 100vh;
   .searchHistory{
+    padding-top: 60px;
     .searchheader {
       margin-right: 27px;
       margin-left: 27px;
-      padding-top: 6 5px;
       span {
         font-size: 16px;
         float: left;
