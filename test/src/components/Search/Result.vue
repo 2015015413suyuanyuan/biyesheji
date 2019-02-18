@@ -185,8 +185,8 @@ export default {
           font-family: 方正楷体-标准;
           padding-top: 4px;
           overflow: hidden;
-text-overflow:ellipsis;
-white-space: nowrap;
+          text-overflow:ellipsis;
+          white-space: nowrap;
         }
         .userName {
           color: #101010;
@@ -241,7 +241,7 @@ white-space: nowrap;
     z-index: 1;
     .searchimg {
       position: absolute;
-      left: 53px;
+      left: 75px;
       width: 24px;
       height: 24px;
       img {
@@ -250,7 +250,8 @@ white-space: nowrap;
     }
     .searchinput {
       margin-left: 10px;
-      width: 230px;
+      margin: 0 auto;
+      width: 260px;
       height: 31px;
       border-radius: 10px;
       background-color: rgba(244, 243, 243, 1);

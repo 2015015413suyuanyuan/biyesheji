@@ -70,6 +70,7 @@ export default {
   },
   created()  {
     // 菜谱名
+    console.log(this.$route.params)
     if(JSON.stringify(localStorage.getItem('menu_name')) == 'null'){
     }else{
       this.menu_name = localStorage.getItem('menu_name');
@@ -85,17 +86,22 @@ export default {
       this.story = localStorage.getItem('story');
     }
     // 推荐分类
-    if(JSON.stringify(localStorage.getItem('classifyList')) == '[]'){
+    if(JSON.stringify(localStorage.getItem('list')) == '[]'){
     }else{
       this.isShowClassifyList = true
-      this.classifyList = JSON.parse(localStorage.getItem('classifyList'));
+      const list1 = []
+      const list = JSON.parse(localStorage.getItem('list'));
+      for(let i =0;i<list.length;i++){
+        list1.push(list[i].sort);
+      }
+      this.classifyList = list1;
+      localStorage.setItem('classifyList',JSON.stringify(this.classifyList));
     }
 
    const data =  this.$route.params;
    if(JSON.stringify(data) == 'undefined' || JSON.stringify(data) == '{}'){
      this.title = '创建菜谱'
    }else if(data.menu.fromClassify){
-
    } else {
      this.tips = data.menu.menu.tips;
      localStorage.setItem('cover',data.menu.menu.cover)
