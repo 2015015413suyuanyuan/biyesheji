@@ -6,7 +6,6 @@
       </span>
       <span class='searchimg'><img src="../../assets/img/search.png"></span>
       <input type="search" list='name' result placeholder="搜索菜谱" id="input1" ref="input1" class='searchinput' v-model="value" @click="toSearch()"/>
-      <span class='searchtext'>搜索</span>
     </div>
     <div class='readHistory'>
       <ul class='readHistoryList'>
@@ -43,16 +42,19 @@ export default {
     Search
   },
   created() {
-    this.getSearchData();
+    this.getSearchData(this.$route.params.menu_name);
     this.value = this.$route.params.menu_name;
     this.$nextTick(() => {
       this.setCaretPosition(document.getElementById('input1'),this.value.length)
   　})
   },
   methods: {
-    getSearchData() {
+    searchList1(value) {
+      this.getSearchData(value)
+    },
+    getSearchData(menu_name) {
       const data = {
-        'menu_name':  this.$route.params.menu_name
+        'menu_name':  menu_name
       }
       this.$ajax.post('select', data,{
         headers: {'Content-Type': 'application/json'}

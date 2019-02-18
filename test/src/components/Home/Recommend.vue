@@ -1,16 +1,16 @@
 <template>
   <div class="page-tabbar" @click="toCookBookDetail">
       <h1>每日推荐</h1>
-      <div class="content">
-        <img :src="'./static/img/2.jpg'" class="img1">
+      <div class="content" v-for="(item,index) in recommendList" @click="toCookBookDetail(item)">
+        <img :src="item.cover" class="img1">
         <div class="content-detail">
           <div class="text-left">
-            <p class="sp1">香酥黑芝麻卷</p>
-            <p class="sp2">小时候每当加工蛋卷的人在街上摆上家伙，立马就能吸引拿上鸡蛋……</p>
+            <p class="sp1">{{item.menu_name}}</p>
+            <p class="sp2">{{item.story}}</p>
           </div>
           <div class="img-right">
             <img :src="'./static/img/MyLogo.png'" class="img2">
-            <p class="sp3">李莉莉的……</p>
+            <p class="sp3">{{item.user.name}}</p>
           </div>
         </div>
       </div>
@@ -89,13 +89,39 @@ export default {
   name: "page-tabbar",
   data() {
     return {
-      selected: "外卖"
+      selected: "外卖",
+      recommendList: []
     };
+  },
+  created() {
+    this.getRecommend();
   },
   methods: {
     toCookBookDetail(){
       this.$router.push({
         name: "CookBookDetail"
+      });
+    },
+    getRecommend() {
+      this.$ajax.post('recommend',{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        this.recommendList = res;
+      })
+    },
+    toCookBookDetail(item) {
+      this.$router.push({
+        name: "CookBookDetail",
+        params:{
+          menu:{
+          menu_name: item.menu_name,
+          id: item.id,
+          new : false,
+          class: false,
+          result: false,
+          recommend: true
+          }
+        }
       });
     }
   }

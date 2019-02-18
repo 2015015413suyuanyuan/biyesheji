@@ -134,9 +134,9 @@ export default {
       this.$router.push('/')
     },
     publicTheCook() { 
-      let step = JSON.parse(localStorage.getItem('step'));
-      let materials = JSON.parse(localStorage.getItem('materials'));
-      let class1 = JSON.parse(localStorage.getItem('list'));
+      let step = JSON.parse(localStorage.getItem('step'))?JSON.parse(localStorage.getItem('step')):'';
+      let materials = JSON.parse(localStorage.getItem('materials'))?JSON.parse(localStorage.getItem('materials')):'';
+      let class1 = JSON.parse(localStorage.getItem('list'))?JSON.parse(localStorage.getItem('list')):'';
       if(!localStorage.getItem('cover')){
         Toast({
           message: '请上传菜谱封面~',

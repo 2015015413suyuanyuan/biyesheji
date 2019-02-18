@@ -9,16 +9,16 @@
       <div class='headerImg'>
         <img :src="cover">
       </div>
-          <article>
-            <h2 style="text-align: center;">{{title}}</h2>
-            <div v-for="(item1,index1) in item" :key="index1">
-              <p>{{item1.content}}</p>
-              <div class='headerImg'>
-                  <img :src="item1.image">
-              </div>
-              
-            </div>
-          </article>
+      <article>
+        <h2 style="text-align: center;">{{title}}</h2>
+        <div v-for="(item1,index1) in item" :key="index1">
+          <p>{{item1.content}}</p>
+          <div class='headerImg'>
+              <img :src="item1.image">
+          </div>
+          
+        </div>
+      </article>
     </div>
     <div class="like" @click="good">
       <img :src="Good" class="good">
@@ -104,7 +104,8 @@ export default {
       num: 88,
       cover: '',
       title:'',
-      item: []
+      item: [],
+      id: ''
     };
   },
   created(){
@@ -113,19 +114,60 @@ export default {
       this.cover = data.cover
       this.title = data.title
       this.item =data.story
+      this.id = data.id
+      this.num = data.spot
     }
+    this.isLike()
   },
   methods: {
+    // 点赞功能
     good () {
-      this.isGood = !this.isGood
-      if(this.isGood){
-        this.Good = '/static/img/goods.png'
-        this.num = this.num + 1
-        this.isFirstCome++
-      }
-      else {
+      if(localStorage.getItem('username')){
+        this.isGood = !this.isGood
+        if(this.isGood){
+          this.Good = '/static/img/goods.png'
+          this.num = this.num + 1
+          this.isFirstCome++
+          const data = {
+            'id':  this.id,
+            'user_id': localStorage.getItem('user_id')
+          }
+          this.$ajax.post('kitchenLike', data,{
+            headers: {'Content-Type': 'application/json'}
+          }).then((res) => {
+          })
+        }
+        else {
           this.num = this.num - 1 
-        this.Good = '/static/img/good.png'
+          this.Good = '/static/img/good.png'
+          const data = {
+            'id':  this.id,
+            'user_id': localStorage.getItem('user_id')
+          }
+          this.$ajax.post('kitchenDelete', data,{
+            headers: {'Content-Type': 'application/json'}
+          }).then((res) => {
+          })
+        }
+      }
+    },
+    // 判断该厨房故事用户是否喜欢
+    // 判断用户是否登录 进一步判断该菜谱用户是否喜欢
+    isLike() {
+      console.log(this.id)
+      if(localStorage.getItem('username')){
+        const data = {
+          'user_id': localStorage.getItem('user_id')
+        }
+        this.$ajax.post('kitchenList', data,{
+          headers: {'Content-Type': 'application/json'}
+        }).then((res) => {
+          const list = res;
+            if(list[0].id == this.id) {
+              this.isGood = true
+               this.Good = '/static/img/goods.png'
+          }
+        })
       }
     }
   }

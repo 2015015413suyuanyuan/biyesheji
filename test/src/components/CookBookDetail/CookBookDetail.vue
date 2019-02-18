@@ -214,10 +214,14 @@ components: {
             name: "Result",
             params:{menu_name:this.$route.params.menu.menu_name}
           });
+        } else if(this.$route.params.menu.recommend){
+          this.$router.push({
+            name: "Home"
+          });            
         } else {
           this.$router.push({
             name: "Logged"
-          });            
+          }); 
         }
       }
 
@@ -251,12 +255,6 @@ components: {
       }else{
       }
     }
-  },
-  mounted() {
-  },
-  computed: {
-  },
-  watch: {
   },
 };
 </script>
