@@ -154,7 +154,6 @@ export default {
     // 判断该厨房故事用户是否喜欢
     // 判断用户是否登录 进一步判断该菜谱用户是否喜欢
     isLike() {
-      console.log(this.id)
       if(localStorage.getItem('username')){
         const data = {
           'user_id': localStorage.getItem('user_id')
@@ -163,7 +162,7 @@ export default {
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
           const list = res;
-            if(list[0].id == this.id) {
+            if(list[0] && list[0].id == this.id) {
               this.isGood = true
                this.Good = '/static/img/goods.png'
           }

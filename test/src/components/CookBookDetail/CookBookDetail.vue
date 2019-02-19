@@ -188,9 +188,7 @@ components: {
             });
           }
         }).catch(err => {
-          if(err == 'cancel') {
-            console.log('222')
-          }
+          console.log(err)
         })
       }
     },
@@ -218,10 +216,14 @@ components: {
           this.$router.push({
             name: "Home"
           });            
-        } else {
+        } else if(this.$route.params.menu.toMy){
           this.$router.push({
             name: "Logged"
           }); 
+        } else {
+          this.$router.push({
+            name: "Home"
+          });           
         }
       }
 

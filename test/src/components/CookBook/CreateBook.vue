@@ -70,7 +70,6 @@ export default {
   },
   created()  {
     // 菜谱名
-    console.log(this.$route.params)
     if(JSON.stringify(localStorage.getItem('menu_name')) == 'null'){
     }else{
       this.menu_name = localStorage.getItem('menu_name');
@@ -122,14 +121,17 @@ export default {
     Cropper,
   },
   methods: {
+    // 提示框是否显示
     openConfirm() {
       this.$refs.modal.style.display = 'block'
-      this.$refs.msgbox.style.display = 'block'  
+      this.$refs.msgbox.style.display = 'block'             
     },
+    // 点击继续编辑按钮
     cancel(){
       this.$refs.modal.style.display = 'none'
       this.$refs.msgbox.style.display = 'none'
     },
+    // 取消 =》 继续退出
     dele(){
       localStorage.removeItem('tips');
       localStorage.removeItem('story');
@@ -137,7 +139,18 @@ export default {
       localStorage.removeItem('step');
       localStorage.removeItem('materials');
       localStorage.removeItem('classifyList');
-      this.$router.push('/')
+      if(JSON.stringify(this.$route.params) !== '{}'){
+        if (this.$route.params.menu.toMy) {
+        this.$router.push({
+          name: "Logged"
+        });
+        } else {
+          this.$router.push({
+            name: "Home"
+          });
+        }
+      }else {
+      }
     },
     publicTheCook() { 
       let step = JSON.parse(localStorage.getItem('step'))?JSON.parse(localStorage.getItem('step')):'';
@@ -298,7 +311,8 @@ export default {
               id: this.bookID,
               new : false,
               class: false,
-              result: false
+              result: false,
+              toMy: true
               }
             }
           });

@@ -66,7 +66,8 @@ export default {
             menu_name: menu.menu_name,
             id: menu.id,
             new : false,
-            title: '编辑菜谱'  
+            title: '编辑菜谱',
+            toMy: true
         } }
       });
     }
