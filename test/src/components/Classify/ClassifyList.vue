@@ -90,6 +90,7 @@ export default {
             background-color: #ccc;
             background-image: url('../../assets/img/img6.png');
             margin-bottom: 6px;
+            background-position: 50%;
         }
     }
     .classify-list::after{

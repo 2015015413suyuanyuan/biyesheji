@@ -24,6 +24,65 @@
   </div>
 </template>
 
+<script>
+import { Search } from "mint-ui";
+import { Header } from "mint-ui";
+import { Swipe, SwipeItem } from "mint-ui";
+import Vue from "vue";
+import Router from "vue-router";
+import Recommend from "./Recommend.vue";
+import { MessageBox } from 'mint-ui';
+
+export default {
+  name: "page-tabbar",
+  data() {
+    return {
+      value: "外卖"
+    };
+  },
+  components: {
+    Recommend
+  },
+  methods: {
+    toSearch() {
+      this.$router.push({
+        name: "SearchHome",
+        params: {
+          menu: {
+            fromHome: true
+          }
+        }
+      });
+    },
+    // 判断是否登录 如果登录 去创建菜谱
+    toCreateCook(){
+      if(localStorage.getItem('username')){
+        this.$router.push({
+          name: "CookBook1"
+        });
+      }else{
+        MessageBox.confirm('',{
+          message: '创建菜谱需要登录哦~',
+          title: '',
+          confirmButtonText: '去登录',
+          cancelButtonText: '取消'
+        }).then(action => {
+          if(action == 'confirm'){
+            this.$router.push({
+              name: "Login"
+            });
+          }
+        }).catch(err => {
+          if(err == 'cancel') {
+
+          }
+        })
+      }
+    }
+  },
+};
+</script>
+
 <style lang="scss" scoped>
 .page-hellow {
   overflow: hidden;
@@ -106,59 +165,4 @@
   }
 }
 </style>
-
-<script>
-import { Search } from "mint-ui";
-import { Header } from "mint-ui";
-import { Swipe, SwipeItem } from "mint-ui";
-import Vue from "vue";
-import Router from "vue-router";
-import Recommend from "./Recommend.vue";
-import { MessageBox } from 'mint-ui';
-
-export default {
-  name: "page-tabbar",
-  data() {
-    return {
-      value: "外卖"
-    };
-  },
-  components: {
-    Recommend
-  },
-  methods: {
-    toSearch() {
-      this.$router.push({
-        name: "SearchHome"
-      });
-    },
-    // 判断是否登录 如果登录 去创建菜谱
-    toCreateCook(){
-      if(localStorage.getItem('username')){
-        this.$router.push({
-          name: "CookBook1"
-        });
-      }else{
-        MessageBox.confirm('',{
-          message: '创建菜谱需要登录哦~',
-          title: '',
-          confirmButtonText: '去登录',
-          cancelButtonText: '取消'
-        }).then(action => {
-          if(action == 'confirm'){
-            this.$router.push({
-              name: "Login"
-            });
-          }
-        }).catch(err => {
-          if(err == 'cancel') {
-
-          }
-        })
-      }
-    }
-  },
-};
-</script>
-
 

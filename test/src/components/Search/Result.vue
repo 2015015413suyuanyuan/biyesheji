@@ -80,6 +80,10 @@ export default {
       } else {
         localStorage.setItem('hositoryRead',JSON.stringify(arr1))
       }
+      let isClassify = false
+      if(this.$route.params.isClassify) {
+        isClassify = true
+      }
       this.$router.push({
         name: "CookBookDetail",
         params:{
@@ -89,14 +93,19 @@ export default {
           new : false,
           class: false,
           result: true,
-          backSearchHome: this.$route.params.backSearchHome
+          backSearchHome: this.$route.params.backSearchHome,
+          isClassify: isClassify
           }
         }
       });
     },
     // 从result点击返回到search
     backPage() {
-     if(this.$route.params.backSearchHome){
+     if(this.$route.params.isClassify){
+        this.$router.push({
+          name: "Classify"
+        });
+      }else if(this.$route.params.backSearchHome){
         this.$router.push({
           name: "SearchHome"
         });

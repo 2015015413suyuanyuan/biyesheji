@@ -81,7 +81,6 @@ components: {
         localStorage.setItem('main_menu_id',this.$route.params.menu.id)
       }
     }
-    
     this.isLike();
   },
   methods: {
@@ -193,6 +192,7 @@ components: {
       }
     },
     toBack() {
+      
      if(this.$route.params.class){
         this.$router.push({
           name: "ClassifyListDetail",
@@ -203,6 +203,13 @@ components: {
           this.$router.push({
             name: "Home"
           });
+        }else if(this.$route.params.menu.isClassify){
+          this.$router.push({
+            name: "Classify",
+            params: {
+              isClassify: this.$route.params.menu.isClassify
+            }
+          });        
         }else if(this.$route.params.menu.backSearchHome){
           this.$router.push({
             name: "SearchHome"

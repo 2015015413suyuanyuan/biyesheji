@@ -2,8 +2,7 @@
 <div class='page'>
   <div class="MyDiyBookItem" v-for='(item,index) in myDiyBookList' :key="index">
     <div class='bookImg'>
-        <div class='Img'>
-            <img :src="item.cover">
+        <div class='Img' :style=" {backgroundImage:'url('+item.cover+')'}">
         </div>
         <div class='edit' @click="editBook(item)">
             <img src="../../assets/img/edit.png" class='editPencil'>
@@ -87,13 +86,12 @@ margin-top: 12px;
         width: 100vw;
         height: 140px;
         position: relative;
+        overflow: hidden;
         .Img {
             width: 100vw;
             height: 140px;
-            img {
-                width: 100vw;
-                height: 140px;
-            }
+            background-size:100%;
+            background-position:50% 50%;
         }
         .edit {
             width: 33px;

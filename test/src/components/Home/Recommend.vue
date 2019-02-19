@@ -2,7 +2,9 @@
   <div class="page-tabbar" @click="toCookBookDetail">
       <h1>每日推荐</h1>
       <div class="content" v-for="(item,index) in recommendList" @click="toCookBookDetail(item)">
-        <img :src="item.cover" class="img1">
+        <div class='img1' :style=" {backgroundImage:'url('+item.cover+')'}">
+        </div>
+        <!-- <img :src="item.cover" class="img1"> -->
         <div class="content-detail">
           <div class="text-left">
             <p class="sp1">{{item.menu_name}}</p>
@@ -38,9 +40,12 @@
     background-color: white;
     text-align: center;
     margin: 0 auto;
+    
     .img1 {
-      width: 340px;
+      width: 100%;
       height: 140px;
+      background-size: 100%;
+      background-position:50% 50%;
     }
     .content-detail {
       margin-bottom: 50px;

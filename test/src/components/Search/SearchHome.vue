@@ -14,7 +14,7 @@
         <img src="../../assets/img/delete.png" @click="deleteSearch">
       </div>
       <ul class='searchHistoryList'>
-        <li v-for="(item,index) in optionList" :key="index" @click="toResult(item)">{{item}}</li>
+        <li v-for="(item,index) in optionList" :key="index" @click="toResult(item)">12313</li>
       </ul>
     </div>
     <div class='readHistory' v-if="isRead">
@@ -77,7 +77,12 @@ export default {
       if(this.value != '') {
         this.$router.push({
           name: "Search",
-          params: { menu_name:  this.value,isJustSearch: true,isClassify:false}            
+          params: { 
+            menu_name:  this.value,
+            isJustSearch: true,
+            isClassify:false,
+            fromHome: this.$route.params.menu.fromHome
+          }            
         });  
       }
     },
@@ -97,10 +102,27 @@ export default {
       }
     },
     toResult(value) {
-      this.$router.push({
-        name: "Result",
-        params: { menu_name: value,backSearchHome: true}
-      });
+      const isClassify = false;
+      if(JSON.stringify(this.$route.params) != {}) {
+        if(this.$route.params.isClassify) {
+          this.$router.push({
+            name: "Result",
+            params: { 
+              menu_name: value,
+              backSearchHome: true,
+              isClassify:this.$route.params.isClassify
+            }
+          });          
+        } else {
+          this.$router.push({
+            name: "Result",
+            params: { 
+              menu_name: value,
+              backSearchHome: true
+            }
+          });
+        }
+      }
     },
     toDetail(item) {
       this.$router.push({
@@ -112,7 +134,8 @@ export default {
           new : false,
           class: false,
           result: false,
-          backSearchHome: true
+          backSearchHome: true,
+          isClassify:this.$route.params.isClassify 
           }
         }
       });
