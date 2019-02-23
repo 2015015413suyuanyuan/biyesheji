@@ -64,21 +64,29 @@ export default {
     },
     // 进入搜索列表的菜谱详情页
     getDetail(menu_name, id,item) {
-      const arr1 = []
-      arr1.push(item)
+      let arr1 = [];
+      let arr2 = [];
+      let arr3 = [];
+      let arr4 = [];
+      let list = [];
       if(localStorage.getItem('hositoryRead')){
-        let arr2 = [];
         arr2 = JSON.parse(localStorage.getItem('hositoryRead'));
-        for(let i =0;i<arr2.length;i++) {
-          if(arr2[i].id != item.id){
-            arr2.push(item)
-          }
+        console.log('23423')
+        if(typeof arr2 == 'number'){
+          arr3.push(arr2)
+          arr3.push(item.id)
+          list = Array.from(new Set(arr3))
+          localStorage.setItem('hositoryRead',JSON.stringify(list))
+        } else {
+          arr2.push(item.id)
+          list = Array.from(new Set(arr2))
+          localStorage.setItem('hositoryRead',JSON.stringify(list))
         }
-        let arr3 = Array.from(new Set(arr2))
-        arr2 = arr3;
-        localStorage.setItem('hositoryRead',JSON.stringify(arr2))
+
+
       } else {
-        localStorage.setItem('hositoryRead',JSON.stringify(arr1))
+          arr1.push(item.id)
+          localStorage.setItem('hositoryRead',JSON.stringify(arr1))
       }
       let isClassify = false
       if(this.$route.params.isClassify) {

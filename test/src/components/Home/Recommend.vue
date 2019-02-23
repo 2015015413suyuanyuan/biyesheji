@@ -4,7 +4,6 @@
       <div class="content" v-for="(item,index) in recommendList" @click="toCookBookDetail(item)">
         <div class='img1' :style=" {backgroundImage:'url('+item.cover+')'}">
         </div>
-        <!-- <img :src="item.cover" class="img1"> -->
         <div class="content-detail">
           <div class="text-left">
             <p class="sp1">{{item.menu_name}}</p>
@@ -18,6 +17,55 @@
       </div>
   </div>
 </template>
+
+<script>
+import { Tabbar } from "mint-ui";
+import Vue from "vue";
+import Router from "vue-router";
+
+export default {
+  name: "page-tabbar",
+  data() {
+    return {
+      selected: "外卖",
+      recommendList: []
+    };
+  },
+  created() {
+    this.getRecommend();
+  },
+  methods: {
+    toCookBookDetail(){
+      this.$router.push({
+        name: "CookBookDetail"
+      });
+    },
+    getRecommend() {
+      this.$ajax.post('recommend',{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        this.recommendList = res;
+      })
+    },
+    toCookBookDetail(item) {
+      this.$router.push({
+        name: "CookBookDetail",
+        params:{
+          menu:{
+          menu_name: item.menu_name,
+          id: item.id,
+          new : false,
+          class: false,
+          result: false,
+          recommend: true
+          }
+        }
+      });
+    }
+  }
+};
+</script>
+
 
 <style lang="scss" scoped>
 .page-tabbar {
@@ -84,53 +132,4 @@
   }
 }
 </style>
-
-<script>
-import { Tabbar } from "mint-ui";
-import Vue from "vue";
-import Router from "vue-router";
-
-export default {
-  name: "page-tabbar",
-  data() {
-    return {
-      selected: "外卖",
-      recommendList: []
-    };
-  },
-  created() {
-    this.getRecommend();
-  },
-  methods: {
-    toCookBookDetail(){
-      this.$router.push({
-        name: "CookBookDetail"
-      });
-    },
-    getRecommend() {
-      this.$ajax.post('recommend',{
-        headers: {'Content-Type': 'application/json'}
-      }).then((res) => {
-        this.recommendList = res;
-      })
-    },
-    toCookBookDetail(item) {
-      this.$router.push({
-        name: "CookBookDetail",
-        params:{
-          menu:{
-          menu_name: item.menu_name,
-          id: item.id,
-          new : false,
-          class: false,
-          result: false,
-          recommend: true
-          }
-        }
-      });
-    }
-  }
-};
-</script>
-
 

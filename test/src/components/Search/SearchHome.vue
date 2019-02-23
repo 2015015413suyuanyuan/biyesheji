@@ -14,7 +14,7 @@
         <img src="../../assets/img/delete.png" @click="deleteSearch">
       </div>
       <ul class='searchHistoryList'>
-        <li v-for="(item,index) in optionList" :key="index" @click="toResult(item)">12313</li>
+        <li v-for="(item,index) in optionList" :key="index" @click="toResult(item)">{{item}}</li>
       </ul>
     </div>
     <div class='readHistory' v-if="isRead">
@@ -63,18 +63,29 @@ export default {
       this.optionList = JSON.parse(localStorage.getItem('hository'))
     }
     if(localStorage.getItem('hositoryRead')) {
-      this.readList = JSON.parse(localStorage.getItem('hositoryRead'))
+      let arr2 = [];
+      arr2 = JSON.parse(localStorage.getItem('hositoryRead'));
+      const data = {
+        'menu_id':  arr2
+      }
+      this.$ajax.post('menuList', data,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        this.readList = res
+        if(this.readList.length != 0){
+        this.isRead = true
+      }
+      }).catch((err) => {
+        console.log(err)
+      })
     }
     if(this.optionList.length != 0){
       this.isSearch = true
     }
-    if(this.readList.length != 0){
-      this.isRead = true
-    }
   },
   methods: {
     toSearch() {
-      if(this.value != '') {
+      if(this.value != '' && JSON.stringify(this.$route.params.menu.fromHome)) {
         this.$router.push({
           name: "Search",
           params: { 
