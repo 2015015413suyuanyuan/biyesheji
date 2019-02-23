@@ -88,7 +88,7 @@ export default {
             padding-top: 7px;
             padding-left: 6px;
             background-color: #ccc;
-            background-image: url('../../assets/img/img6.png');
+            background-image: url('../../assets/img/bg.png');
             margin-bottom: 6px;
             background-position: 50%;
         }
