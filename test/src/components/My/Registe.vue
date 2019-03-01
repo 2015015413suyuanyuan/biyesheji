@@ -10,8 +10,49 @@
         分享你的三餐，做一个热爱生活的人~
     </p>
     <div class="page-part">
-        <mt-field placeholder="用户名(不超过10位的数字+字母组合)" type="tel" class='tel' v-model="tel"></mt-field>
+        <mt-field ref="password" placeholder="用户名(不超过10位的数字、字母组合)"  class='tel' v-model="tel"></mt-field>
+        <p v-show="isShowHas">        
+          <i class="fail">
+              <img :src="'./static/img/cuo.png'" >
+          </i>
+          用户名重复，请重新输入
+        </p>
+        <p v-show="isShowOverTen">
+          <i class="fail">
+              <img :src="'./static/img/cuo.png'" >
+          </i>
+          用户名的长度不超过11位</p>
+        <p v-show='isShowChar'>
+          <i class="fail">
+              <img :src="'./static/img/cuo.png'" >
+          </i>
+          用户名不能含有汉字
+        </p>
+        <p v-show="ishHasBlack">
+          <i class="fail">
+              <img :src="'./static/img/cuo.png'" >
+          </i>
+          用户名不能含有空格
+        </p>
+        <p v-show="isShowSuccess">
+          <i class="success">
+              <img :src="'./static/img/dui.png'" >
+          </i>
+          该用户名可用
+        </p>
         <mt-field placeholder="密码(不少于6位的数字+字母组合)" type="password" class='password' v-model="password"></mt-field>
+        <p v-show='isShowAllNumber'>
+          <i class="fail">
+              <img :src="'./static/img/cuo.png'" >
+          </i>
+          密码不能全是数字，请重新输入
+          </p>
+        <p v-show='isShowOverSixteen'>
+          <i class="fail">
+              <img :src="'./static/img/cuo.png'" >
+          </i>
+          密码不能超过16位，请重新输入
+        </p>
     </div>
     <div>
         <img src="../../assets/img/rightarrow.png" class='toLogin' @click ="toRegiste">
@@ -29,10 +70,50 @@ export default {
       filesPreview: [],
       tel: '',
       password: '',
+      // 用户名重复
+      isShowHas: false,
+      // 用户名不能包含汉字
+      isShowChar: false,
+      // 用户名不能包含空格
+      ishHasBlack: false,
+      // 用户名的长度不超过11位
+      isShowOverTen: false,
+      // 用户名是否可用
+      isShowSuccess: false,
+      // 密码不能全是数字
+      isShowAllNumber: false,
+      // 密码不能超过16位
+      isShowOverSixteen: false
     };
   },
   components: {
       
+  },
+  watch: {
+    tel: function () {
+      this.isShowHas = false
+      if(/\s/.test(this.tel)){
+        this.ishHasBlack = true
+      } else {
+        this.ishHasBlack = false
+        if(/[\u4e00-\u9fa5]+/.test(this.tel)) {
+          this.isShowChar = true
+        } else {
+          this.isShowChar = false
+          if(this.tel.length <= 11) {
+            this.isShowOverTen = false
+          } else {
+            this.$refs['password'].disabled = disabled;
+            this.isShowOverTen = true
+          }
+        }
+      }
+      if(/\s/.test(this.tel) || /[\u4e00-\u9fa5]+/.test(this.tel) || this.tel.length <= 11) {
+
+      } else {
+        this.isShowSuccess = true
+      }
+    }
   },
   methods: {
     toLogin() {
@@ -41,13 +122,7 @@ export default {
       });
     },
     toRegiste() {
-      const reg =  /^[0-9a-zA-Z]*$/g
 
-      if(reg.test(this.tel) && this.tel.length <= 11) {
-
-      } else {
-
-      }
       const data = {
         "username": this.tel,
         "password": this.password
@@ -55,15 +130,20 @@ export default {
       this.$ajax.post('register', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        console.log(res)
+        console.log(res.message)
         if(res.status_code == '200') {
+          if(res.message == "用户名已存在") {
+            this.isShowHas = true
+          } else if (res.message == "注册成功") {
           localStorage.setItem('username', res.username);
           localStorage.setItem('user_id', JSON.stringify(res.id));
           localStorage.setItem('state', JSON.stringify(res.state));
           this.$router.push({
             name: "Logged",
             params: { username: res.username }            
-          });         
+          });    
+          }
+     
         }else {
         }
       }).catch((err) => {
@@ -121,6 +201,12 @@ export default {
     .password {
       margin-top: 11px;
     }
+    p {
+      font-size: 14px;
+      text-align: left;
+      padding-left: 40px;
+      color: #86181d;
+    }
   }
   .toLogin {
     width: 50px;
@@ -129,11 +215,33 @@ export default {
     margin-top: 46px;
   }
   .hasUserName {
-    margin-top: 160px;
+    margin-top: 16px;
     font-size: 14px;
 
     span {
       color: #FF9800;
+    }
+  }
+  .fail {
+    width: 20px;
+    height: 20px;
+    img {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      top: 4px;
+      left: 1px;
+    }
+  }
+  .success {
+    width: 20px;
+    height: 20px;
+    img {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      top: 4px;
+      left: 1px;
     }
   }
 }
