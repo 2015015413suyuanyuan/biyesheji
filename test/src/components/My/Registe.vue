@@ -10,7 +10,7 @@
         分享你的三餐，做一个热爱生活的人~
     </p>
     <div class="page-part">
-        <mt-field ref="password" placeholder="用户名(不超过10位的数字、字母组合)"  class='tel' v-model="tel"></mt-field>
+        <mt-field placeholder="用户名(不超过10位的数字、字母组合)"  class='tel' v-model="tel"></mt-field>
         <p v-show="isShowHas">        
           <i class="fail">
               <img :src="'./static/img/cuo.png'" >
@@ -34,18 +34,12 @@
           </i>
           用户名不能含有空格
         </p>
-        <p v-show="isShowSuccess">
-          <i class="success">
-              <img :src="'./static/img/dui.png'" >
-          </i>
-          该用户名可用
-        </p>
         <mt-field placeholder="密码(不少于6位的数字+字母组合)" type="password" class='password' v-model="password"></mt-field>
         <p v-show='isShowAllNumber'>
           <i class="fail">
               <img :src="'./static/img/cuo.png'" >
           </i>
-          密码不能全是数字，请重新输入
+          密码不能全是数字或者字母，请重新输入
           </p>
         <p v-show='isShowOverSixteen'>
           <i class="fail">
@@ -53,6 +47,18 @@
           </i>
           密码不能超过16位，请重新输入
         </p>
+        <p v-show='isHasSpecialChar'>
+          <i class="fail">
+              <img :src="'./static/img/cuo.png'" >
+          </i>
+          密码不能含有空格及其他特殊字符
+        </p>    
+        <p v-show='isLessSix'>
+          <i class="fail">
+              <img :src="'./static/img/cuo.png'" >
+          </i>
+          密码长度不能小于6位
+        </p>     
     </div>
     <div>
         <img src="../../assets/img/rightarrow.png" class='toLogin' @click ="toRegiste">
@@ -63,7 +69,7 @@
 </div>
 </template>
 <script>
-
+import { Toast } from 'mint-ui';
 export default {
   data() {
     return {
@@ -78,12 +84,13 @@ export default {
       ishHasBlack: false,
       // 用户名的长度不超过11位
       isShowOverTen: false,
-      // 用户名是否可用
-      isShowSuccess: false,
       // 密码不能全是数字
       isShowAllNumber: false,
       // 密码不能超过16位
-      isShowOverSixteen: false
+      isShowOverSixteen: false,
+      // 密码不能含有空格及其他特殊字符
+      isHasSpecialChar: false,
+      isLessSix: false
     };
   },
   components: {
@@ -103,15 +110,39 @@ export default {
           if(this.tel.length <= 11) {
             this.isShowOverTen = false
           } else {
-            this.$refs['password'].disabled = disabled;
             this.isShowOverTen = true
           }
         }
       }
-      if(/\s/.test(this.tel) || /[\u4e00-\u9fa5]+/.test(this.tel) || this.tel.length <= 11) {
-
+    },
+    password: function () {
+      var reg1 = new RegExp(/^[0-9A-Za-z]+$/);
+      var reg2 = new RegExp(/^[0-9]+$/);
+      var reg3 = new RegExp(/^[A-Za-z]+$/);
+      if (!reg1.test(this.password)) {
+        this.isHasSpecialChar = true
       } else {
-        this.isShowSuccess = true
+        this.isHasSpecialChar = false
+      }
+      if(this.password.length > 16) {
+        this.isShowOverSixteen = true
+      } else {
+        this.isShowOverSixteen = false
+      }
+      if(this.password.length >= 6) {
+        if (!reg2.test(this.password) && !reg3.test(this.password)) {
+          this.isShowAllNumber = false
+        } else {
+          this.isShowAllNumber = true
+        }
+        this.isLessSix = false
+      } else {
+        this.isLessSix = true
+        this.isShowAllNumber = false
+      }
+      if(this.password.length == 0) {
+        this.isHasSpecialChar = false
+        this.isLessSix = false
       }
     }
   },
@@ -138,6 +169,10 @@ export default {
           localStorage.setItem('username', res.username);
           localStorage.setItem('user_id', JSON.stringify(res.id));
           localStorage.setItem('state', JSON.stringify(res.state));
+          Toast({
+            message: '操作成功',
+            iconClass: 'mintui mintui-success'
+          });
           this.$router.push({
             name: "Logged",
             params: { username: res.username }            
@@ -215,7 +250,8 @@ export default {
     margin-top: 46px;
   }
   .hasUserName {
-    margin-top: 16px;
+    margin-top: 100px;
+    left: 120px;
     font-size: 14px;
 
     span {

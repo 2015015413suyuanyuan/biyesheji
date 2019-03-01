@@ -75,6 +75,7 @@ components: {
     Step
 },
   created() {
+    console.log(this.$route.params)
     if(JSON.stringify(this.$route.params) !== '{}'){
       if(JSON.stringify(this.$route.params.menu) !== '{}'){
         this.getCookBookDetail(this.$route.params.menu.id)

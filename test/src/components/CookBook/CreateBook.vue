@@ -69,12 +69,14 @@ export default {
     };
   },
   created()  {
+    console.log(this.$route.params)
     // 菜谱名
     if(JSON.stringify(localStorage.getItem('menu_name')) == 'null'){
     }else{
       this.menu_name = localStorage.getItem('menu_name');
     }
     // 小窍门
+    console.log(JSON.stringify(localStorage.getItem('tips')))
     if(JSON.stringify(localStorage.getItem('tips')) == 'null'){
     }else{
       this.tips = localStorage.getItem('tips');
@@ -85,7 +87,7 @@ export default {
       this.story = localStorage.getItem('story');
     }
     // 推荐分类
-    if(JSON.stringify(localStorage.getItem('list')) == '[]'){
+    if(JSON.stringify(localStorage.getItem('list')) == 'null'){
     }else{
       this.isShowClassifyList = true
       const list1 = []
@@ -98,9 +100,12 @@ export default {
     }
 
    const data =  this.$route.params;
-   if(JSON.stringify(data) == 'undefined' || JSON.stringify(data) == '{}'){
+   console.log(data.menu.fromClassify)
+   if(this.$route.params.menu.new){
      this.title = '创建菜谱'
+     conosle.log('1111')
    }else if(data.menu.fromClassify){
+     console.log('来自短脚阿菲')
    } else {
      this.tips = data.menu.menu.tips;
      localStorage.setItem('cover',data.menu.menu.cover)
@@ -150,6 +155,9 @@ export default {
           });
         }
       }else {
+        this.$router.push({
+          name: "Home"
+        });
       }
     },
     publicTheCook() { 
@@ -261,6 +269,7 @@ export default {
           localStorage.removeItem('step');
           localStorage.removeItem('materials');
           localStorage.removeItem('classifyList');
+          localStorage.removeItem('list');
           this.$router.push({
             name: "CookBookDetail",
             params:{
@@ -303,6 +312,7 @@ export default {
           localStorage.removeItem('step');
           localStorage.removeItem('materials');
           localStorage.removeItem('classifyList');
+          localStorage.removeItem('list');
           this.$router.push({
             name: "CookBookDetail",
             params:{
@@ -336,7 +346,10 @@ export default {
       localStorage.setItem('story',this.story);
       this.$router.push({
         name: "CookClassify",
-        params: { new: this.classifyList }
+        params: { 
+          new: this.$route.params.menu.new,
+          isEdit: this.$route.params.menu.isEdit,
+        }
       });
     }
   }

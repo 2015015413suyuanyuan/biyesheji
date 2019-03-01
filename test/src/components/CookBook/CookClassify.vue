@@ -1,7 +1,7 @@
 <template>
   <div class="page-classify">
     <mt-header fixed title="推荐至分类">
-      <mt-button class="canclecolor" @click.native="openConfirm" slot="left">取消</mt-button>
+      <mt-button class="canclecolor" @click.native="cancle" slot="left">取消</mt-button>
       <mt-button  class="canclecolor" slot="right" @click.native="save">完成</mt-button>
     </mt-header>
     <input type="text" v-model="inputval" disabled placeholder="如：快手菜、早餐、汤羹、零食" class="inputbox">
@@ -164,6 +164,7 @@ export default {
     };
   },
   created() {
+    console.log(this.$route.params)
     if(JSON.stringify(localStorage.getItem('classifyList')) == 'null'){
     }else{
       var classifyList = JSON.parse(localStorage.getItem('classifyList'));
@@ -189,14 +190,14 @@ export default {
     }    
   },
   methods: {
-    openConfirm() {
+    cancle() {
       this.$router.push({
         name: "CreateBook",
         params: { 
-          new: this.inputarr ,
+          classlist: this.inputarr ,
           menu:{
-          new: false,
-          fromClassify: true
+            new: this.$route.params.menu.new,
+            fromClassify: true
           }
         }
       });
@@ -204,7 +205,13 @@ export default {
     save() {
       localStorage.setItem('list',JSON.stringify(this.selectedList));
       localStorage.setItem('classifyList',JSON.stringify(this.inputarr));
-      this.$router.push({ name: "CreateBook"  });
+      this.$router.push({ name: "CreateBook" ,
+      params: {
+        menu : {
+          new: this.$route.params.menu.new,
+          fromClassify: true
+        }
+      } });
     },
     selected(isSelected,index,item1,idx){
       this.inputarr = [];

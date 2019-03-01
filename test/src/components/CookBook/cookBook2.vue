@@ -57,7 +57,14 @@ export default {
     toNext() {
       if(this.isActive){
         this.$router.push({
-          name: "CreateBook"
+          name: "CreateBook",
+          params: {
+            menu: {
+              new: true,
+              isEdit: false
+            }
+          }
+      
         });
       }
     },
