@@ -103,10 +103,8 @@ export default {
    console.log(data.menu.fromClassify)
    if(this.$route.params.menu.new){
      this.title = '创建菜谱'
-     conosle.log('1111')
    }else if(data.menu.fromClassify){
-     console.log('来自短脚阿菲')
-   } else {
+   } else if(data.menu.isEdit) {
      this.tips = data.menu.menu.tips;
      localStorage.setItem('cover',data.menu.menu.cover)
      this.menu_name = data.menu.menu.menu_name
@@ -117,8 +115,6 @@ export default {
      this.bookID = data.menu.id
      this.title = data.menu.title
    }
-
-   
   },
   components: {
     Step,
@@ -144,6 +140,7 @@ export default {
       localStorage.removeItem('step');
       localStorage.removeItem('materials');
       localStorage.removeItem('classifyList');
+      localStorage.removeItem('list');
       if(JSON.stringify(this.$route.params) !== '{}'){
         if (this.$route.params.menu.toMy) {
         this.$router.push({
@@ -347,8 +344,10 @@ export default {
       this.$router.push({
         name: "CookClassify",
         params: { 
-          new: this.$route.params.menu.new,
-          isEdit: this.$route.params.menu.isEdit,
+          menu: {
+            new: this.$route.params.menu.new,
+            isEdit: this.$route.params.menu.isEdit,
+          }
         }
       });
     }

@@ -164,7 +164,7 @@ export default {
     };
   },
   created() {
-    console.log(this.$route.params)
+    console.log(this.$route.params.menu.new, 'this.$route.params.menu.new')
     if(JSON.stringify(localStorage.getItem('classifyList')) == 'null'){
     }else{
       var classifyList = JSON.parse(localStorage.getItem('classifyList'));
@@ -194,7 +194,6 @@ export default {
       this.$router.push({
         name: "CreateBook",
         params: { 
-          classlist: this.inputarr ,
           menu:{
             new: this.$route.params.menu.new,
             fromClassify: true
@@ -209,6 +208,7 @@ export default {
       params: {
         menu : {
           new: this.$route.params.menu.new,
+          isEdit: false,
           fromClassify: true
         }
       } });

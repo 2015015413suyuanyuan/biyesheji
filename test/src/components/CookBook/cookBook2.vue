@@ -61,7 +61,8 @@ export default {
           params: {
             menu: {
               new: true,
-              isEdit: false
+              isEdit: false,
+              fromClassify: false
             }
           }
       

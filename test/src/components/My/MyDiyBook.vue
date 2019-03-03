@@ -71,7 +71,9 @@ export default {
             id: menu.id,
             new : false,
             title: '编辑菜谱',
-            toMy: true
+            toMy: true,
+            isEdit: true,
+            fromClassify: false
         } }
       });
     }
