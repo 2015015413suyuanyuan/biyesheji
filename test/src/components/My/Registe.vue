@@ -166,17 +166,22 @@ export default {
           if(res.message == "用户名已存在") {
             this.isShowHas = true
           } else if (res.message == "注册成功") {
-          localStorage.setItem('username', res.username);
-          localStorage.setItem('user_id', JSON.stringify(res.id));
-          localStorage.setItem('state', JSON.stringify(res.state));
-          Toast({
-            message: '操作成功',
-            iconClass: 'mintui mintui-success'
-          });
-          this.$router.push({
-            name: "Logged",
-            params: { username: res.username }            
-          });    
+            localStorage.setItem('username', res.username);
+            localStorage.setItem('user_id', JSON.stringify(res.id));
+            localStorage.setItem('state', JSON.stringify(res.state));
+            Toast({
+              message: '注册成功',
+              iconClass: 'mintui mintui-success'
+            });
+            let instance = Toast('注册成功~');
+            let self = this;
+            setTimeout(function () {
+              instance.close();
+              self.$router.push({
+                name: "Logged",
+                params: { username: res.username }            
+              });
+            }, 2000)  
           }
      
         }else {
