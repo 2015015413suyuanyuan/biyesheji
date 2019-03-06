@@ -5,7 +5,7 @@
         <div class='imgContain'>
           <img :src="item.cover" class="img2">
         </div>
-        <p class="p2"><span>来自</span><span>饮品记</span></p>
+        <p class="p2"><span>来自&nbsp;&nbsp;</span><span class='source'>饮品记</span></p>
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@
       overflow: hidden;
       .img2 {
         width: 100%;
+        height: 100%;
       }  
   }
 
@@ -35,20 +36,23 @@
         font-size: 16px;
         color: #101010;
         text-align:center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .p2{
-        font-size: 12px;
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .source {
+      font-size: 13px;
     }
     p {
       padding: 0;
       margin: 0;
       text-align: left;
-    }
-    .img2 {
-      display: inline-block;
-      width: 80vw;
-      height: 140px;
-      margin: 10px 0;
     }
   }
   .img-right:nth-child(1){

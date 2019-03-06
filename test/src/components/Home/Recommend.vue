@@ -70,6 +70,8 @@ export default {
 <style lang="scss" scoped>
 .page-tabbar {
   overflow: hidden;
+  margin-bottom: 30px;
+  background-color: #FFF9EF;
   p{
     margin: 0;
     padding: 0;
@@ -94,33 +96,48 @@ export default {
       height: 140px;
       background-size: 100%;
       background-position:50% 50%;
+      margin-bottom: 10px;
     }
     .content-detail {
-      margin-bottom: 50px;
+      margin-bottom: 25px;
+      padding: 0 10px;
       .text-left {
         width: 70vw;
         float: left;
-        text-align: left;
-        padding: 10px 0 10px 18px;
+
         .sp1{
           font-size: 14px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          text-align: left;
+          white-space: nowrap;
         }
         .sp2{
+          text-align: left;
           font-size: 12px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
         }
       }
       .img-right {
         float: right;
         margin: 0 auto;
         text-align: center;
-        margin-right: 18px;
+        width: 20vw;
         .img2 {
           width: 32px;
           height: 32px;
           border-radius: 50%;
         }
         .sp3{
-          text-align: left;
+          text-align: center;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          
         }
       }
     }

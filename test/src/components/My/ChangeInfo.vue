@@ -9,8 +9,8 @@
         <Cropper></Cropper>
       </div>
       <div class="petName">
-        <label for="petName">昵称（2-10个字符）</label>
-        <i-input v-model="petName" right  placeholder="请输入..." style="width: 25vw" class="inp2"></i-input>
+        <label for="petName">昵称（最多10个字）</label>
+        <i-input v-model="petName" :maxlength=maxlength right  placeholder="请输入..." style="width: 45vw" class="inp2"></i-input>
       </div>
       <div class="sex">
         <label for="sex" class="sexxx">性别</label>
@@ -21,10 +21,89 @@
       </div>
       <div class="tel">
         <label for="tel">手机号码</label>
-        <i-input v-model="tel" right  placeholder="请输入..." style="width: 25vw" class="inp1"></i-input>
+        <i-input v-model="tel" right :maxlength=maxlength1 placeholder="请输入..." style="width: 30vw" class="inp1"></i-input>
       </div>
   </div>
 </template>
+
+<script>
+import { Tabbar } from 'mint-ui';
+import Vue from 'vue'
+import Router from 'vue-router'
+import Cropper from './Cropper.vue';
+import { MessageBox } from 'mint-ui';
+export default {
+  name: 'page-tabbar',
+  data() {
+    return {
+      list: [],
+      userSex: 0,
+      petName: '我的名字',
+      tel: '15732176533',
+      maxlength: 10,
+      maxlength1: 11
+    };
+  },
+  created() {
+    this.getData();
+      this.options1 = ['男', '女'];
+  },
+  components: {
+    Cropper
+  },
+  watch: {
+    tel: function(v){
+          if (String(v).indexOf('.') > 0) this.tel= '';
+          this.$nextTick(() => { //这里
+            this.tel= String(v).replace(/\D/g, '');
+          });
+        },
+  },
+  methods: {
+    getData() {
+      const data = {
+        "username": localStorage.getItem('username'),
+      }
+      this.$ajax.post('basicInfo', data,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        this.list = res[0]
+        this.userSex = res[0].sex
+        this.petName = res[0].name
+        this.tel = res[0].phone
+      }).catch((err) => {
+        console.log(err)
+      })      
+    },
+    back() {
+      this.$router.back(-1);
+    },
+    save() {
+      const data = {
+        "id": localStorage.getItem('user_id'),
+        "name": this.petName,
+        "phone": this.tel,
+        "sex": this.userSex,
+        "image": localStorage.getItem('touImage'),
+      }
+      this.$ajax.post('updateInfo', data,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        if(res.status_code == '200') {
+          this.$Message.success('编辑成功');
+          this.$router.push({
+            name: "Logged"
+          });    
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    change() {
+    }
+  },
+};
+</script>
 
 <style lang='scss' scoped>
 .page-change {
@@ -67,6 +146,9 @@
       line-height: 50px;    
       text-align: right;
       font-size: 22px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
   .sex {
@@ -117,73 +199,3 @@
   clear: both;
 }
 </style>
-<script>
-import { Tabbar } from 'mint-ui';
-import Vue from 'vue'
-import Router from 'vue-router'
-import Cropper from './Cropper.vue';
-import { MessageBox } from 'mint-ui';
-export default {
-  name: 'page-tabbar',
-  data() {
-    return {
-      list: [],
-      userSex: 0,
-      petName: '我的名字',
-      tel: '15732176533'
-    };
-  },
-  created() {
-    this.getData();
-      this.options1 = ['男', '女'];
-  },
-  components: {
-Cropper
-  },
-  methods: {
-    getData() {
-      const data = {
-        "username": localStorage.getItem('username'),
-      }
-      this.$ajax.post('basicInfo', data,{
-        headers: {'Content-Type': 'application/json'}
-      }).then((res) => {
-        this.list = res[0]
-        this.userSex = res[0].sex
-        this.petName = res[0].name
-        this.tel = res[0].phone
-      }).catch((err) => {
-        console.log(err)
-      })      
-    },
-    back() {
-      this.$router.back(-1);
-    },
-    save() {
-      const data = {
-        "id": localStorage.getItem('user_id'),
-        "name": this.petName,
-        "phone": this.tel,
-        "sex": this.userSex,
-        "image": localStorage.getItem('touImage'),
-      }
-      this.$ajax.post('updateInfo', data,{
-        headers: {'Content-Type': 'application/json'}
-      }).then((res) => {
-        if(res.status_code == '200') {
-          this.$Message.success('编辑成功');
-          this.$router.push({
-            name: "Logged"
-          });    
-        }
-      }).catch((err) => {
-        console.log(err)
-      })
-    },
-    change() {
-    }
-  },
-};
-</script>
-
-

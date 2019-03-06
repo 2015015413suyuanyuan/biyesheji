@@ -168,4 +168,7 @@ color: white;
   padding: 5px 12px !important;
   background: rgba(0, 0, 0, 0.7);
 }
+.ivu-input {
+  font-size: 14px;
+}
 </style>

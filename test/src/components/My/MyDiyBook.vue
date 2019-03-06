@@ -89,6 +89,8 @@ margin-top: 12px;
     position: relative;
     margin-bottom: 19px;
     background-color: white;
+    padding: 10px 0;
+    
     .bookImg {
         width: 100vw;
         height: 140px;
@@ -114,9 +116,9 @@ margin-top: 12px;
             border: 1px solid rgba(255, 255, 255, 0);
             img {
                 position: absolute;
-                top: 5px;
+                top: 4px;
                 right: 8px;
-                width: 20px;
+                width: 16px;
                 height: 20px;            
             }
         }
@@ -125,7 +127,7 @@ margin-top: 12px;
     .mongolia {
         position: absolute;
         z-index: 100;
-        top: 0;
+        top: 10px;
         left: 0;
         width: 100vw;
         height: 140px;
@@ -135,37 +137,42 @@ margin-top: 12px;
         border: 1px solid rgba(255, 255, 255, 0);
     }
     .bookItemBottom {
-        padding-left: 13px;
-        padding-right: 7px;
-        .title {
-            text-align: left;
-            width: 40vw;
-            float: left;
-            height: 60px;
-            line-height: 60px;
-            color: rgba(16, 16, 16, 1);
-            font-size: 18px;
-            text-align: left;
-            font-family: 方正楷体-标准;
-
+      padding: 0 10px;
+      margin-top: 5px;
+      .title {
+        width: 70vw;
+        float: left;
+        height: 60px;
+        line-height: 60px;
+        color: rgba(16, 16, 16, 1);
+        font-size: 18px;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         }
         .useritem {
-            font-size: 12px;
-            width: 80px;
-            float: right;
-            height: 60px;
-            text-align: center;
-            img {
-                width: 35px;
-                height: 35px;
-                border-radius: 50%;
-            }
+          font-size: 12px;
+          width: 20vw;
+          float: right;
+          height: 60px;
+          text-align: center;
+          img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+          }
+          p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
         }
     }
     .bookItemBottom::after {
-        content: '';
-        display: block;
-        clear: both;
+      content: '';
+      display: block;
+      clear: both;
     }
 }
 margin-bottom: 70px;

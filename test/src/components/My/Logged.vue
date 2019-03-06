@@ -48,7 +48,7 @@
                   <img :src="item.cover">
                 </div>
                 <div class='foodItemright'>
-                  <p>{{item.menu_name}}</p>
+                  <p class='menu_name'>{{item.menu_name}}</p>
                   <button @click="del(index,item.id)">删除</button>
                 </div>
               </div>
@@ -234,18 +234,15 @@ export default {
 
 <style lang="scss" scoped>
 .page-tabbar {
-    // 我的作品 我喜欢的菜谱样式
-    .active {
-      border-radius: 0;
-      color: #FF9800;
-      border-bottom: 2px solid #FF9800;
-    }
+  // 我的作品 我喜欢的菜谱样式
+  .active {
+    border-radius: 0;
+    color: #FF9800;
+    border-bottom: 2px solid #FF9800;
+  }
   .item {
     display: inline-block;
   }
-  // .nav {
-  //   padding: 10px;
-  // }
   .link {
     color: inherit;
     padding: 20px;
@@ -264,16 +261,22 @@ export default {
     text-align: center;
     height: 146px;
     width: 100vw;
+
     .header-left {
       float: left;
       margin-left: 8px;
       margin-top: 11px;
+      width: 40vw;
+
       img {
         border-radius: 50%;
         width: 80px;
         height: 80px;
       }
       p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         font-size: 18px;
       }
     }
@@ -355,6 +358,14 @@ export default {
             position: absolute;
             right: 22px;
             bottom: 8px;
+          }
+          .menu_name {
+            padding-top: 11px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;            
           }
         }
       }

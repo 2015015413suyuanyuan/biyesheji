@@ -61,7 +61,8 @@
         </p>     
     </div>
     <div>
-        <img src="../../assets/img/rightarrow.png" class='toLogin' @click ="toRegiste">
+        <img src="../../assets/img/rightarrow.png" class='toLogin' v-show="!isRight">
+        <img src="../../assets/img/rightArrowY.png" class='toLogin' @click ="toRegiste" v-show='isRight'>
     </div>
     <div class="hasUserName" @click="toLogin">
       已有账号？去<span>登陆</span>吧~
@@ -90,7 +91,8 @@ export default {
       isShowOverSixteen: false,
       // 密码不能含有空格及其他特殊字符
       isHasSpecialChar: false,
-      isLessSix: false
+      isLessSix: false,
+      isRight: false
     };
   },
   components: {
@@ -114,6 +116,12 @@ export default {
           }
         }
       }
+      console.log(!this.isShowOverTen,!this.isShowChar,!this.ishHasBlack)
+      // if(!this.ishHasBlack && !this.isShowChar && !this.isShowOverTen && !this.isHasSpecialChar && !this.isShowOverSixteen && !this.isShowAllNumber && !this.isLessSix) {
+      //   this.isRight = true
+      // } else {
+      //   this.isRight = false
+      // }
     },
     password: function () {
       var reg1 = new RegExp(/^[0-9A-Za-z]+$/);
@@ -144,6 +152,12 @@ export default {
         this.isHasSpecialChar = false
         this.isLessSix = false
       }
+      console.log(!this.isHasSpecialChar,!this.isShowOverSixteen,!this.isShowAllNumber,!this.isLessSix)
+      if(!this.ishHasBlack && !this.isShowChar && !this.isShowOverTen && !this.isHasSpecialChar && !this.isShowOverSixteen && !this.isShowAllNumber && !this.isLessSix) {
+        this.isRight = true
+      } else {
+        this.isRight = false
+      }
     }
   },
   methods: {
@@ -153,7 +167,6 @@ export default {
       });
     },
     toRegiste() {
-
       const data = {
         "username": this.tel,
         "password": this.password
@@ -169,10 +182,6 @@ export default {
             localStorage.setItem('username', res.username);
             localStorage.setItem('user_id', JSON.stringify(res.id));
             localStorage.setItem('state', JSON.stringify(res.state));
-            Toast({
-              message: '注册成功',
-              iconClass: 'mintui mintui-success'
-            });
             let instance = Toast('注册成功~');
             let self = this;
             setTimeout(function () {
@@ -183,15 +192,12 @@ export default {
               });
             }, 2000)  
           }
-     
+    
         }else {
         }
       }).catch((err) => {
         console.log(err)
       })
-      // this.$router.push({
-      //   name: "Logged"
-      // });
     }
   }
 }
