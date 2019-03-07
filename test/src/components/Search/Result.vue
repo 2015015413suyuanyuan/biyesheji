@@ -71,7 +71,6 @@ export default {
       let list = [];
       if(localStorage.getItem('hositoryRead')){
         arr2 = JSON.parse(localStorage.getItem('hositoryRead'));
-        console.log('23423')
         if(typeof arr2 == 'number'){
           arr3.push(arr2)
           arr3.push(item.id)

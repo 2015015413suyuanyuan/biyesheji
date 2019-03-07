@@ -164,7 +164,6 @@ export default {
     };
   },
   created() {
-    console.log(this.$route.params.menu.new, 'this.$route.params.menu.new')
     if(JSON.stringify(localStorage.getItem('classifyList')) == 'null'){
     }else{
       var classifyList = JSON.parse(localStorage.getItem('classifyList'));

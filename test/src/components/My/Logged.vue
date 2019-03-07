@@ -333,6 +333,7 @@ export default {
           border-radius: 16px;
           img {
             width: 100%;
+            height: 100%;
           }
         }
         .foodItemright {

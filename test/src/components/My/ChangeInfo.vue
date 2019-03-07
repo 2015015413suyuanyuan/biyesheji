@@ -14,7 +14,7 @@
       </div>
       <div class="sex">
         <label for="sex" class="sexxx">性别</label>
-        <RadioGroup v-model="userSex"  class="inp3">
+        <RadioGroup v-model="userSex" style='margin-right:25px;'>
             <Radio :label="1">男</Radio>
             <Radio :label="0">女</Radio>
         </RadioGroup>
@@ -38,8 +38,8 @@ export default {
     return {
       list: [],
       userSex: 0,
-      petName: '我的名字',
-      tel: '15732176533',
+      petName: '',
+      tel: '',
       maxlength: 10,
       maxlength1: 11
     };
@@ -163,12 +163,6 @@ export default {
       text-align: left;
       width: 30vw;
       padding-left: 7px;
-      .inp3 {
-        float: right;
-        height: 50px;
-        line-height: 50px;  
-        font-size: 22px;
-      }
     }
   }
   .tel {

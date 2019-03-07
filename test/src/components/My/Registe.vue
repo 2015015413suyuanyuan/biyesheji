@@ -116,12 +116,6 @@ export default {
           }
         }
       }
-      console.log(!this.isShowOverTen,!this.isShowChar,!this.ishHasBlack)
-      // if(!this.ishHasBlack && !this.isShowChar && !this.isShowOverTen && !this.isHasSpecialChar && !this.isShowOverSixteen && !this.isShowAllNumber && !this.isLessSix) {
-      //   this.isRight = true
-      // } else {
-      //   this.isRight = false
-      // }
     },
     password: function () {
       var reg1 = new RegExp(/^[0-9A-Za-z]+$/);
@@ -152,7 +146,6 @@ export default {
         this.isHasSpecialChar = false
         this.isLessSix = false
       }
-      console.log(!this.isHasSpecialChar,!this.isShowOverSixteen,!this.isShowAllNumber,!this.isLessSix)
       if(!this.ishHasBlack && !this.isShowChar && !this.isShowOverTen && !this.isHasSpecialChar && !this.isShowOverSixteen && !this.isShowAllNumber && !this.isLessSix) {
         this.isRight = true
       } else {
@@ -174,7 +167,6 @@ export default {
       this.$ajax.post('register', data,{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
-        console.log(res.message)
         if(res.status_code == '200') {
           if(res.message == "用户名已存在") {
             this.isShowHas = true

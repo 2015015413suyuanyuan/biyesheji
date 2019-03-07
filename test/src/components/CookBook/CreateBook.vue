@@ -69,14 +69,12 @@ export default {
     };
   },
   created()  {
-    console.log(this.$route.params)
     // 菜谱名
     if(JSON.stringify(localStorage.getItem('menu_name')) == 'null'){
     }else{
       this.menu_name = localStorage.getItem('menu_name');
     }
     // 小窍门
-    console.log(JSON.stringify(localStorage.getItem('tips')))
     if(JSON.stringify(localStorage.getItem('tips')) == 'null'){
     }else{
       this.tips = localStorage.getItem('tips');
@@ -100,7 +98,6 @@ export default {
     }
 
    const data =  this.$route.params;
-   console.log(data.menu.fromClassify)
    if(this.$route.params.menu.new){
      this.title = '创建菜谱'
    }else if(data.menu.fromClassify){

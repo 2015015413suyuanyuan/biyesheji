@@ -58,7 +58,6 @@ export default {
     },
     // 点击小笔 编辑菜谱
     editBook(menu){
-      console.log(menu)
       let list11 = menu.sort
       localStorage.setItem('list',JSON.stringify(list11));
       this.$router.push({
