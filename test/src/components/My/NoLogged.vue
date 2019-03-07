@@ -4,7 +4,6 @@
     <router-link to="/About" slot="left">
         <mt-button>关于</mt-button>
     </router-link>
-    <mt-button icon="search" slot="right"></mt-button>
     </mt-header>   
     <section>
         <p class='txt1' @click ="toLogin">登录/注册</p>
@@ -35,7 +34,7 @@ export default {
             this.$router.push({
               name: "Registe"
             });
-        }
+        },
     }
 }
 </script>

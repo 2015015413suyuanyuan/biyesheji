@@ -140,13 +140,13 @@ export default {
         name: "CookBookDetail",
         params:{
           menu:{
-          menu_name: item.menu_name,
-          id: item.id,
-          new : false,
-          class: false,
-          result: false,
-          backSearchHome: true,
-          isClassify:this.$route.params.isClassify 
+            menu_name: item.menu_name,
+            id: item.id,
+            new : false,
+            class: false,
+            result: false,
+            backSearchHome: true,
+            isClassify:this.$route.params.isClassify 
           }
         }
       });

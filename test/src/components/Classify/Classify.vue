@@ -40,7 +40,8 @@
         params:{
           menu_name: '',
          isJustSearch: false,
-         isClassify: true
+         isClassify: true,
+         isMy: false,
         }
       });
     },
