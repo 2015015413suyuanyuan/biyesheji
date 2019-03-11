@@ -108,6 +108,8 @@ export default {
 <style lang='scss' scoped>
 .page-change {
   font-size: 15px;
+  overflow: hidden;
+
   .right {
     color: #FF9800;
   }

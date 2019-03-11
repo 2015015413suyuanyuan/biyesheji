@@ -295,6 +295,7 @@ components: {
   article {
     h1 {
       font-size: 18px;
+      padding: 0 2.5px;
     }
     .detail {
       margin: 0;

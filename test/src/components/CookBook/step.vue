@@ -67,7 +67,7 @@
 
 import draggable from 'vuedraggable';
 import { sep } from 'path';
-
+import { Toast } from 'mint-ui';
 export default {
   data() {
     return {
@@ -106,24 +106,29 @@ export default {
       let _this = this
       var files = e.target.files[0]
       this.file = files
-      const params = new FormData();
-      params.append('file',this.file,this.file.name);
-      that.$ajax.post('upload', params,{
-        headers: {'Content-Type': 'multipart/form-data'}
-      }).then((res) => {
-        if(res != ''){ 
-          this.step[idx].image= res.image
-          localStorage.setItem('step',JSON.stringify(this.step));
+        if(files.size && files.size/1048576 >= 2) {
+          let instance = Toast({
+            message: '图片大小不能超过2M~',
+            position: 'top'
+          });
+          let self = this;
+          setTimeout(function () {
+            instance.close();
+          }, 2000) 
+        } else {
+          const params = new FormData();
+          params.append('file',this.file,this.file.name);
+          that.$ajax.post('upload', params,{
+            headers: {'Content-Type': 'multipart/form-data'}
+          }).then((res) => {
+            if(res != ''){ 
+              this.step[idx].image= res.image
+              localStorage.setItem('step',JSON.stringify(this.step));
+            }
+          }).catch((err) => {
+            console.log(err)
+          })          
         }
-      }).catch((err) => {
-        console.log(err)
-      })
-      if (!e || !window.FileReader) return  // 看支持不支持FileReader
-      let reader = new FileReader()
-      reader.readAsDataURL(files) // 这里是最关键的一步，转换就在这里
-      reader.onloadend = function () {
-        img = this.result;
-      }
     },
     addStep (){
     this.$set(this.step,this.step.length,{image:'',step:''})
