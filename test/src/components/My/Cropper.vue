@@ -25,7 +25,7 @@ import { Toast } from 'mint-ui';
 				let _this = this
 				var files = e.target.files[0]
         this.file = files
-        if(files.size && files.size/1048576 >= 2) {
+        if(files && files.size/1048576 >= 2) {
           let instance = Toast({
             message: '图片大小不能超过2M~',
             position: 'top'
@@ -34,7 +34,8 @@ import { Toast } from 'mint-ui';
           setTimeout(function () {
             instance.close();
           }, 2000) 
-        } else {
+        }
+        if(files && files.size/1048576 < 2){
           const params = new FormData();
           params.append('file',this.file,this.file.name);
           that.$ajax.post('upload', params,{
