@@ -90,6 +90,7 @@ export default {
     background-color: white;
     text-align: center;
     margin: 0 auto;
+    padding-top: 10px;
     
     .img1 {
       width: 100%;
