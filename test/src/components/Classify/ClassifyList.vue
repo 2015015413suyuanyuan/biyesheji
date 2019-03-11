@@ -15,6 +15,8 @@
 <script>
 import Vue from 'vue'
 import Router from 'vue-router'
+import { Toast  } from 'mint-ui';
+
 export default {
   name: 'page-tabbar',
   data() {

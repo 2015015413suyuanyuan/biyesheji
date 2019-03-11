@@ -78,7 +78,11 @@ export default {
     },
     testMenuName(menu_name) {
       if(menu_name == ''){
-        this.$Message.warning('菜谱名不能为空哦');
+        Toast({
+          message: '菜谱名不能为空~',
+          position: 'top',
+          duration: 3000
+        });
       }else {
         localStorage.setItem('menu_name',menu_name)
         this.isActive = true

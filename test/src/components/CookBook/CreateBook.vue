@@ -48,7 +48,6 @@ import { Header } from 'mint-ui';
 import { Toast  } from 'mint-ui';
 import Usage from './Usage'
 import Cropper from './Cropper.vue';
-// import { constants } from 'http2';
 
 export default {
   data() {
@@ -237,7 +236,11 @@ export default {
         }
         this.isAllFall = true
       } else {
-        this.$Message.warning('食材不能为空'); //可以为空
+        Toast({
+          message: '食材不能为空~',
+          position: 'bottom',
+          duration: 3000
+        });
         this.isAllFall = false
       }
       // 新增
@@ -256,7 +259,11 @@ export default {
         }
         this.$ajax.post('/create', data).then((res) => {
         if(res.message == '添加成功') {
-          this.$Message.success('创建成功');
+        Toast({
+          message: '菜谱创建成功~',
+          position: 'middle',
+          duration: 3000
+        });
           localStorage.removeItem('tips');
           localStorage.removeItem('story');
           localStorage.removeItem('cover');
@@ -299,7 +306,11 @@ export default {
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
         if(res.message == '编辑成功') {
-          this.$Message.success('编辑成功');
+          Toast({
+            message: '菜谱编辑成功~',
+            position: 'middle',
+            duration: 3000
+          });
           localStorage.removeItem('tips');
           localStorage.removeItem('story');
           localStorage.removeItem('cover');
@@ -329,7 +340,11 @@ export default {
     // 输入菜谱名是否为空的验证
     testMenuName(menu_name) {
       if(menu_name == ''){
-        this.$Message.warning('菜谱名不能为空哦'); 
+          Toast({
+            message: '菜谱名不能为空~',
+            position: 'middle',
+            duration: 3000
+          });
       }else {
         localStorage.setItem('menu_name',menu_name)
       }
