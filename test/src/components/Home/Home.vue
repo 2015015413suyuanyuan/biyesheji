@@ -13,14 +13,26 @@
       <img :src="'./static/img/plus.png'"  class="add" @click="toCreateCook" slot="right">
     </div>
   </div>
+  <!-- <div class="page-swipe">
+    <mt-swipe :auto="4000">
+      <mt-swipe-item class="slide1"></mt-swipe-item>
+      <mt-swipe-item class="slide2"></mt-swipe-item>
+      <mt-swipe-item class="slide3"></mt-swipe-item>
+    </mt-swipe>
+  </div> -->
   <div class="page-swipe">
     <mt-swipe :auto="4000">
-      <mt-swipe-item class="slide1">1</mt-swipe-item>
-      <mt-swipe-item class="slide2">2</mt-swipe-item>
-      <mt-swipe-item class="slide3">3</mt-swipe-item>
+      <mt-swipe-item v-for="(item, index) in swiperList" :key="index" v-bind:style="{backgroundImage:'url(' + item.cover + ')'}" class='swiperStyle'>
+        <p style="
+          padding-top:180px;
+          font-size:56px;          
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;">{{item.menu_name}}</p>
+      </mt-swipe-item>
     </mt-swipe>
   </div>
-    <Recommend></Recommend>
+  <Recommend></Recommend>
   </div>
 </template>
 
@@ -37,11 +49,16 @@ export default {
   name: "page-tabbar",
   data() {
     return {
-      value: "外卖"
+      value: "",
+      // 轮播图
+      swiperList: []
     };
   },
   components: {
     Recommend
+  },
+  created() {
+    this.getRecommend();
   },
   methods: {
     toSearch() {
@@ -78,7 +95,14 @@ export default {
           }
         })
       }
-    }
+    },
+    getRecommend() {
+      this.$ajax.post('recommend',{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        this.swiperList = res;
+      })
+    },
   },
 };
 </script>
@@ -142,26 +166,17 @@ export default {
     content: "";
   }
   .mint-swipe {
-    height: 180px;
+    height: 200px;
     color: #fff;
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
   }
   .mint-swipe-item {
-    line-height: 180px;
+    line-height: 200px;
   }
-  .slide1 {
-    background: url("/static/img/2.jpg");
-    color: #fff;
-  }
-  .slide2 {
-    background: url("/static/img/1.jpg");
-    color: #000;
-  }
-  .slide3 {
-    background: url("/static/img/4.jpg");
-    color: #fff;
+  .swiperStyle {
+    background-size: 100% 100%;
   }
 }
 </style>
