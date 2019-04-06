@@ -5,7 +5,10 @@
         <div class='Img' :style=" {backgroundImage:'url('+item.cover+')'}">
         </div>
         <div class='edit' @click="editBook(item)">
-            <img src="../../assets/img/edit.png" class='editPencil'>
+          <img src="../../assets/img/edit.png">
+        </div>
+        <div class='close' @click="delBook(index,item.id)">
+          <img src="../../assets/img/closeee.png">
         </div>
     </div>
     <div class='mongolia'>
@@ -19,6 +22,21 @@
         </div>
     </div>
   </div>
+  <!-- 提示用户是否退出编辑 -->
+  <div class='Mymsgbox' style="position:absolute;z-index: 2007;display:none;" ref="Mymsgbox">
+    <div class='mint-msgbox'>
+      <div class='title'>是否删除该菜谱</div>
+      <div class='textbox'>
+        <div class='cancel' @click="cancel">
+          取消
+        </div>
+        <div class='sure' @click="deleteDel">
+          确认删除
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='Mymodal' style='z-index: 2006;display:none;' ref='Mymodal'></div>
 </div>
 </template>
 
@@ -32,7 +50,9 @@ export default {
   name: 'page-tabbar',
   data() {
     return {
-      myDiyBookList: []
+      myDiyBookList: [],
+      menu_id: 1,
+      menu_index: 1
     };
   },
   created() {
@@ -75,6 +95,46 @@ export default {
             fromClassify: false
         } }
       });
+    },
+    // 点击叉子 删除菜谱
+    delBook(index,id) {
+      this.menu_index = index
+      this.menu_id = id
+      this.$refs.Mymodal.style.display = 'block'
+      this.$refs.Mymsgbox.style.display = 'block'  
+      // const data = {
+      //   "id": 1
+      // }
+      // this.$ajax.post('menuDelete', data,{
+      //   headers: {'Content-Type': 'application/json'}
+      // }).then((res) => {
+      //   if(res && res.lenght != 0){
+      //     this.myDiyBookList = res;
+      //   }else {
+
+      //   }
+      // }).catch((err) => {
+      //   console.log(err)
+      // })
+    },
+    cancel(){
+      this.$refs.Mymodal.style.display = 'none'
+      this.$refs.Mymsgbox.style.display = 'none'
+    },
+    deleteDel() {
+      this.myDiyBookList.splice(this.menu_index,1)
+      this.$refs.Mymodal.style.display = 'none'
+      this.$refs.Mymsgbox.style.display = 'none'
+      const data = {
+        "id": this.menu_id
+      }
+      this.$ajax.post('menuDelete', data,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })        
     }
   }
 };
@@ -84,6 +144,60 @@ export default {
 <style lang="scss" scoped>
 .page {
 margin-top: 12px;
+  .Mymodal {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.5;
+      background: #000;
+  }
+  .mint-msgbox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+    background-color: #fff;
+    width: 75%;
+    border-radius: 0.08rem;
+    font-size: 0.426667rem;
+    -webkit-user-select: none;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: .2s;
+    transition: .2s;
+
+    .title {
+      height: 60px;
+      line-height: 60px;
+    }
+
+    .textbox::after {
+      display: block;
+      content: '';
+      clear: both;
+    }
+    .textbox {
+      border-top: 1px solid rgb(243, 238, 238);
+      .cancel {
+        width: 50%;
+        float: left;
+        height: 35px;
+        line-height: 35px;
+      }
+      .sure {
+        width: 50%;
+        height: 35px;
+        line-height: 35px;
+        float: left;
+        background-color: #FF9800;
+        color: white;
+      }
+    }
+  }
 .MyDiyBookItem {
     position: relative;
     margin-bottom: 19px;
@@ -102,24 +216,44 @@ margin-top: 12px;
             background-position:50% 50%;
         }
         .edit {
-            width: 33px;
-            height: 33px;
-            border-radius: 50%;
-            background-color: red;
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            z-index: 1000;
-            background-color: rgba(0, 0, 0, 0.76);
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0);
-            img {
-                position: absolute;
-                top: 4px;
-                right: 8px;
-                width: 16px;
-                height: 20px;            
-            }
+          width: 33px;
+          height: 33px;
+          border-radius: 50%;
+          background-color: red;
+          position: absolute;
+          top: 5px;
+          right: 45px;
+          z-index: 1000;
+          background-color: rgba(0, 0, 0, 0.76);
+          text-align: center;
+          border: 1px solid rgba(255, 255, 255, 0);
+          img {
+              position: absolute;
+              top: 4px;
+              right: 8px;
+              width: 16px;
+              height: 20px;            
+          }
+        }
+        .close {
+          width: 33px;
+          height: 33px;
+          border-radius: 50%;
+          background-color: red;
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          z-index: 1000;
+          background-color: rgba(0, 0, 0, 0.76);
+          text-align: center;
+          border: 1px solid rgba(255, 255, 255, 0);
+          img {
+              position: absolute;
+              top: 4px;
+              right: 8px;
+              width: 16px;
+              height: 20px;            
+          }
         }
     }
 

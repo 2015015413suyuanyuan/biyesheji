@@ -115,6 +115,7 @@ export default {
     del(index,id){
       this.deleteIndex = index
       this.menu_id = id
+      console.log(this.$refs)
       this.$refs.modal.style.display = 'block'
       this.$refs.msgbox.style.display = 'block'  
     },
