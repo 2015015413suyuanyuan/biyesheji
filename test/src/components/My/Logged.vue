@@ -149,6 +149,7 @@ export default {
       if(str == 'tab-container1'){
         this.classObject1 = true
         this.classObject2 = false
+        this.getData();
       }
       if(str == 'tab-container2'){
         this.classObject2 = true

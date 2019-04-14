@@ -97,10 +97,11 @@ export default {
       }
     },
     getRecommend() {
-      this.$ajax.post('recommend',{
+      this.$ajax.post('season',{
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         this.swiperList = res;
+        console.log('res',res,'轮播图')
       })
     },
   },
