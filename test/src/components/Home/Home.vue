@@ -13,19 +13,12 @@
       <img :src="'./static/img/plus.png'"  class="add" @click="toCreateCook" slot="right">
     </div>
   </div>
-  <!-- <div class="page-swipe">
-    <mt-swipe :auto="4000">
-      <mt-swipe-item class="slide1"></mt-swipe-item>
-      <mt-swipe-item class="slide2"></mt-swipe-item>
-      <mt-swipe-item class="slide3"></mt-swipe-item>
-    </mt-swipe>
-  </div> -->
   <div class="page-swipe">
     <mt-swipe :auto="4000">
       <mt-swipe-item v-for="(item, index) in swiperList" :key="index" v-bind:style="{backgroundImage:'url(' + item.cover + ')'}" class='swiperStyle'>
         <p style="
-          padding-top:180px;
-          font-size:56px;          
+          padding-top:95px;
+          font-size:20px;          
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;">{{item.menu_name}}</p>
