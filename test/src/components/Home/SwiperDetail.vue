@@ -12,11 +12,10 @@
       <article>
         <h2 style="text-align: center;">{{title}}</h2>
         <div v-for="(item1,index1) in item" :key="index1">
-          <p>{{item1.content}}</p>
+          <p>{{item1.story}}</p>
           <div class='headerImg'>
               <img :src="item1.image">
           </div>
-          
         </div>
       </article>
     </div>
@@ -51,7 +50,7 @@ export default {
       const data = this.$route.params.swiperDetail;
       this.cover = data.cover
       this.title = data.title
-      this.item =data.story
+      this.item =data.list
       this.id = data.id
       this.num = data.spot
     }
@@ -76,7 +75,7 @@ export default {
           })
         }
         else {
-          this.num = parseIn(this.num) - 1 
+          this.num = parseInt(this.num) - 1 
           this.Good = '/static/img/good.png'
           const data = {
             'id':  this.id,

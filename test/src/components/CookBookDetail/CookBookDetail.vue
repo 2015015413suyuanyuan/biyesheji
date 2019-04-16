@@ -212,7 +212,12 @@ components: {
           });        
         }else if(this.$route.params.menu.backSearchHome){
           this.$router.push({
-            name: "SearchHome"
+            name: "SearchHome",
+            params: {
+              menu : {
+                fromHome: false
+              }
+            }
           });        
         }else if(this.$route.params.menu.result){
           this.$router.push({

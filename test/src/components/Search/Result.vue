@@ -114,14 +114,20 @@ export default {
         });
       }else if(this.$route.params.backSearchHome){
         this.$router.push({
-          name: "SearchHome"
+          name: "SearchHome",
+          params:{
+            menu: {
+              fromHome: true
+            }
+          }
         });
       }else {
         this.$router.push({
           name: "Search",
           params:{
           menu_name: this.$route.params.menu_name,
-          isJustSearch: false
+          isJustSearch: false,
+          fromHome: true
           }
         });
       }
