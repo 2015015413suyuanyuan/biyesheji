@@ -15,13 +15,13 @@
   </div>
   <div class="page-swipe">
     <mt-swipe :auto="4000">
-      <mt-swipe-item v-for="(item, index) in swiperList" :key="index" v-bind:style="{backgroundImage:'url(' + item.cover + ')'}" class='swiperStyle'>
+      <mt-swipe-item v-for="(item, index) in swiperList" :key="index" v-bind:style="{backgroundImage:'url(' + item.cover + ')'}" class='swiperStyle' @click.native='toSwiperDetail(item)'>
         <p style="
           padding-top:95px;
           font-size:20px;          
           overflow: hidden;
           text-overflow: ellipsis;
-          white-space: nowrap;">{{item.menu_name}}</p>
+          white-space: nowrap;">{{item.title}}</p>
       </mt-swipe-item>
     </mt-swipe>
   </div>
@@ -94,9 +94,14 @@ export default {
         headers: {'Content-Type': 'application/json'}
       }).then((res) => {
         this.swiperList = res;
-        console.log('res',res,'轮播图')
       })
     },
+    toSwiperDetail(item){
+      this.$router.push({
+        name: "SwiperDetail",
+        params: {swiperDetail: item}
+      });
+    }
   },
 };
 </script>

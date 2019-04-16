@@ -1,7 +1,7 @@
 <template>
   <div class="page-about">
     <mt-header title="时令推荐" fixed class="abouttitle">
-      <router-link to="/KitchenStory" slot="left" icon='back'>
+      <router-link to="/Home" slot="left" icon='back'>
         <mt-button icon='back' class="back"></mt-button>
       </router-link>
     </mt-header>
@@ -48,7 +48,7 @@ export default {
   },
   created(){
     if(JSON.stringify(this.$route.params) !== '{}'){
-      const data = this.$route.params.story;
+      const data = this.$route.params.swiperDetail;
       this.cover = data.cover
       this.title = data.title
       this.item =data.story
@@ -64,25 +64,25 @@ export default {
         this.isGood = !this.isGood
         if(this.isGood){
           this.Good = '/static/img/goods.png'
-          this.num = this.num + 1
+          this.num = parseInt(this.num) + 1
           this.isFirstCome++
           const data = {
             'id':  this.id,
             'user_id': localStorage.getItem('user_id')
           }
-          this.$ajax.post('kitchenLike', data,{
+          this.$ajax.post('spot', data,{
             headers: {'Content-Type': 'application/json'}
           }).then((res) => {
           })
         }
         else {
-          this.num = this.num - 1 
+          this.num = parseIn(this.num) - 1 
           this.Good = '/static/img/good.png'
           const data = {
             'id':  this.id,
             'user_id': localStorage.getItem('user_id')
           }
-          this.$ajax.post('kitchenDelete', data,{
+          this.$ajax.post('deleteSpot', data,{
             headers: {'Content-Type': 'application/json'}
           }).then((res) => {
           })
@@ -96,7 +96,7 @@ export default {
         const data = {
           'user_id': localStorage.getItem('user_id')
         }
-        this.$ajax.post('kitchenList', data,{
+        this.$ajax.post('seasonLike', data,{
           headers: {'Content-Type': 'application/json'}
         }).then((res) => {
           const list = res;

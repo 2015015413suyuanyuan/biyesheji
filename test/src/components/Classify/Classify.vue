@@ -42,6 +42,9 @@
          isJustSearch: false,
          isClassify: true,
          isMy: false,
+         menu: {
+          fromHome: false
+         }
         }
       });
     },

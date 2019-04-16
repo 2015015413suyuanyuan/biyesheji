@@ -33,7 +33,16 @@ export default {
     };
   },
   created() {
-    this.touImage = localStorage.getItem('touImage')
+      const data = {
+        "username": localStorage.getItem('username')
+      }
+      this.$ajax.post('basicInfo', data,{
+        headers: {'Content-Type': 'application/json'}
+      }).then((res) => {
+        this.touImage = res[0].image
+      }).catch((err) => {
+        console.log(err)
+      })
   },
 };
 </script>

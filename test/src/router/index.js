@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 // 主页 
 import Home from '@/components/Home/Home'
+import SwiperDetail from '@/components/Home/SwiperDetail'
 
 // 创建菜谱 
 import CreateBook from '@/components/CookBook/CreateBook'
@@ -171,6 +172,12 @@ export default new Router({
       name: 'cookBook2',
       component: cookBook2,
       meta: { navShow: false}
+    },
+    {
+      path: '/SwiperDetail',
+      name: 'SwiperDetail',
+      component: SwiperDetail,
+      meta: { navShow: false}      
     }
   ]
 })
