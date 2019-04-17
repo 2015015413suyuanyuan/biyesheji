@@ -51,6 +51,7 @@
 import Usage from './Usage'
 import Step from './Step'
 import { MessageBox } from 'mint-ui';
+import { Toast  } from 'mint-ui';
 
 export default {
   name: 'footer-view',
@@ -169,7 +170,11 @@ components: {
         }
         this.$ajax.post('comment', data).then((res) => {
           if(res.status_code == '200') {
-           this.$Message.success('评论成功'); 
+          Toast({
+            message: '评论成功~',
+            position: 'middle',
+            duration: 2000
+          });
            this.commentInput = ''
            this.getCookBookDetail(localStorage.getItem('main_menu_id'));
           }

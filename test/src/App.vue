@@ -162,7 +162,7 @@ color: white;
     bottom: 80px;
     left: 50%;
     -webkit-transform: translate(-50%, 0);
-            transform: translate(-50%, 0)
+    transform: translate(-50%, 0)
 }
 .mint-toast {
   padding: 5px 12px !important;
