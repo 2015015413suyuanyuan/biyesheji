@@ -156,7 +156,7 @@ components: {
            }
           }
         }).catch((err) => {
-          console.log(err)
+          
         })
       }else{
       }
@@ -192,7 +192,6 @@ components: {
             });
           }
         }).catch(err => {
-          console.log(err)
         })
       }
     },

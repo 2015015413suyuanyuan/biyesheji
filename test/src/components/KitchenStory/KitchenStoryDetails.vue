@@ -94,6 +94,7 @@
 import { Tabbar } from 'mint-ui';
 import Vue from 'vue'
 import Router from 'vue-router'
+import { Toast  } from 'mint-ui';
 
 export default {
   name: 'page-tabbar',
@@ -150,6 +151,12 @@ export default {
           }).then((res) => {
           })
         }
+      } else {
+          Toast({
+            message: '您还没有登录，不能点赞~',
+            position: 'middle',
+            duration: 1000
+          });
       }
     },
     // 判断该厨房故事用户是否喜欢
